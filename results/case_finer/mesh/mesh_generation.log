@@ -1,0 +1,26 @@
+Progress: Difference  
+Progress: Difference  
+Progress: Difference  
+Progress: Difference - Performing Face-Face intersection
+Progress: Difference - Performing intersection of shapes
+Progress: Difference - Making faces
+Progress: Difference - Adding holes
+Progress: Difference - Post treatment of result shape
+Info: Meshing 1D...
+Info: Meshing curve 5 (Ellipse)
+Progress: Meshing 1D...
+Info: Meshing curve 6 (Line)
+Progress: Meshing 1D...
+Info: Meshing curve 7 (Line)
+Progress: Meshing 1D...
+Info: Meshing curve 8 (Line)
+Progress: Meshing 1D...
+Info: Meshing curve 9 (Line)
+Progress: Meshing 1D...
+Info: Done meshing 1D (Wall 0.0731644s, CPU 0.072129s)
+Info: Meshing 2D...
+Info: Meshing surface 1 (Plane, Frontal-Delaunay)
+Progress: Meshing 2D...
+Info: Done meshing 2D (Wall 2.91229s, CPU 2.87988s)
+Info: 153373 nodes 306751 elements
+Verified 153373 nodes and 305447 triangles.

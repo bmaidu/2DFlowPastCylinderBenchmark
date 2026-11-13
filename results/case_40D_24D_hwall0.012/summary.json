@@ -1,0 +1,532 @@
+{
+  "status": "outside_literature_range",
+  "exit_code": 1,
+  "metrics": [
+    {
+      "metric": "mean_CD",
+      "value": 1.3720038889324473,
+      "lower": 1.317,
+      "upper": 1.374,
+      "status": "within_literature_range",
+      "direction": "within",
+      "nearest_bound": null,
+      "outside_absolute": 0.0,
+      "outside_percent": 0.0,
+      "message": "Within literature range.",
+      "source_ids": "qu2013_table3;qu2013_d9;park1998;posdziech2007;mittal2005;kravchenko1998;stalberg2006;alam2017_table2;alam2017_dt005;meneghini2001;deng2019_candidate",
+      "lower_source_ids": "qu2013_table3",
+      "upper_source_ids": "deng2019_candidate"
+    },
+    {
+      "metric": "CL_rms",
+      "value": 0.23034447814874787,
+      "lower": 0.222,
+      "upper": 0.235,
+      "status": "within_literature_range",
+      "direction": "within",
+      "nearest_bound": null,
+      "outside_absolute": 0.0,
+      "outside_percent": 0.0,
+      "message": "Within literature range.",
+      "source_ids": "qu2013_table3;qu2013_d9;park1998;posdziech2007;mittal2005;kravchenko1998;stalberg2006",
+      "lower_source_ids": "kravchenko1998",
+      "upper_source_ids": "park1998"
+    },
+    {
+      "metric": "strouhal",
+      "value": 0.16666666666681826,
+      "lower": 0.164,
+      "upper": 0.166,
+      "status": "outside_literature_range",
+      "direction": "above",
+      "nearest_bound": 0.166,
+      "outside_absolute": 0.0006666666668182497,
+      "outside_percent": 0.4016064257941263,
+      "message": "Outside literature range: 0.401606% above the upper bound.",
+      "source_ids": "qu2013_table3;qu2013_d9;park1998;posdziech2007;mittal2005;kravchenko1998;stalberg2006;alam2017_table2;alam2017_dt005;meneghini2001;deng2019_candidate",
+      "lower_source_ids": "kravchenko1998;deng2019_candidate",
+      "upper_source_ids": "stalberg2006;alam2017_dt005"
+    }
+  ],
+  "quality": {
+    "passed": true,
+    "failures": []
+  },
+  "case_type": "preset",
+  "preset": "coarse",
+  "literature_comparison": {
+    "method": "inclusive minimum/maximum of saved comparable Re=100 literature values",
+    "source_file": "literature/reference_values.csv",
+    "source_sha256": "7e1304e50ae9b9e0fabb4ec1f4516fe775ba93dd47dc6cae3d82c8758f958331",
+    "inclusion_policy": "All saved finite mean_CD and St values, including unverified entries; lift_value only for rows labelled RMS.",
+    "excluded_non_rms_lift_source_ids": [
+      "alam2017_table2",
+      "alam2017_dt005"
+    ],
+    "outside_percent_definition": "100 * abs(value - nearest_bound) / abs(nearest_bound) when outside; zero inside. Undefined if the nearest bound is zero."
+  },
+  "note": "Literature range membership uses saved values; run-quality checks remain separate.",
+  "statistics": {
+    "definition": "A complete cycle is the closed interval between consecutive qualified lift maxima that contains at least one qualified lift minimum. Samples after the last qualified maximum are not a complete cycle, and the simulation end time does not close a cycle by itself.",
+    "integration": "trapezoidal",
+    "requested_cycles": 3,
+    "available_complete_cycles": 17,
+    "cycles_used": 3,
+    "fallback_applied": false,
+    "fallback_note": null,
+    "t_start": 128.84999999995532,
+    "t_end": 146.84999999993894,
+    "status": "developed",
+    "mean_CD": 1.3720038889324473,
+    "mean_CL": -0.006228140399204049,
+    "CL_rms": 0.23034447814874787,
+    "mean_period": 5.999999999994543,
+    "strouhal": 0.16666666666681826,
+    "strouhal_is_benchmark": true,
+    "amplitude_stabilized": true,
+    "period_stabilized": true,
+    "drag_stabilized": true,
+    "period_relative_range": 0.0,
+    "amplitude_relative_range": 8.008186226398757e-05,
+    "drag_relative_range": 5.621961537521799e-06,
+    "reasons": [],
+    "qualified_maxima": [
+      {
+        "time": 44.55000000000434,
+        "CL": 0.1574405507626932
+      },
+      {
+        "time": 50.800000000007536,
+        "CL": 0.22418239398474094
+      },
+      {
+        "time": 56.90000000001066,
+        "CL": 0.2711276416646886
+      },
+      {
+        "time": 62.95000000001375,
+        "CL": 0.2986739168713558
+      },
+      {
+        "time": 68.95000000000978,
+        "CL": 0.3122864990720715
+      },
+      {
+        "time": 74.95000000000432,
+        "CL": 0.3173343905636494
+      },
+      {
+        "time": 80.94999999999887,
+        "CL": 0.3184156147653716
+      },
+      {
+        "time": 86.94999999999341,
+        "CL": 0.31852448251835574
+      },
+      {
+        "time": 92.899999999988,
+        "CL": 0.31852587689510276
+      },
+      {
+        "time": 98.89999999998254,
+        "CL": 0.31863373256045713
+      },
+      {
+        "time": 104.89999999997708,
+        "CL": 0.31869603314420386
+      },
+      {
+        "time": 110.89999999997163,
+        "CL": 0.31876590526063736
+      },
+      {
+        "time": 116.89999999996617,
+        "CL": 0.3188162534406445
+      },
+      {
+        "time": 122.84999999996076,
+        "CL": 0.31885210826366533
+      },
+      {
+        "time": 128.84999999995532,
+        "CL": 0.31894134154933224
+      },
+      {
+        "time": 134.84999999994986,
+        "CL": 0.318977553131939
+      },
+      {
+        "time": 140.8499999999444,
+        "CL": 0.3189647448949612
+      },
+      {
+        "time": 146.84999999993894,
+        "CL": 0.3189050892138311
+      }
+    ],
+    "qualified_minima": [
+      {
+        "time": 41.300000000002676,
+        "CL": -0.13300608665822064
+      },
+      {
+        "time": 47.70000000000595,
+        "CL": -0.2056754371932629
+      },
+      {
+        "time": 53.850000000009096,
+        "CL": -0.26291755639927744
+      },
+      {
+        "time": 59.95000000001222,
+        "CL": -0.30018695304149623
+      },
+      {
+        "time": 65.95000000001251,
+        "CL": -0.3203029944151997
+      },
+      {
+        "time": 71.95000000000705,
+        "CL": -0.32845069531508164
+      },
+      {
+        "time": 77.9500000000016,
+        "CL": -0.3307488583824646
+      },
+      {
+        "time": 83.94999999999614,
+        "CL": -0.3313031490792082
+      },
+      {
+        "time": 89.94999999999068,
+        "CL": -0.33140610296892725
+      },
+      {
+        "time": 95.89999999998527,
+        "CL": -0.3314555457116476
+      },
+      {
+        "time": 101.89999999997981,
+        "CL": -0.3315195758779923
+      },
+      {
+        "time": 107.89999999997436,
+        "CL": -0.33159166310391275
+      },
+      {
+        "time": 113.8999999999689,
+        "CL": -0.33165903576856215
+      },
+      {
+        "time": 119.89999999996344,
+        "CL": -0.33167534108155106
+      },
+      {
+        "time": 125.84999999995803,
+        "CL": -0.3317759333462145
+      },
+      {
+        "time": 131.8499999999526,
+        "CL": -0.3318364163751774
+      },
+      {
+        "time": 137.84999999994713,
+        "CL": -0.33183959873670066
+      },
+      {
+        "time": 143.84999999994167,
+        "CL": -0.3318002898003267
+      },
+      {
+        "time": 149.79999999993626,
+        "CL": -0.3317362397810705
+      }
+    ],
+    "detected_cycles": [
+      {
+        "start_index": 890,
+        "end_index": 1015,
+        "t_start": 44.55000000000434,
+        "t_end": 50.800000000007536,
+        "period": 6.250000000003197,
+        "mean_CD": 1.2974806740013352,
+        "mean_CL": -0.007382162918814877,
+        "lift_amplitude": 0.2149289155890019,
+        "selected": false
+      },
+      {
+        "start_index": 1015,
+        "end_index": 1137,
+        "t_start": 50.800000000007536,
+        "t_end": 56.90000000001066,
+        "period": 6.100000000003121,
+        "mean_CD": 1.3318176236949788,
+        "mean_CL": -0.007732707914831189,
+        "lift_amplitude": 0.267022599031983,
+        "selected": false
+      },
+      {
+        "start_index": 1137,
+        "end_index": 1258,
+        "t_start": 56.90000000001066,
+        "t_end": 62.95000000001375,
+        "period": 6.050000000003095,
+        "mean_CD": 1.3519647113208921,
+        "mean_CL": -0.0073350697817468535,
+        "lift_amplitude": 0.299430434956426,
+        "selected": false
+      },
+      {
+        "start_index": 1258,
+        "end_index": 1378,
+        "t_start": 62.95000000001375,
+        "t_end": 68.95000000000978,
+        "period": 5.999999999996028,
+        "mean_CD": 1.3632670307263257,
+        "mean_CL": -0.00827980255592756,
+        "lift_amplitude": 0.3162947467436356,
+        "selected": false
+      },
+      {
+        "start_index": 1378,
+        "end_index": 1498,
+        "t_start": 68.95000000000978,
+        "t_end": 74.95000000000432,
+        "period": 5.999999999994543,
+        "mean_CD": 1.3688050682972976,
+        "mean_CL": -0.007003321710036394,
+        "lift_amplitude": 0.32289254293936553,
+        "selected": false
+      },
+      {
+        "start_index": 1498,
+        "end_index": 1618,
+        "t_start": 74.95000000000432,
+        "t_end": 80.94999999999887,
+        "period": 5.999999999994543,
+        "mean_CD": 1.3711203927397502,
+        "mean_CL": -0.006295777347841619,
+        "lift_amplitude": 0.3245822365739181,
+        "selected": false
+      },
+      {
+        "start_index": 1618,
+        "end_index": 1738,
+        "t_start": 80.94999999999887,
+        "t_end": 86.94999999999341,
+        "period": 5.999999999994543,
+        "mean_CD": 1.3717899707689751,
+        "mean_CL": -0.006222525344887797,
+        "lift_amplitude": 0.324913815798782,
+        "selected": false
+      },
+      {
+        "start_index": 1738,
+        "end_index": 1857,
+        "t_start": 86.94999999999341,
+        "t_end": 92.899999999988,
+        "period": 5.9499999999945885,
+        "mean_CD": 1.3718701736139653,
+        "mean_CL": -0.008984753876545458,
+        "lift_amplitude": 0.324965989932015,
+        "selected": false
+      },
+      {
+        "start_index": 1857,
+        "end_index": 1977,
+        "t_start": 92.899999999988,
+        "t_end": 98.89999999998254,
+        "period": 5.999999999994543,
+        "mean_CD": 1.3719384361565716,
+        "mean_CL": -0.006243059784647295,
+        "lift_amplitude": 0.32504463913605236,
+        "selected": false
+      },
+      {
+        "start_index": 1977,
+        "end_index": 2097,
+        "t_start": 98.89999999998254,
+        "t_end": 104.89999999997708,
+        "period": 5.999999999994543,
+        "mean_CD": 1.371943010553249,
+        "mean_CL": -0.00623042573836661,
+        "lift_amplitude": 0.3251078045110981,
+        "selected": false
+      },
+      {
+        "start_index": 2097,
+        "end_index": 2217,
+        "t_start": 104.89999999997708,
+        "t_end": 110.89999999997163,
+        "period": 5.999999999994543,
+        "mean_CD": 1.3719386190560365,
+        "mean_CL": -0.006232473730567437,
+        "lift_amplitude": 0.3251787841822751,
+        "selected": false
+      },
+      {
+        "start_index": 2217,
+        "end_index": 2337,
+        "t_start": 110.89999999997163,
+        "t_end": 116.89999999996617,
+        "period": 5.999999999994543,
+        "mean_CD": 1.3719457596431028,
+        "mean_CL": -0.006236656727668544,
+        "lift_amplitude": 0.32523764460460336,
+        "selected": false
+      },
+      {
+        "start_index": 2337,
+        "end_index": 2456,
+        "t_start": 116.89999999996617,
+        "t_end": 122.84999999996076,
+        "period": 5.9499999999945885,
+        "mean_CD": 1.371924813751238,
+        "mean_CL": -0.008965565639491357,
+        "lift_amplitude": 0.3252637246726082,
+        "selected": false
+      },
+      {
+        "start_index": 2456,
+        "end_index": 2576,
+        "t_start": 122.84999999996076,
+        "t_end": 128.84999999995532,
+        "period": 5.999999999994557,
+        "mean_CD": 1.3719859626723325,
+        "mean_CL": -0.0062321011772361315,
+        "lift_amplitude": 0.3253586374477734,
+        "selected": false
+      },
+      {
+        "start_index": 2576,
+        "end_index": 2696,
+        "t_start": 128.84999999995532,
+        "t_end": 134.84999999994986,
+        "period": 5.999999999994543,
+        "mean_CD": 1.371999372591238,
+        "mean_CL": -0.006228932641379335,
+        "lift_amplitude": 0.3254069847535582,
+        "selected": true
+      },
+      {
+        "start_index": 2696,
+        "end_index": 2816,
+        "t_start": 134.84999999994986,
+        "t_end": 140.8499999999444,
+        "period": 5.999999999994543,
+        "mean_CD": 1.3720052082617729,
+        "mean_CL": -0.00622791773620602,
+        "lift_amplitude": 0.3254085759343198,
+        "selected": true
+      },
+      {
+        "start_index": 2816,
+        "end_index": 2936,
+        "t_start": 140.8499999999444,
+        "t_end": 146.84999999993894,
+        "period": 5.999999999994543,
+        "mean_CD": 1.372007085944331,
+        "mean_CL": -0.0062275708200267696,
+        "lift_amplitude": 0.32538251734764395,
+        "selected": true
+      }
+    ],
+    "selected_cycles": [
+      {
+        "start_index": 2576,
+        "end_index": 2696,
+        "t_start": 128.84999999995532,
+        "t_end": 134.84999999994986,
+        "period": 5.999999999994543,
+        "mean_CD": 1.371999372591238,
+        "mean_CL": -0.006228932641379335,
+        "lift_amplitude": 0.3254069847535582,
+        "selected": true
+      },
+      {
+        "start_index": 2696,
+        "end_index": 2816,
+        "t_start": 134.84999999994986,
+        "t_end": 140.8499999999444,
+        "period": 5.999999999994543,
+        "mean_CD": 1.3720052082617729,
+        "mean_CL": -0.00622791773620602,
+        "lift_amplitude": 0.3254085759343198,
+        "selected": true
+      },
+      {
+        "start_index": 2816,
+        "end_index": 2936,
+        "t_start": 140.8499999999444,
+        "t_end": 146.84999999993894,
+        "period": 5.999999999994543,
+        "mean_CD": 1.372007085944331,
+        "mean_CL": -0.0062275708200267696,
+        "lift_amplitude": 0.32538251734764395,
+        "selected": true
+      }
+    ],
+    "criteria": {
+      "n_cycles": 3,
+      "min_separation": 2.0,
+      "prominence_fraction": 0.25,
+      "minimum_prominence": 0.01,
+      "prominence_used": 0.1618686948783209,
+      "excursion_scale": 0.6474747795132836,
+      "max_period_relative_range": 0.05,
+      "max_amplitude_relative_range": 0.1,
+      "max_drag_relative_range": 0.02,
+      "diameter": 1.0,
+      "speed": 1.0
+    },
+    "mean_CD_pressure": 1.0271263481038853,
+    "mean_CD_viscous": 0.3448775408285621
+  },
+  "n_snapshots": 3000,
+  "missing_steps": [],
+  "unexpected_steps": [],
+  "rejected_snapshots": [],
+  "time_warnings": [],
+  "force_operator": {
+    "boundary_length": 3.1415112780033114,
+    "analytic_circumference": 3.141592653589793,
+    "relative_length_error": 2.590265367112634e-05,
+    "normal_sum": [
+      0.0,
+      1.3877787807814457e-16
+    ],
+    "normal_sum_norm": 1.3877787807814457e-16,
+    "unit_pressure_force": [
+      0.0,
+      1.3877787807814457e-16
+    ],
+    "unit_pressure_force_norm": 1.3877787807814457e-16,
+    "zero_gradient_viscous_force": [
+      -0.0,
+      -0.0
+    ],
+    "reorder_force_difference": 3.379117191743807e-16,
+    "reversed_edge_force_difference": 0.0,
+    "edge_count": 252,
+    "unique_parents": 252,
+    "tolerances": {
+      "relative_length_error": 0.001,
+      "normal_sum_norm": 1e-08,
+      "unit_pressure_force_norm": 1e-08,
+      "zero_gradient_viscous_norm": 1e-12,
+      "reorder_force_difference": 1e-10,
+      "reversed_edge_force_difference": 1e-10
+    },
+    "failures": [],
+    "passed": true
+  },
+  "analysis_source_sha256": {
+    "main/postprocessing/postprocess_case.py": "099513977127252aa698526e8eaa18f05ffbc171489f398123abea0c0696c905",
+    "main/postprocessing/validate_results.py": "f1ed30701489410e789692b548a3229d9114c0a559ec9c59de0d2000e033ef91",
+    "main/postprocessing/force_integration.py": "29ccc2f4a4617e30b695f887566ad5b8e55e2763c03f799a823650289def063d",
+    "main/postprocessing/wake_analysis.py": "3d5bedfc15d35cee750965726eefdb5a9cd6dc224e06873a23ce9ad836024eb7",
+    "main/postprocessing/validate_2d_fields.py": "69eca5ab044e4be3846aee2c065c06ff7223c180c0683ccdf2b6963910042547",
+    "main/postprocessing/plotting.py": "24183a40a471bb2bd55cbf636222bc1c3051dc8cbb5dae6236bfa4eb90e38d6c"
+  },
+  "input_type": "raw solver fields"
+}
