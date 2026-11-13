@@ -32,7 +32,7 @@ Run all commands below from the repository root using that environment's Python.
 | medium | 54,050 | 107,582 | 0.00825 | 0.12 | 1.02 | 0.54 | 0.12 | 0.042 | 0.057 | 0.0825 | 0.165 | 0.33 | 1.05 |
 | fine | 120,353 | 239,933 | 0.0055 | 0.08 | 0.68 | 0.36 | 0.08 | 0.028 | 0.038 | 0.055 | 0.11 | 0.22 | 0.70 |
 
-All regional sizes are target element sizes $h/D$. 
+All regional sizes are target element sizes $h/D$. Coarse, medium, and fine presents names are saved using cylinder wall target size for convenience. 
 
 Mesh targets are defined in [benchmark_default_config.json](benchmark_default_config.json); solver settings are in [solver_template.xml](main/run/solver_template.xml).
 
