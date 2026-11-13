@@ -131,15 +131,13 @@ Statistics use the last three qualified complete lift cycles and trapezoidal tim
 
 | Metric | Definition |
 |---|---|
-| Mean drag | $\overline{C_D}$, where $C_D = \frac{2F_x}{\rho U^2 D}$ |
-| Lift RMS | $C_{L,\mathrm{rms}} = \sqrt{\overline{(C_L - \overline{C_L})^2}}$, where $C_L = \frac{2F_y}{\rho U^2 D}$ |
-| Strouhal number | $\mathrm{St} = \frac{D}{U\,\overline{T}}$ |
-
-Here, $\overline{T}$ is the mean shedding period.
+| Mean drag | Mean of `CD = 2*Fx/(rho*U^2*D)` |
+| Lift RMS | `sqrt(mean((CL - mean(CL))^2))`, with `CL = 2*Fy/(rho*U^2*D)` |
+| Strouhal number | `St = D/(U*mean_period)` |
 
 Literature comparisons require complete, consistent snapshots and developed periodic shedding. Statistical criteria are defined in `benchmark_default_config.json`.
 
-Each metric is compared with the inclusive min/max range of compatible $\mathrm{Re} = 100$ values in [literature/reference_values.csv](literature/reference_values.csv). Lift comparisons use RMS entries only. Values outside the range report $100 \times \frac{\lvert q - q_{\mathrm{bound}}\rvert}{\lvert q_{\mathrm{bound}}\rvert}$ percent, where $q$ is the simulation value and $q_{\mathrm{bound}}$ is the nearest literature bound. Values inside the range report zero exceedance. Source and verification notes, including unverified entries used in the ranges, are in [literature/README.md](literature/README.md).
+Each metric is compared with the inclusive min/max range of compatible Re = 100 values in [literature/reference_values.csv](literature/reference_values.csv). Lift comparisons use RMS entries only. Values outside the range report `100 * abs(value - nearest_bound) / abs(nearest_bound)`; values inside report zero exceedance. Source and verification notes, including unverified entries used in the ranges, are in [literature/README.md](literature/README.md).
 
 Refresh literature comparisons from saved statistics:
 
