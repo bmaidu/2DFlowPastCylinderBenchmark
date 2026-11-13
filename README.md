@@ -4,11 +4,11 @@ This benchmark generates a triangular mesh, runs 2D incompressible flow past cyl
 
 ## Problem setup
 
-The default domain and boundary conditions are shown below. The cylinder is centered at the origin, and lengths are normalized by its diameter D. Here, u and v are the streamwise and transverse velocity components, respectively.
+The default domain size and boundary conditions are shown below. The cylinder is centered at the origin, and lengths are normalized by its diameter $D$. Here, $u$ and $v$ are the streamwise ($x$) and transverse velocity ($y$) components, respectively.
 
 ![Default cylinder-flow domain and boundary conditions](docs/figures/problem_setup.svg)
 
-The meshes use linear triangular (TRI3) elements generated with Gmsh's Frontal-Delaunay algorithm (6). The default simulations use a time step of 0.005 for 30,000 steps, reaching t = 150. VTU results are saved every 10 steps, and restart data every 50 steps.
+The meshes use linear triangular (TRI3) elements generated with Gmsh's Frontal-Delaunay algorithm (6). The default simulations use a time step of $0.005$ for $30,000$ steps, reaching $t = 150$. 
 
 ## Requirements
 
