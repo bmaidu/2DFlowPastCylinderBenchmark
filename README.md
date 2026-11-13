@@ -24,7 +24,7 @@ python -m pip install -r requirements.txt
 
 Run all commands below from the repository root using that environment's Python.
 
-## Default cases
+## Default presets
 
 | Preset | Nodes | Elements | Cylinder wall | Near-wall outer | Far upstream | Upstream | Approach | Initial wake | Middle wake | Extended wake | Transition | Outlet | Far field |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
