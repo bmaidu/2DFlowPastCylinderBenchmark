@@ -1,0 +1,42 @@
+{
+  "created_utc": "2026-11-13T02:04:35.614345+00:00",
+  "python": "python3",
+  "python_version": "3.14.9 (main, Oct 21 2026, 06:02:15) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "dependencies": {
+    "gmsh": "4.15.2",
+    "numpy": "2.5.4",
+    "vtk": "9.7.2"
+  },
+  "source_sha256": {
+    "main/mesh/generate_mesh.py": "9635bf9e1bc64087ecbff25243826b9132da4a590bc3e5b738ccbcc603afa703",
+    "main/mesh/mesh_parameters.py": "1db6dd718f9fb50f6c52716ac07dec4d69699bb46f323ebdecede95c92b87352",
+    "main/mesh/plot_mesh.py": "dd63e3ae53774662c269c43bd5b064ec6ad7549c7160c6f319b64a45204d03eb",
+    "main/run/solver_template.xml": "ba45d0f91d311ce0340595c0b59fefeaeaf49e95baca10b8ce889ec53ecc8dfa",
+    "main/run/create_solver.py": "2812bf88c4119e28a6e8d5f3b4c25b2e880977052f0df5c4f391ef2024aefdc6"
+  },
+  "input_sha256": {
+    "solver.xml": "71436c744a2e8b7c7489db62f0090ce25ab0b6618f3eb14a0d7f531ac2a8d199",
+    "mesh/mesh-complete.mesh.vtu": "4d84fb0ab7d1875bb9e9875390d2afc24eb56ad198861f15b3a37c628f63a97f",
+    "mesh/mesh-surfaces/inlet.vtp": "df32fd17097d8195e5936e9de390901d4a96baf19f56f67f058b24e018a66de6",
+    "mesh/mesh-surfaces/outlet.vtp": "2b20915d9fba58fd95a4c6228648387a326119d1e698e4bb41e59a03aa6bd154",
+    "mesh/mesh-surfaces/top.vtp": "22129acf120c55bdd639c91983def1928466d535118640d4bd6d44beec44a13b",
+    "mesh/mesh-surfaces/bottom.vtp": "89d3d0de3bf038a2514a291e2bf866039ced3b752a4146cef67385b680b7271c",
+    "mesh/mesh-surfaces/cylinder.vtp": "a83458068c8daf2ef6dd4c76f6dff35b773a960cb59504ba2e65a09b252d0e7c"
+  },
+  "preparation_status": "completed",
+  "execution": {
+    "command": [
+      "mpirun",
+      "-n",
+      "16",
+      "svmultiphysics",
+      "solver.xml"
+    ],
+    "cwd": ".",
+    "solver_sha256": "3070f514247b3bdb826cdb4c6c32e962dafeb841dc1a2267dc211c75ca4b5ff5",
+    "started_utc": "2026-11-13T03:07:37.694863+00:00",
+    "status": "completed",
+    "returncode": 0,
+    "finished_utc": "2026-11-13T07:37:49.072029+00:00"
+  }
+}

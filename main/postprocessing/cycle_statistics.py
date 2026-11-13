@@ -74,24 +74,25 @@ def _local_extrema(signal):
     return maxima, minima
 
 
-def _side_excursion(index, signal, opposite, kind):
-    """Smaller rise above the available neighboring opposite extrema.
+def _side_excursion(index, signal, same_kind, kind):
+    """Measure cycle-scale excursion between neighboring same-kind extrema.
 
-    A peak at the end of the record is judged from the preceding trough only.
-    An interior peak must clear both neighboring troughs.
+    Use the lowest sample between candidate maxima, or the highest sample
+    between candidate minima. Small opposite extrema near a flat peak must
+    not replace the cycle's actual trough. An edge candidate can be judged
+    from the one available same-kind interval.
     """
-    earlier = [item for item in opposite if item < index]
-    later = [item for item in opposite if item > index]
+    earlier = [item for item in same_kind if item < index]
+    later = [item for item in same_kind if item > index]
     rises = []
-    if earlier:
-        neighbor = signal[earlier[-1]]
-        rises.append(signal[index] - neighbor if kind == "max" else neighbor - signal[index])
-    if later:
-        neighbor = signal[later[0]]
-        rises.append(signal[index] - neighbor if kind == "max" else neighbor - signal[index])
-    if not rises:
-        return 0.0
-    return float(min(rises))
+    for neighbor in (earlier[-1:] + later[:1]):
+        start, end = sorted((index, neighbor))
+        segment = signal[start : end + 1]
+        if kind == "max":
+            rises.append(signal[index] - float(np.min(segment)))
+        else:
+            rises.append(float(np.max(segment)) - signal[index])
+    return float(min(rises)) if rises else 0.0
 
 
 def _relative_range(values):
@@ -152,14 +153,14 @@ def cycle_window_statistics(time, drag, lift, n_cycles=None, diameter=None, spee
     raw_maxima, raw_minima = _local_extrema(lift)
     maxima = _distance_filter(raw_maxima, time, lift, settings["min_separation"], "max")
     minima = _distance_filter(raw_minima, time, lift, settings["min_separation"], "min")
-    maximum_excursions = [_side_excursion(index, lift, minima, "max") for index in maxima]
+    maximum_excursions = [_side_excursion(index, lift, maxima, "max") for index in maxima]
     positive = [value for value in maximum_excursions if value > 0.0]
     scale = float(np.median(positive)) if positive else 0.0
     prominence = max(float(settings["minimum_prominence"]), float(settings["prominence_fraction"]) * scale)
     qualified_maxima = [
         index for index, height in zip(maxima, maximum_excursions) if height >= prominence
     ]
-    minimum_excursions = [_side_excursion(index, lift, maxima, "min") for index in minima]
+    minimum_excursions = [_side_excursion(index, lift, minima, "min") for index in minima]
     qualified_minima = [
         index for index, height in zip(minima, minimum_excursions) if height >= prominence
     ]
