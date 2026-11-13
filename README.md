@@ -88,7 +88,7 @@ python main/run/run_case.py --postprocess-only --case-dir results/<case-director
 
 Existing cases reuse their saved settings and inputs. Choose a new `--case-name` or `--results-dir` when changing settings for an independent run. Automatic names encode domain dimensions and wall size, for example `case_40D_24D_hwall0.012`.
 
-The solver is skipped when a nonempty VTU reaches the configured final step. Otherwise, the saved `solver.xml` controls restarting: `Continue_previous_simulation=true` resumes from restart data; `false` starts from scratch.
+The solver is skipped when a nonempty .vtu reaches the configured final step. Otherwise, the saved `solver.xml` controls restarting: `Continue_previous_simulation=true` resumes from restart data; `false` starts from scratch.
 
 ## Outputs
 
@@ -104,7 +104,7 @@ results/<case-directory>/
   solver.xml
   mesh/
     figures/
-  solver_output/             # VTU, restart data, solver history
+  solver_output/             # .vtu, restart data, solver history
   figures/
   tables/
   summary.json
