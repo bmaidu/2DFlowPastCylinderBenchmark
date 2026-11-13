@@ -1,6 +1,6 @@
-# 2D flow past a cylinder: svMultiPhysics benchmark
+# 2D flow past cylinder at Re=100: svMultiPhysics benchmark
 
-This benchmark generates a triangular mesh, runs 2D incompressible cylinder flow at Re = 100, and compares mean drag, lift RMS, and Strouhal number with saved literature values. It supports coarse, medium, and fine presets, plus custom domains and regional mesh sizes.
+This benchmark generates a triangular mesh, runs 2D incompressible flow past cylinder at Re = 100, and compares mean drag, lift RMS, and Strouhal number with literature values. The default configuration supports coarse, medium, and fine presets, plus custom domains and regional mesh sizes.
 
 ## Requirements
 
