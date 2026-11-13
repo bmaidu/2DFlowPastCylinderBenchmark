@@ -26,11 +26,13 @@ Run all commands below from the repository root using that environment's Python.
 
 ## Default cases
 
-| Preset | Cylinder-wall target / D | Nodes | TRI3 elements |
-|---|---:|---:|---:|
-| coarse | 0.012375 | 23,837 | 47,327 |
-| medium | 0.00825 | 54,050 | 107,582 |
-| fine | 0.0055 | 120,353 | 239,933 |
+| Preset | Nodes | Elements | Cylinder wall | Near-wall outer | Far upstream | Upstream | Approach | Initial wake | Middle wake | Extended wake | Transition | Outlet | Far field |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| coarse | 23,837 | 47,327 | 0.012375 | 0.18 | 1.53 | 0.81 | 0.18 | 0.063 | 0.0855 | 0.12375 | 0.2475 | 0.495 | 1.575 |
+| medium | 54,050 | 107,582 | 0.00825 | 0.12 | 1.02 | 0.54 | 0.12 | 0.042 | 0.057 | 0.0825 | 0.165 | 0.33 | 1.05 |
+| fine | 120,353 | 239,933 | 0.0055 | 0.08 | 0.68 | 0.36 | 0.08 | 0.028 | 0.038 | 0.055 | 0.11 | 0.22 | 0.70 |
+
+All regional sizes are target element sizes $h/D$.
 
 Mesh targets are defined in [benchmark_default_config.json](benchmark_default_config.json); solver settings are in [solver_template.xml](main/run/solver_template.xml).
 
