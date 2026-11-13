@@ -1,0 +1,4 @@
+metric,value,lower,upper,status,direction,nearest_bound,outside_absolute,outside_percent,message,source_ids,lower_source_ids,upper_source_ids
+mean_CD,1.3363680793350352,1.317,1.374,within_literature_range,within,,0.0,0.0,Within literature range.,qu2013_table3;qu2013_d9;park1998;posdziech2007;mittal2005;kravchenko1998;stalberg2006;alam2017_table2;alam2017_dt005;meneghini2001;deng2019_candidate,qu2013_table3,deng2019_candidate
+CL_rms,0.22905732474342128,0.222,0.235,within_literature_range,within,,0.0,0.0,Within literature range.,qu2013_table3;qu2013_d9;park1998;posdziech2007;mittal2005;kravchenko1998;stalberg2006,kravchenko1998,park1998
+strouhal,0.1657458563537419,0.164,0.166,within_literature_range,within,,0.0,0.0,Within literature range.,qu2013_table3;qu2013_d9;park1998;posdziech2007;mittal2005;kravchenko1998;stalberg2006;alam2017_table2;alam2017_dt005;meneghini2001;deng2019_candidate,kravchenko1998;deng2019_candidate,stalberg2006;alam2017_dt005
