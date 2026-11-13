@@ -12,9 +12,11 @@ CONFIG_PATH = ROOT / "benchmark_default_config.json"
 
 
 def case_name(config):
+    if config["case_type"] == "preset":
+        return f"preset_{config['preset']}"
     x0, x1 = config["geometry"]["domain_x"]
     y0, y1 = config["geometry"]["domain_y"]
-    return f"case_{x1-x0:g}D_{y1-y0:g}D_hwall{config['mesh']['wall_size']:.3f}"
+    return f"custom_{x1-x0:g}D_{y1-y0:g}D_hwall{config['mesh']['wall_size']:.3f}"
 
 
 def validate(config):
@@ -82,7 +84,13 @@ def resolve(preset=None, overrides=None, config_file=None):
                 raise ValueError(f"Unknown {section} settings: {sorted(unknown)}")
             result[section].update(patch[section])
         if "acceptance" in patch:
-            result["acceptance"] = patch["acceptance"]
+            from postprocessing.validate_results import validate_acceptance
+            validate_acceptance(patch["acceptance"])
+            acceptance = patch["acceptance"]
+            result["acceptance"].update({key: value for key, value in acceptance.items()
+                                         if key != "absolute_tolerances"})
+            result["acceptance"].setdefault("absolute_tolerances", {}).update(
+                acceptance.get("absolute_tolerances", {}))
     for key, value in overrides.items():
         if key in ("domain_x", "domain_y"):
             result["geometry"][key] = list(value)

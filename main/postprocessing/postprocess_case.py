@@ -6,9 +6,7 @@ from pathlib import Path
 
 import numpy as np
 
-from run.case_config import ROOT
 from .validate_results import save_reports
-from run.run_svMP import sha256
 
 from . import plotting
 from .force_integration import (coefficient_scale, direct_viscous_force, element_vorticity,
@@ -82,14 +80,14 @@ def field_figures(case_dir, prepared, velocity, pressure, physical_time, step):
             f"{title}, t={physical_time:.3f}", label, limits, "coolwarm", zoom)
 
 
-def postprocess(case_dir, config):
+def postprocess(case_dir, config, *, solver_completed=False):
     case_dir = Path(case_dir)
     # An interrupted or failed analysis must not leave an old successful report.
     case_dir.mkdir(parents=True, exist_ok=True)
     (case_dir / "summary.json").write_text(
         json.dumps({"status": "processing", "exit_code": 2}, indent=2, allow_nan=False) + "\n")
     try:
-        return _postprocess(case_dir, config)
+        return _postprocess(case_dir, config, solver_completed=solver_completed)
     except Exception as error:
         save_reports(case_dir, config, {key: None for key in
             ("mean_CD", "mean_CL", "CL_rms", "strouhal")},
@@ -98,7 +96,7 @@ def postprocess(case_dir, config):
         raise
 
 
-def _postprocess(case_dir, config):
+def _postprocess(case_dir, config, *, solver_completed=False):
     case_dir = Path(case_dir)
     for name in ("tables", "figures"):
         (case_dir / name).mkdir(exist_ok=True)
@@ -111,10 +109,7 @@ def _postprocess(case_dir, config):
     ):
         for path in (case_dir / folder).glob(pattern):
             path.unlink()
-    provenance_path = case_dir / "provenance.json"
-    completed = (provenance_path.is_file()
-                 and json.loads(provenance_path.read_text()).get("execution", {}).get("status") == "completed")
-    stable_seconds = 0.0 if completed else 15.0
+    stable_seconds = 0.0 if solver_completed else 15.0
     solver = read_solver_config(case_dir / "solver.xml")
     prepared = load_case_geometry(case_dir, solver)
     operator = validate_force_operator(prepared)
@@ -169,12 +164,6 @@ def _postprocess(case_dir, config):
         {"n_snapshots": len(rows), "missing_steps": missing, "unexpected_steps": unexpected,
          "rejected_snapshots": rejected, "time_warnings": warnings,
          "force_operator": operator,
-         "analysis_source_sha256": {str(path.relative_to(ROOT)): sha256(path) for path in
-            (Path(__file__), ROOT / "main/postprocessing/validate_results.py",
-             ROOT / "main/postprocessing/force_integration.py",
-             ROOT / "main/postprocessing/cycle_statistics.py",
-             ROOT / "main/postprocessing/validate_2d_fields.py",
-             ROOT / "main/postprocessing/plotting.py")},
          "input_type": "raw solver fields"})
     print(f"Reports saved in {case_dir}\n", flush=True)
     return report["exit_code"]

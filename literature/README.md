@@ -12,6 +12,6 @@ The `verification` column distinguishes values checked in source publications fr
 
 Mean lift is calculated and retained in the numerical statistics, but it is not included in this three-metric literature comparison.
 
-Bounds are derived dynamically from the CSV, with missing values omitted. The current ranges are mean drag [1.317, 1.374], lift RMS [0.222, 0.235], and Strouhal number [0.164, 0.166]. Outside values are reported as a percentage above or below the nearest bound: `100 * abs(simulation - bound) / abs(bound)`. Source IDs and the CSV checksum accompany each comparison.
+Bounds are derived dynamically from the CSV, with missing values omitted. The current ranges are mean drag [1.317, 1.374], lift RMS [0.222, 0.235], and Strouhal number [0.164, 0.166]. Outside values are reported as a percentage above or below the nearest bound: `100 * abs(simulation - bound) / abs(bound)`. Source IDs accompany each comparison.
 
 The range of published drag values is not a statistical uncertainty interval. Method, mesh, domain, boundary conditions, averaging window, and time step differ. Similar drag values do not identify the cause of differences from other studies.

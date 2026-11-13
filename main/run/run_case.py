@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
 import json
 from pathlib import Path
 import sys
@@ -13,9 +12,9 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from run.case_config import CONFIG_PATH, ROOT, SIZE_FIELDS, case_name, resolve, validate
-from run.create_solver import TEMPLATE, create_solver
+from run.create_solver import create_solver
 from mesh.mesh_parameters import BOUNDARY_NAMES, Domain, MeshParameters
-from run.run_svMP import executable, final_step_reached, run_solver, sha256
+from run.run_svMP import executable, final_step_reached, run_solver
 
 
 def parser():
@@ -63,9 +62,6 @@ def prepare(case_dir, config):
     """Reuse existing inputs and refresh mesh figures; create missing inputs as needed."""
     from mesh.generate_mesh import generate
     from mesh.plot_mesh import plot_mesh_figures
-    import gmsh
-    import numpy
-    import vtk
 
     case_dir = Path(case_dir)
     config_path = case_dir / "case_config.json"
@@ -77,38 +73,17 @@ def prepare(case_dir, config):
         config_path.write_text(json.dumps(config, indent=2, allow_nan=False) + "\n")
     mesh_files = input_files(case_dir)[1:]
     generated = not all(path.is_file() for path in mesh_files)
-    provenance_path = case_dir / "provenance.json"
-    provenance = json.loads(provenance_path.read_text()) if provenance_path.is_file() else {}
-    try:
-        if generated:
-            g = config["geometry"]
-            print(f"Generating mesh in {case_dir / 'mesh'}; see mesh/mesh_generation.log", flush=True)
-            generate(MeshParameters(**config["mesh"]), case_dir, Domain(*g["domain_x"], *g["domain_y"]))
-            provenance.update(
-                created_utc=datetime.now(timezone.utc).isoformat(), python=Path(sys.executable).name,
-                python_version=sys.version,
-                dependencies={"gmsh": gmsh.__version__, "numpy": numpy.__version__,
-                              "vtk": vtk.vtkVersion.GetVTKVersion()},
-                source_sha256={str(path.relative_to(ROOT)): sha256(path) for path in
-                    (ROOT / "main/mesh/generate_mesh.py", ROOT / "main/mesh/mesh_parameters.py",
-                     ROOT / "main/mesh/plot_mesh.py", TEMPLATE, ROOT / "main/run/create_solver.py")})
-        else:
-            plot_mesh_figures(case_dir / "mesh")
-        if not (case_dir / "solver.xml").is_file():
-            create_solver(case_dir, config)
-        for name in ("solver_output", "figures", "tables"):
-            (case_dir / name).mkdir(exist_ok=True)
-        if generated:
-            provenance["input_sha256"] = {
-                str(path.relative_to(case_dir)): sha256(path) for path in input_files(case_dir)}
-            provenance["preparation_status"] = "completed"
-            provenance_path.write_text(json.dumps(provenance, indent=2, allow_nan=False) + "\n")
-        return config
-    except BaseException as error:
-        if generated:
-            provenance.update(preparation_status="failed", error=str(error))
-            provenance_path.write_text(json.dumps(provenance, indent=2, allow_nan=False) + "\n")
-        raise
+    if generated:
+        g = config["geometry"]
+        print(f"Generating mesh in {case_dir / 'mesh'}; see mesh/mesh_generation.log", flush=True)
+        generate(MeshParameters(**config["mesh"]), case_dir, Domain(*g["domain_x"], *g["domain_y"]))
+    else:
+        plot_mesh_figures(case_dir / "mesh")
+    if not (case_dir / "solver.xml").is_file():
+        create_solver(case_dir, config)
+    for name in ("solver_output", "figures", "tables"):
+        (case_dir / name).mkdir(exist_ok=True)
+    return config
 
 
 def main(argv=None):
@@ -116,6 +91,7 @@ def main(argv=None):
     args = p.parse_args(argv)
     overrides = {name: getattr(args, name) for name in
                  ("domain_x", "domain_y", *SIZE_FIELDS, "distance_sampling")}
+    ran_solver = False
     try:
         if args.np < 1:
             raise ValueError("--np must be positive.")
@@ -156,7 +132,7 @@ def main(argv=None):
             message = ("CFD run is finished. Now starting postprocessing." if ran_solver else
                        "Using existing CFD results. Now starting postprocessing.")
         print("\n" + "=" * 72 + f"\n{message}\n" + "=" * 72 + "\n", flush=True)
-        return postprocess(case_dir, config)
+        return postprocess(case_dir, config, solver_completed=ran_solver)
     except (ValueError, OSError, RuntimeError, ImportError) as error:
         print(f"Error: {error}", file=sys.stderr)
         if isinstance(error, ImportError):

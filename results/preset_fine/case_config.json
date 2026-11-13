@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "case_type": "preset",
+  "preset": "fine",
+  "geometry": {
+    "domain_x": [
+      -15.0,
+      25.0
+    ],
+    "domain_y": [
+      -12.0,
+      12.0
+    ],
+    "diameter": 1.0,
+    "center": [
+      0.0,
+      0.0
+    ]
+  },
+  "mesh": {
+    "wall_size": 0.0055,
+    "near_wall_distance": 1.0,
+    "near_wall_outer_size": 0.08,
+    "far_upstream_size": 0.68,
+    "upstream_size": 0.36,
+    "approach_size": 0.08,
+    "initial_wake_size": 0.028,
+    "middle_wake_size": 0.038,
+    "extended_wake_size": 0.055,
+    "transition_size": 0.11,
+    "outlet_size": 0.22,
+    "wake_half_width": 3.0,
+    "wake_blend_width": 1.0,
+    "far_size": 0.7,
+    "algorithm": 6,
+    "distance_sampling": 960
+  },
+  "solver": {
+    "density": 1.0,
+    "viscosity": 0.01,
+    "speed": 1.0,
+    "dt": 0.005,
+    "n_steps": 30000,
+    "vtk_increment": 10,
+    "restart_increment": 50
+  },
+  "statistics": {
+    "n_cycles": 3,
+    "min_separation": 2.0,
+    "prominence_fraction": 0.25,
+    "minimum_prominence": 0.01,
+    "max_period_relative_range": 0.05,
+    "max_amplitude_relative_range": 0.1,
+    "max_drag_relative_range": 0.02
+  },
+  "acceptance": {
+    "method": "literature_min_max",
+    "absolute_tolerances": {
+      "mean_CD": 0.02,
+      "CL_rms": 0.02,
+      "strouhal": 0.002
+    }
+  }
+}

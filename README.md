@@ -32,7 +32,7 @@ Run all commands below from the repository root using that environment's Python.
 | medium | 54,050 | 107,582 | 0.00825 | 0.12 | 1.02 | 0.54 | 0.12 | 0.042 | 0.057 | 0.0825 | 0.165 | 0.33 | 1.05 |
 | fine | 120,353 | 239,933 | 0.0055 | 0.08 | 0.68 | 0.36 | 0.08 | 0.028 | 0.038 | 0.055 | 0.11 | 0.22 | 0.70 |
 
-All regional sizes are target element sizes $h/D$. Coarse, medium, and fine presents names are saved using cylinder wall target size for convenience. 
+All regional sizes are target element sizes $h/D$. Preset cases are saved as `preset_coarse`, `preset_medium`, and `preset_fine`.
 
 Mesh targets are defined in [benchmark_default_config.json](benchmark_default_config.json); solver settings are in [solver_template.xml](main/run/solver_template.xml).
 
@@ -86,7 +86,7 @@ python main/run/run_case.py --postprocess-only --case-name custom_case
 python main/run/run_case.py --postprocess-only --case-dir results/<case-directory>
 ```
 
-Existing cases reuse their saved settings and inputs. Choose a new `--case-name` or `--results-dir` when changing settings for an independent run. Automatic names encode domain dimensions and wall size, for example `case_40D_24D_hwall0.012`.
+Existing cases reuse their saved settings and inputs. Choose a new `--case-name` or `--results-dir` when changing settings for an independent run. Automatic custom names encode domain dimensions and wall size, for example `custom_40D_24D_hwall0.012`.
 
 The solver is skipped when a nonempty .vtu reaches the configured final step. Otherwise, the saved `solver.xml` controls restarting: `Continue_previous_simulation=true` resumes from restart data; `false` starts from scratch.
 
@@ -108,7 +108,6 @@ results/<case-directory>/
   figures/
   tables/
   summary.json
-  provenance.json
   run.log
 ```
 
@@ -137,7 +136,17 @@ Statistics use the last three qualified complete lift cycles and trapezoidal tim
 
 Literature comparisons require complete, consistent snapshots and developed periodic shedding. Statistical criteria are defined in `benchmark_default_config.json`.
 
-Each metric is compared with the inclusive min/max range of compatible Re = 100 values in [literature/reference_values.csv](literature/reference_values.csv). Lift comparisons use RMS entries only. Values outside the range report `100 * abs(value - nearest_bound) / abs(nearest_bound)`; values inside report zero exceedance. Source and verification notes, including unverified entries used in the ranges, are in [literature/README.md](literature/README.md).
+Each metric is compared with the inclusive min/max range of compatible Re = 100 values in [literature/reference_values.csv](literature/reference_values.csv). Lift comparisons use RMS entries only. A metric passes when `lower - absolute_tolerance <= value <= upper + absolute_tolerance`.
+
+| Metric | Additional absolute tolerance | Current passing interval |
+|---|---:|---|
+| Mean CD | 0.02 | 1.297–1.394 |
+| CL RMS | 0.02 | 0.202–0.255 |
+| St | 0.002 | 0.162–0.168 |
+
+Tolerances are set in `acceptance.absolute_tolerances` in `benchmark_default_config.json` and saved in each case's `case_config.json`. Custom configuration files can override individual tolerances. Existing cases use their saved settings when comparisons are refreshed; older settings without tolerances retain strict literature-range comparisons.
+
+Reports distinguish results within the literature range, outside that range but within tolerance, and outside tolerance. Passing comparisons return exit code 0; results outside tolerance return 1. Run-quality failures remain invalid regardless of tolerance. Values outside the literature range still report `100 * abs(value - nearest_bound) / abs(nearest_bound)`; values inside report zero exceedance. Source and verification notes, including unverified entries used in the ranges, are in [literature/README.md](literature/README.md).
 
 Refresh literature comparisons from saved statistics:
 

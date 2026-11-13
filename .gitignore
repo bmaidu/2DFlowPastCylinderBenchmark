@@ -1,3 +1,9 @@
+# Keep only preset result folders in Git.
+/results/*/
+!/results/preset_coarse/
+!/results/preset_medium/
+!/results/preset_fine/
+
 *.vtu
 *.bin
 __pycache__/
