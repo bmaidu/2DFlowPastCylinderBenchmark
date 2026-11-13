@@ -32,16 +32,15 @@ Run all commands below from the repository root using that environment's Python.
 | medium | 54,050 | 107,582 | 0.00825 | 0.12 | 1.02 | 0.54 | 0.12 | 0.042 | 0.057 | 0.0825 | 0.165 | 0.33 | 1.05 |
 | fine | 120,353 | 239,933 | 0.0055 | 0.08 | 0.68 | 0.36 | 0.08 | 0.028 | 0.038 | 0.055 | 0.11 | 0.22 | 0.70 |
 
-All regional sizes are target element sizes $h/D$.
+All regional sizes are target element sizes $h/D$. 
 
 Mesh targets are defined in [benchmark_default_config.json](benchmark_default_config.json); solver settings are in [solver_template.xml](main/run/solver_template.xml).
 
 ## Running cases
 
-Run a preset; coarse is the default:
+Run a preset; coarse is the default if no preset name is provided:
 
 ```bash
-python main/run/run_case.py
 python main/run/run_case.py coarse
 python main/run/run_case.py medium
 python main/run/run_case.py fine
@@ -54,7 +53,7 @@ python main/run/run_case.py coarse \
   --solver /path/to/svmultiphysics --mpi-exec /path/to/mpirun --np 8
 ```
 
-For a custom case, omit the preset name. Unspecified settings inherit coarse defaults:
+For a custom case, omit the preset name and specify target element size in a region. Unspecified settings inherit coarse defaults:
 
 ```bash
 python main/run/run_case.py \
@@ -89,7 +88,7 @@ python main/run/run_case.py --postprocess-only --case-dir results/<case-director
 
 Existing cases reuse their saved settings and inputs. Choose a new `--case-name` or `--results-dir` when changing settings for an independent run. Automatic names encode domain dimensions and wall size, for example `case_40D_24D_hwall0.012`.
 
-The solver is skipped when a nonempty VTU reaches the configured final step. Otherwise, the saved `solver.xml` controls restarting: `Continue_previous_simulation=true` resumes from restart data; `false` starts from rest.
+The solver is skipped when a nonempty VTU reaches the configured final step. Otherwise, the saved `solver.xml` controls restarting: `Continue_previous_simulation=true` resumes from restart data; `false` starts from scratch.
 
 ## Outputs
 
@@ -122,7 +121,7 @@ Paths below are relative to each case directory:
 | `figures/ux_step_*.png`, `figures/pressure_step_*.png`, `figures/vorticity_step_*.png` | Final flow fields; vorticity color limits [-5, 5] |
 | `tables/force_history.csv` | Drag and lift coefficients, including pressure and viscous contributions |
 | `tables/cycle_statistics.json` | Selected cycles, statistics, and stability checks, including mean lift |
-| `tables/metrics.csv` | Three literature comparisons and percentage exceedances |
+| `tables/metrics.csv` | Literature comparisons and percentage exceedances |
 | `summary.json` | Combined metrics and run-quality status |
 | `run.log` | Solver output, also printed live in the terminal |
 
