@@ -2,6 +2,14 @@
 
 This benchmark generates a triangular mesh, runs 2D incompressible flow past cylinder at Re = 100, and compares mean drag, lift RMS, and Strouhal number with literature values. The default configuration supports coarse, medium, and fine presets, plus custom domains and regional mesh sizes.
 
+## Problem setup
+
+The default domain and boundary conditions are shown below. The cylinder is centered at the origin, and lengths are normalized by its diameter D. Here, u and v are the streamwise and transverse velocity components, respectively.
+
+![Default cylinder-flow domain and boundary conditions](docs/figures/problem_setup.svg)
+
+The meshes use linear triangular (TRI3) elements generated with Gmsh's Frontal-Delaunay algorithm (6). The default simulations use a time step of 0.005 for 30,000 steps, reaching t = 150. VTU results are saved every 10 steps, and restart data every 50 steps.
+
 ## Requirements
 
 - Python 3.10 or newer and the packages in [requirements.txt](requirements.txt).
@@ -23,18 +31,6 @@ Run all commands below from the repository root using that environment's Python.
 | coarse | 0.012375 | 23,837 | 47,327 |
 | medium | 0.00825 | 54,050 | 107,582 |
 | fine | 0.0055 | 120,353 | 239,933 |
-
-All presets share this setup:
-
-| Setting | Value |
-|---|---|
-| Domain | x/D = [-15, 25], y/D = [-12, 12] |
-| Cylinder | Diameter D = 1, center (0, 0) |
-| Fluid and inlet | Density = 1, speed U = 1, dynamic viscosity = 0.01 |
-| Boundary conditions | Uniform velocity inlet; zero-traction outlet; transverse slip at top/bottom; no-slip cylinder |
-| Mesh algorithm | Frontal-Delaunay (Gmsh algorithm 6) |
-| Time integration | dt = 0.005; 30,000 steps; final time = 150 |
-| Saved results | VTU every 10 steps; restart data every 50 steps |
 
 Mesh targets are defined in [benchmark_default_config.json](benchmark_default_config.json); solver settings are in [solver_template.xml](main/run/solver_template.xml).
 
