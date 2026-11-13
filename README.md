@@ -147,5 +147,3 @@ Refresh literature comparisons from saved statistics:
 ```bash
 python main/postprocessing/validate_results.py results/<case-directory>
 ```
-
-Distribution license: [selection pending](LICENSE).
