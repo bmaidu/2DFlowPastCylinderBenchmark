@@ -120,7 +120,7 @@ Paths below are relative to each case directory:
 | `figures/ux_step_*.png`, `figures/pressure_step_*.png`, `figures/vorticity_step_*.png` | Final flow fields; vorticity color limits [-5, 5] |
 | `tables/force_history.csv` | Drag and lift coefficients, including pressure and viscous contributions |
 | `tables/cycle_statistics.json` | Selected cycles, statistics, and stability checks, including mean lift |
-| `tables/metrics.csv` | Literature comparisons and percentage exceedances |
+| `tables/metrics.csv` | Observed/eligible literature bounds, passing intervals, source counts and percentage exceedances |
 | `summary.json` | Combined metrics and run-quality status |
 | `run.log` | Solver output, also printed live in the terminal |
 
@@ -136,20 +136,22 @@ Statistics use the last three qualified complete lift cycles and trapezoidal tim
 
 Literature comparisons require complete, consistent snapshots and developed periodic shedding. Statistical criteria are defined in `benchmark_default_config.json`.
 
-Each metric is compared with the inclusive min/max range of compatible Re = 100 values in [literature/reference_values.csv](literature/reference_values.csv). Lift comparisons use RMS entries only. A metric passes when `lower - absolute_tolerance <= value <= upper + absolute_tolerance`.
+Each metric is compared with a primary-verified literature envelope in [literature/reference_values.csv](literature/reference_values.csv). It supports both preset and user-defined meshes. Reports distinguish the full observed span from acceptance: author-identified confinement and numerical sensitivity tests can remain in the database without determining passing limits. Lift amplitude, extrema and peak-to-peak values are not treated as RMS. Unverified claims are retained separately.
 
-| Metric | Additional absolute tolerance | Current passing interval |
-|---|---:|---|
-| Mean CD | 0.02 | 1.297–1.394 |
-| CL RMS | 0.02 | 0.202–0.255 |
-| St | 0.002 | 0.162–0.168 |
+| Metric | Eligible literature envelope | Additional absolute tolerance | Passing interval |
+|---|---|---:|---|
+| Mean CD | 1.300–1.3917 | 0.02 | 1.280–1.4117 |
+| CL RMS | 0.215–0.237 | 0.02 | 0.195–0.257 |
+| St | 0.162–0.171 | 0.002 | 0.160–0.173 |
 
-Tolerances are set in `acceptance.absolute_tolerances` in `benchmark_default_config.json` and saved in each case's `case_config.json`. Custom configuration files can override individual tolerances. Existing cases use their saved settings when comparisons are refreshed; older settings without tolerances retain strict literature-range comparisons.
+A metric passes when `lower - absolute_tolerance <= value <= upper + absolute_tolerance`. Eligibility and source locations are documented in [literature/README.md](literature/README.md); bounds are recalculated from the CSV. Margins are set in `acceptance.absolute_tolerances` and saved per case. Existing cases retain their saved margins; an omitted margin is zero.
 
-Reports distinguish results within the literature range, outside that range but within tolerance, and outside tolerance. Passing comparisons return exit code 0; results outside tolerance return 1. Run-quality failures remain invalid regardless of tolerance. Values outside the literature range still report `100 * abs(value - nearest_bound) / abs(nearest_bound)`; values inside report zero exceedance. Source and verification notes, including unverified entries used in the ranges, are in [literature/README.md](literature/README.md).
+PASS means meeting a broad literature validation criterion and the existing run-quality checks. It does not certify mesh convergence or agreement with a previous solver baseline. Reports identify values within the eligible envelope, outside it but within tolerance, or failing. Outside percentages use `100 * abs(value - nearest_bound) / abs(nearest_bound)`. Exit codes are 0 for passing, 1 for outside tolerance, 2 for invalid run quality and 3 for an unavailable comparison.
 
 Refresh literature comparisons from saved statistics:
 
 ```bash
 python main/postprocessing/validate_results.py results/<case-directory>
 ```
+
+This refresh updates only `summary.json` and `tables/metrics.csv`, preserving saved metrics and analysis windows. It does not rerun CFD or rewrite force histories.

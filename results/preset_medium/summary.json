@@ -1,63 +1,75 @@
 {
-  "status": "outside_tolerance",
-  "exit_code": 1,
+  "status": "within_literature_range",
+  "exit_code": 0,
   "metrics": [
     {
       "metric": "mean_CD",
       "value": 1.3623822779909205,
-      "lower": 1.317,
-      "upper": 1.374,
+      "lower": 1.3,
+      "upper": 1.3917,
       "status": "within_literature_range",
       "passed": true,
       "absolute_tolerance": 0.02,
-      "acceptance_lower": 1.297,
-      "acceptance_upper": 1.3940000000000001,
+      "acceptance_lower": 1.28,
+      "acceptance_upper": 1.4117,
+      "observed_lower": 1.297,
+      "observed_upper": 1.477,
+      "reference_study_count": 11,
+      "reference_configuration_count": 37,
       "direction": "within",
       "nearest_bound": null,
       "outside_absolute": 0.0,
       "outside_percent": 0.0,
-      "message": "PASS: Within literature range.",
-      "source_ids": "qu2013_table3;qu2013_d9;park1998;posdziech2007;mittal2005;kravchenko1998;stalberg2006;alam2017_table2;alam2017_dt005;meneghini2001;deng2019_candidate",
-      "lower_source_ids": "qu2013_table3",
-      "upper_source_ids": "deng2019_candidate"
+      "message": "PASS: Within eligible literature range.",
+      "source_ids": "qu2013_d1;qu2013_d2;qu2013_d3;qu2013_d4;qu2013_d5;qu2013_d6;qu2013_d7;qu2013_d8;qu2013_d9;qu2013_table3;qu2013_d11;park1998;stalberg2006;meneghini2001;alam2017_table2;alam2017_n82000_dt0p01;alam2017_n110000_dt0p01;alam2017_n69000_dt0p005;alam2017_dt005;alam2017_n110000_dt0p005;alam2017_n69000_dt0p001;alam2017_n82000_dt0p001;alam2017_n110000_dt0p001;kang2021_re100;behr1995_m240_vp;behr1995_m240_vps;behr1995_m320_vp;behr1995_m320_vps;deng2019_bare;kamensky2015_m1_tau100;kamensky2015_m1_tau1000;kamensky2015_m2_tau100;kamensky2015_m2_tau1000;kamensky2015_boundary_fitted;tumkur2013_fixed;tsetoglou2025_bf;tsetoglou2025_vos50",
+      "lower_source_ids": "tsetoglou2025_vos50",
+      "upper_source_ids": "behr1995_m240_vps"
     },
     {
       "metric": "CL_rms",
       "value": 0.23002928841634704,
-      "lower": 0.222,
-      "upper": 0.235,
+      "lower": 0.215,
+      "upper": 0.237,
       "status": "within_literature_range",
       "passed": true,
       "absolute_tolerance": 0.02,
-      "acceptance_lower": 0.202,
-      "acceptance_upper": 0.255,
+      "acceptance_lower": 0.195,
+      "acceptance_upper": 0.257,
+      "observed_lower": 0.2031,
+      "observed_upper": 0.237,
+      "reference_study_count": 2,
+      "reference_configuration_count": 4,
       "direction": "within",
       "nearest_bound": null,
       "outside_absolute": 0.0,
       "outside_percent": 0.0,
-      "message": "PASS: Within literature range.",
-      "source_ids": "qu2013_table3;qu2013_d9;park1998;posdziech2007;mittal2005;kravchenko1998;stalberg2006",
-      "lower_source_ids": "kravchenko1998",
-      "upper_source_ids": "park1998"
+      "message": "PASS: Within eligible literature range.",
+      "source_ids": "qu2013_d9;qu2013_table3;tsetoglou2025_bf;tsetoglou2025_vos50",
+      "lower_source_ids": "tsetoglou2025_vos50",
+      "upper_source_ids": "tsetoglou2025_bf"
     },
     {
       "metric": "strouhal",
       "value": 0.16853932584284992,
-      "lower": 0.164,
-      "upper": 0.166,
-      "status": "outside_tolerance",
-      "passed": false,
+      "lower": 0.162,
+      "upper": 0.171,
+      "status": "within_literature_range",
+      "passed": true,
       "absolute_tolerance": 0.002,
-      "acceptance_lower": 0.162,
-      "acceptance_upper": 0.168,
-      "direction": "above",
-      "nearest_bound": 0.166,
-      "outside_absolute": 0.00253932584284991,
-      "outside_percent": 1.5297143631625962,
-      "message": "FAIL: Outside absolute tolerance 0.002; 1.52971% above the literature upper bound.",
-      "source_ids": "qu2013_table3;qu2013_d9;park1998;posdziech2007;mittal2005;kravchenko1998;stalberg2006;alam2017_table2;alam2017_dt005;meneghini2001;deng2019_candidate",
-      "lower_source_ids": "kravchenko1998;deng2019_candidate",
-      "upper_source_ids": "stalberg2006;alam2017_dt005"
+      "acceptance_lower": 0.16,
+      "acceptance_upper": 0.17300000000000001,
+      "observed_lower": 0.157,
+      "observed_upper": 0.178,
+      "reference_study_count": 13,
+      "reference_configuration_count": 46,
+      "direction": "within",
+      "nearest_bound": null,
+      "outside_absolute": 0.0,
+      "outside_percent": 0.0,
+      "message": "PASS: Within eligible literature range.",
+      "source_ids": "qu2013_d1;qu2013_d2;qu2013_d3;qu2013_d4;qu2013_d5;qu2013_d6;qu2013_d7;qu2013_d8;qu2013_d9;qu2013_table3;qu2013_d11;kravchenko1998_case4;kravchenko1998_case5;kravchenko1998_case6;kravchenko1998_case7;kravchenko1998_case8;kravchenko1998;meneghini2001;alam2017_table2;alam2017_n82000_dt0p01;alam2017_n110000_dt0p01;alam2017_n69000_dt0p005;alam2017_dt005;alam2017_n110000_dt0p005;alam2017_n69000_dt0p001;alam2017_n82000_dt0p001;alam2017_n110000_dt0p001;kang2021_re100;behr1995_m240_vp;behr1995_m240_vps;behr1995_m320_vp;behr1995_m320_vps;deng2019_bare;mittal_tezduyar1992_fixed;shim2021_cfd;shim2021_fsi_fixed;shim2021_bfsi_fixed;kamensky2015_m1_tau100;kamensky2015_m1_tau1000;kamensky2015_m2_tau100;kamensky2015_m2_tau1000;kamensky2015_boundary_fitted;tumkur2013_fixed;singh_mittal2005_drag_re100;tsetoglou2025_bf;tsetoglou2025_vos50",
+      "lower_source_ids": "kravchenko1998_case4",
+      "upper_source_ids": "shim2021_cfd;shim2021_fsi_fixed;shim2021_bfsi_fixed;kamensky2015_m1_tau1000;tsetoglou2025_vos50"
     }
   ],
   "quality": {
@@ -67,12 +79,411 @@
   "case_type": "preset",
   "preset": "medium",
   "literature_comparison": {
-    "method": "inclusive minimum/maximum of saved comparable Re=100 literature values",
+    "method": "inclusive minimum/maximum of verified, eligible Re=100 reference configurations",
     "source_file": "literature/reference_values.csv",
-    "inclusion_policy": "All saved finite mean_CD and St values, including unverified entries; lift_value only for rows labelled RMS.",
+    "inclusion_policy": "Primary-verified stationary single-cylinder 2D Re=100 entries; metric-specific acceptance_metrics and eligibility_reason in CSV. CL_RMS must be explicitly reported as RMS; lift amplitude/extrema are never converted. See literature/README.md.",
+    "database_study_count": 16,
+    "database_configuration_count": 72,
+    "verified_numeric_configuration_count": 71,
+    "policy_version": "verified_configurations_v1",
+    "observed_ranges": {
+      "mean_CD": {
+        "lower": 1.297,
+        "upper": 1.477,
+        "source_ids": "qu2013_d1;qu2013_d2;qu2013_d3;qu2013_d4;qu2013_d5;qu2013_d6;qu2013_d7;qu2013_d8;qu2013_d9;qu2013_table3;qu2013_d11;park1998;stalberg2006;meneghini2001;alam2017_n40000_dt0p05;alam2017_n47000_dt0p05;alam2017_n69000_dt0p05;alam2017_n82000_dt0p05;alam2017_n110000_dt0p05;alam2017_n40000_dt0p01;alam2017_n47000_dt0p01;alam2017_table2;alam2017_n82000_dt0p01;alam2017_n110000_dt0p01;alam2017_n40000_dt0p005;alam2017_n47000_dt0p005;alam2017_n69000_dt0p005;alam2017_dt005;alam2017_n110000_dt0p005;alam2017_n40000_dt0p001;alam2017_n47000_dt0p001;alam2017_n69000_dt0p001;alam2017_n82000_dt0p001;alam2017_n110000_dt0p001;kang2021_re100;behr1995_m090_vp;behr1995_m090_vps;behr1995_m125_vp;behr1995_m125_vps;behr1995_m160_vp;behr1995_m160_vps;behr1995_m240_vp;behr1995_m240_vps;behr1995_m320_vp;behr1995_m320_vps;deng2019_bare;kamensky2015_m1_tau100;kamensky2015_m1_tau1000;kamensky2015_m2_tau100;kamensky2015_m2_tau1000;kamensky2015_boundary_fitted;kamensky2015_m2_l0;tumkur2013_fixed;tsetoglou2025_bf;tsetoglou2025_vos50;tsetoglou2025_vos25;tsetoglou2025_vos10",
+        "lower_source_ids": "tsetoglou2025_vos25",
+        "upper_source_ids": "kamensky2015_m2_l0",
+        "configuration_count": 57,
+        "study_ids": [
+          "alam2017",
+          "behr1995",
+          "deng2019",
+          "kamensky2015",
+          "kang2021",
+          "meneghini2001",
+          "park1998",
+          "qu2013",
+          "stalberg2006",
+          "tsetoglou2025",
+          "tumkur2013"
+        ],
+        "study_count": 11
+      },
+      "CL_rms": {
+        "lower": 0.2031,
+        "upper": 0.237,
+        "source_ids": "qu2013_d1;qu2013_d2;qu2013_d3;qu2013_d4;qu2013_d5;qu2013_d6;qu2013_d7;qu2013_d8;qu2013_d9;qu2013_table3;qu2013_d11;tsetoglou2025_bf;tsetoglou2025_vos50;tsetoglou2025_vos25;tsetoglou2025_vos10",
+        "lower_source_ids": "qu2013_d11",
+        "upper_source_ids": "tsetoglou2025_bf",
+        "configuration_count": 15,
+        "study_ids": [
+          "qu2013",
+          "tsetoglou2025"
+        ],
+        "study_count": 2
+      },
+      "strouhal": {
+        "lower": 0.157,
+        "upper": 0.178,
+        "source_ids": "qu2013_d1;qu2013_d2;qu2013_d3;qu2013_d4;qu2013_d5;qu2013_d6;qu2013_d7;qu2013_d8;qu2013_d9;qu2013_table3;qu2013_d11;kravchenko1998_case1;kravchenko1998_case2;kravchenko1998_case3;kravchenko1998_case4;kravchenko1998_case5;kravchenko1998_case6;kravchenko1998_case7;kravchenko1998_case8;kravchenko1998;meneghini2001;alam2017_n40000_dt0p05;alam2017_n47000_dt0p05;alam2017_n69000_dt0p05;alam2017_n82000_dt0p05;alam2017_n110000_dt0p05;alam2017_n40000_dt0p01;alam2017_n47000_dt0p01;alam2017_table2;alam2017_n82000_dt0p01;alam2017_n110000_dt0p01;alam2017_n40000_dt0p005;alam2017_n47000_dt0p005;alam2017_n69000_dt0p005;alam2017_dt005;alam2017_n110000_dt0p005;alam2017_n40000_dt0p001;alam2017_n47000_dt0p001;alam2017_n69000_dt0p001;alam2017_n82000_dt0p001;alam2017_n110000_dt0p001;kang2021_re100;behr1995_m090_vp;behr1995_m090_vps;behr1995_m125_vp;behr1995_m125_vps;behr1995_m160_vp;behr1995_m160_vps;behr1995_m240_vp;behr1995_m240_vps;behr1995_m320_vp;behr1995_m320_vps;deng2019_bare;mittal_tezduyar1992_fixed;shim2021_cfd;shim2021_fsi_fixed;shim2021_bfsi_fixed;kamensky2015_m1_tau100;kamensky2015_m1_tau1000;kamensky2015_m2_tau100;kamensky2015_m2_tau1000;kamensky2015_boundary_fitted;kamensky2015_m2_l0;tumkur2013_fixed;singh_mittal2005_drag_re100;tsetoglou2025_bf;tsetoglou2025_vos50;tsetoglou2025_vos25;tsetoglou2025_vos10",
+        "lower_source_ids": "alam2017_n82000_dt0p05;alam2017_n110000_dt0p05",
+        "upper_source_ids": "tsetoglou2025_vos10",
+        "configuration_count": 69,
+        "study_ids": [
+          "alam2017",
+          "behr1995",
+          "deng2019",
+          "kamensky2015",
+          "kang2021",
+          "kravchenko1998",
+          "meneghini2001",
+          "mittal_tezduyar1992",
+          "qu2013",
+          "shim2021",
+          "singh_mittal2005_drag",
+          "tsetoglou2025",
+          "tumkur2013"
+        ],
+        "study_count": 13
+      }
+    },
+    "eligible_ranges": {
+      "mean_CD": {
+        "lower": 1.3,
+        "upper": 1.3917,
+        "source_ids": "qu2013_d1;qu2013_d2;qu2013_d3;qu2013_d4;qu2013_d5;qu2013_d6;qu2013_d7;qu2013_d8;qu2013_d9;qu2013_table3;qu2013_d11;park1998;stalberg2006;meneghini2001;alam2017_table2;alam2017_n82000_dt0p01;alam2017_n110000_dt0p01;alam2017_n69000_dt0p005;alam2017_dt005;alam2017_n110000_dt0p005;alam2017_n69000_dt0p001;alam2017_n82000_dt0p001;alam2017_n110000_dt0p001;kang2021_re100;behr1995_m240_vp;behr1995_m240_vps;behr1995_m320_vp;behr1995_m320_vps;deng2019_bare;kamensky2015_m1_tau100;kamensky2015_m1_tau1000;kamensky2015_m2_tau100;kamensky2015_m2_tau1000;kamensky2015_boundary_fitted;tumkur2013_fixed;tsetoglou2025_bf;tsetoglou2025_vos50",
+        "lower_source_ids": "tsetoglou2025_vos50",
+        "upper_source_ids": "behr1995_m240_vps",
+        "configuration_count": 37,
+        "study_ids": [
+          "alam2017",
+          "behr1995",
+          "deng2019",
+          "kamensky2015",
+          "kang2021",
+          "meneghini2001",
+          "park1998",
+          "qu2013",
+          "stalberg2006",
+          "tsetoglou2025",
+          "tumkur2013"
+        ],
+        "study_count": 11
+      },
+      "CL_rms": {
+        "lower": 0.215,
+        "upper": 0.237,
+        "source_ids": "qu2013_d9;qu2013_table3;tsetoglou2025_bf;tsetoglou2025_vos50",
+        "lower_source_ids": "tsetoglou2025_vos50",
+        "upper_source_ids": "tsetoglou2025_bf",
+        "configuration_count": 4,
+        "study_ids": [
+          "qu2013",
+          "tsetoglou2025"
+        ],
+        "study_count": 2
+      },
+      "strouhal": {
+        "lower": 0.162,
+        "upper": 0.171,
+        "source_ids": "qu2013_d1;qu2013_d2;qu2013_d3;qu2013_d4;qu2013_d5;qu2013_d6;qu2013_d7;qu2013_d8;qu2013_d9;qu2013_table3;qu2013_d11;kravchenko1998_case4;kravchenko1998_case5;kravchenko1998_case6;kravchenko1998_case7;kravchenko1998_case8;kravchenko1998;meneghini2001;alam2017_table2;alam2017_n82000_dt0p01;alam2017_n110000_dt0p01;alam2017_n69000_dt0p005;alam2017_dt005;alam2017_n110000_dt0p005;alam2017_n69000_dt0p001;alam2017_n82000_dt0p001;alam2017_n110000_dt0p001;kang2021_re100;behr1995_m240_vp;behr1995_m240_vps;behr1995_m320_vp;behr1995_m320_vps;deng2019_bare;mittal_tezduyar1992_fixed;shim2021_cfd;shim2021_fsi_fixed;shim2021_bfsi_fixed;kamensky2015_m1_tau100;kamensky2015_m1_tau1000;kamensky2015_m2_tau100;kamensky2015_m2_tau1000;kamensky2015_boundary_fitted;tumkur2013_fixed;singh_mittal2005_drag_re100;tsetoglou2025_bf;tsetoglou2025_vos50",
+        "lower_source_ids": "kravchenko1998_case4",
+        "upper_source_ids": "shim2021_cfd;shim2021_fsi_fixed;shim2021_bfsi_fixed;kamensky2015_m1_tau1000;tsetoglou2025_vos50",
+        "configuration_count": 46,
+        "study_ids": [
+          "alam2017",
+          "behr1995",
+          "deng2019",
+          "kamensky2015",
+          "kang2021",
+          "kravchenko1998",
+          "meneghini2001",
+          "mittal_tezduyar1992",
+          "qu2013",
+          "shim2021",
+          "singh_mittal2005_drag",
+          "tsetoglou2025",
+          "tumkur2013"
+        ],
+        "study_count": 13
+      }
+    },
+    "excluded_acceptance": {
+      "mean_CD": [
+        {
+          "source_id": "alam2017_n40000_dt0p05",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "alam2017_n47000_dt0p05",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "alam2017_n69000_dt0p05",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "alam2017_n82000_dt0p05",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "alam2017_n110000_dt0p05",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "alam2017_n40000_dt0p01",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "alam2017_n47000_dt0p01",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "alam2017_n40000_dt0p005",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "alam2017_n47000_dt0p005",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "alam2017_n40000_dt0p001",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "alam2017_n47000_dt0p001",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "behr1995_m090_vp",
+          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
+        },
+        {
+          "source_id": "behr1995_m090_vps",
+          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
+        },
+        {
+          "source_id": "behr1995_m125_vp",
+          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
+        },
+        {
+          "source_id": "behr1995_m125_vps",
+          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
+        },
+        {
+          "source_id": "behr1995_m160_vp",
+          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
+        },
+        {
+          "source_id": "behr1995_m160_vps",
+          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
+        },
+        {
+          "source_id": "kamensky2015_m2_l0",
+          "reason": "Fixed-cylinder Section 3.4. Adaptive l=3 and boundary-fitted reference eligible. l=0 explicitly demonstrates under-integration error (discussion after Table 4), so observed only."
+        },
+        {
+          "source_id": "tsetoglou2025_vos25",
+          "reason": "Stationary-cylinder validation. Accept body-fitted reference and selected finest D/dx=50 VOS-IVP. Section 3.2.2 coarsenings are observed only: frequency and no-slip error depend on grid spacing."
+        },
+        {
+          "source_id": "tsetoglou2025_vos10",
+          "reason": "Stationary-cylinder validation. Accept body-fitted reference and selected finest D/dx=50 VOS-IVP. Section 3.2.2 coarsenings are observed only: frequency and no-slip error depend on grid spacing."
+        }
+      ],
+      "CL_rms": [
+        {
+          "source_id": "qu2013_d1",
+          "reason": "Sections 4.1.1-4.1.3: mean drag/St change little across the tabulated tests; all retained for those metrics. Lift RMS acceptance uses only D9/D10, the time-resolved reference and selected production time step; larger time steps measurably damp lift RMS."
+        },
+        {
+          "source_id": "qu2013_d2",
+          "reason": "Sections 4.1.1-4.1.3: mean drag/St change little across the tabulated tests; all retained for those metrics. Lift RMS acceptance uses only D9/D10, the time-resolved reference and selected production time step; larger time steps measurably damp lift RMS."
+        },
+        {
+          "source_id": "qu2013_d3",
+          "reason": "Sections 4.1.1-4.1.3: mean drag/St change little across the tabulated tests; all retained for those metrics. Lift RMS acceptance uses only D9/D10, the time-resolved reference and selected production time step; larger time steps measurably damp lift RMS."
+        },
+        {
+          "source_id": "qu2013_d4",
+          "reason": "Sections 4.1.1-4.1.3: mean drag/St change little across the tabulated tests; all retained for those metrics. Lift RMS acceptance uses only D9/D10, the time-resolved reference and selected production time step; larger time steps measurably damp lift RMS."
+        },
+        {
+          "source_id": "qu2013_d5",
+          "reason": "Sections 4.1.1-4.1.3: mean drag/St change little across the tabulated tests; all retained for those metrics. Lift RMS acceptance uses only D9/D10, the time-resolved reference and selected production time step; larger time steps measurably damp lift RMS."
+        },
+        {
+          "source_id": "qu2013_d6",
+          "reason": "Sections 4.1.1-4.1.3: mean drag/St change little across the tabulated tests; all retained for those metrics. Lift RMS acceptance uses only D9/D10, the time-resolved reference and selected production time step; larger time steps measurably damp lift RMS."
+        },
+        {
+          "source_id": "qu2013_d7",
+          "reason": "Sections 4.1.1-4.1.3: mean drag/St change little across the tabulated tests; all retained for those metrics. Lift RMS acceptance uses only D9/D10, the time-resolved reference and selected production time step; larger time steps measurably damp lift RMS."
+        },
+        {
+          "source_id": "qu2013_d8",
+          "reason": "Sections 4.1.1-4.1.3: mean drag/St change little across the tabulated tests; all retained for those metrics. Lift RMS acceptance uses only D9/D10, the time-resolved reference and selected production time step; larger time steps measurably damp lift RMS."
+        },
+        {
+          "source_id": "qu2013_d11",
+          "reason": "Sections 4.1.1-4.1.3: mean drag/St change little across the tabulated tests; all retained for those metrics. Lift RMS acceptance uses only D9/D10, the time-resolved reference and selected production time step; larger time steps measurably damp lift RMS."
+        },
+        {
+          "source_id": "tsetoglou2025_vos25",
+          "reason": "Stationary-cylinder validation. Accept body-fitted reference and selected finest D/dx=50 VOS-IVP. Section 3.2.2 coarsenings are observed only: frequency and no-slip error depend on grid spacing."
+        },
+        {
+          "source_id": "tsetoglou2025_vos10",
+          "reason": "Stationary-cylinder validation. Accept body-fitted reference and selected finest D/dx=50 VOS-IVP. Section 3.2.2 coarsenings are observed only: frequency and no-slip error depend on grid spacing."
+        }
+      ],
+      "strouhal": [
+        {
+          "source_id": "kravchenko1998_case1",
+          "reason": "Printed p.66 identifies frequency/domain independence for Rd>=60. Smaller domains remain observed only. Drag table is labelled maximum drag, so no exact mean drag is assigned."
+        },
+        {
+          "source_id": "kravchenko1998_case2",
+          "reason": "Printed p.66 identifies frequency/domain independence for Rd>=60. Smaller domains remain observed only. Drag table is labelled maximum drag, so no exact mean drag is assigned."
+        },
+        {
+          "source_id": "kravchenko1998_case3",
+          "reason": "Printed p.66 identifies frequency/domain independence for Rd>=60. Smaller domains remain observed only. Drag table is labelled maximum drag, so no exact mean drag is assigned."
+        },
+        {
+          "source_id": "alam2017_n40000_dt0p05",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "alam2017_n47000_dt0p05",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "alam2017_n69000_dt0p05",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "alam2017_n82000_dt0p05",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "alam2017_n110000_dt0p05",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "alam2017_n40000_dt0p01",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "alam2017_n47000_dt0p01",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "alam2017_n40000_dt0p005",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "alam2017_n47000_dt0p005",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "alam2017_n40000_dt0p001",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "alam2017_n47000_dt0p001",
+          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
+        },
+        {
+          "source_id": "behr1995_m090_vp",
+          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
+        },
+        {
+          "source_id": "behr1995_m090_vps",
+          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
+        },
+        {
+          "source_id": "behr1995_m125_vp",
+          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
+        },
+        {
+          "source_id": "behr1995_m125_vps",
+          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
+        },
+        {
+          "source_id": "behr1995_m160_vp",
+          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
+        },
+        {
+          "source_id": "behr1995_m160_vps",
+          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
+        },
+        {
+          "source_id": "kamensky2015_m2_l0",
+          "reason": "Fixed-cylinder Section 3.4. Adaptive l=3 and boundary-fitted reference eligible. l=0 explicitly demonstrates under-integration error (discussion after Table 4), so observed only."
+        },
+        {
+          "source_id": "tsetoglou2025_vos25",
+          "reason": "Stationary-cylinder validation. Accept body-fitted reference and selected finest D/dx=50 VOS-IVP. Section 3.2.2 coarsenings are observed only: frequency and no-slip error depend on grid spacing."
+        },
+        {
+          "source_id": "tsetoglou2025_vos10",
+          "reason": "Stationary-cylinder validation. Accept body-fitted reference and selected finest D/dx=50 VOS-IVP. Section 3.2.2 coarsenings are observed only: frequency and no-slip error depend on grid spacing."
+        }
+      ]
+    },
     "excluded_non_rms_lift_source_ids": [
+      "park1998",
+      "stalberg2006",
+      "kravchenko1998_case1",
+      "kravchenko1998_case2",
+      "kravchenko1998_case3",
+      "kravchenko1998_case4",
+      "kravchenko1998_case5",
+      "kravchenko1998_case6",
+      "kravchenko1998_case7",
+      "kravchenko1998_case8",
+      "kravchenko1998",
+      "alam2017_n40000_dt0p05",
+      "alam2017_n47000_dt0p05",
+      "alam2017_n69000_dt0p05",
+      "alam2017_n82000_dt0p05",
+      "alam2017_n110000_dt0p05",
+      "alam2017_n40000_dt0p01",
+      "alam2017_n47000_dt0p01",
       "alam2017_table2",
-      "alam2017_dt005"
+      "alam2017_n82000_dt0p01",
+      "alam2017_n110000_dt0p01",
+      "alam2017_n40000_dt0p005",
+      "alam2017_n47000_dt0p005",
+      "alam2017_n69000_dt0p005",
+      "alam2017_dt005",
+      "alam2017_n110000_dt0p005",
+      "alam2017_n40000_dt0p001",
+      "alam2017_n47000_dt0p001",
+      "alam2017_n69000_dt0p001",
+      "alam2017_n82000_dt0p001",
+      "alam2017_n110000_dt0p001",
+      "kang2021_re100",
+      "behr1995_m090_vp",
+      "behr1995_m090_vps",
+      "behr1995_m125_vp",
+      "behr1995_m125_vps",
+      "behr1995_m160_vp",
+      "behr1995_m160_vps",
+      "behr1995_m240_vp",
+      "behr1995_m240_vps",
+      "behr1995_m320_vp",
+      "behr1995_m320_vps",
+      "deng2019_bare",
+      "kamensky2015_m1_tau100",
+      "kamensky2015_m1_tau1000",
+      "kamensky2015_m2_tau100",
+      "kamensky2015_m2_tau1000",
+      "kamensky2015_boundary_fitted",
+      "kamensky2015_m2_l0",
+      "tumkur2013_fixed",
+      "singh_mittal2005_drag_re100"
     ],
     "outside_percent_definition": "100 * abs(value - nearest_bound) / abs(nearest_bound) when outside; zero inside. Undefined if the nearest bound is zero.",
     "absolute_tolerances": {
@@ -82,7 +493,7 @@
     },
     "acceptance_rule": "lower - absolute_tolerance <= value <= upper + absolute_tolerance"
   },
-  "note": "Passing requires run quality and literature-range membership or an exceedance within the configured absolute tolerance.",
+  "note": "PASS is a broad literature validation check: run quality plus the eligible literature envelope and configured absolute tolerance. It is not a solver-baseline regression comparison or a mesh-convergence certificate.",
   "statistics": {
     "definition": "A complete cycle is the closed interval between consecutive qualified lift maxima that contains at least one qualified lift minimum. Samples after the last qualified maximum are not a complete cycle, and the simulation end time does not close a cycle by itself.",
     "integration": "trapezoidal",

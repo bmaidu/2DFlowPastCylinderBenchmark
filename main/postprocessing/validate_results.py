@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import csv
-import io
 import json
 import math
 import sys
@@ -39,40 +38,87 @@ def validate_acceptance(acceptance):
 
 def literature_ranges(path=None):
     path = Path(path) if path is not None else LITERATURE_PATH
-    raw = path.read_bytes()
-    values = {name: [] for name in METRICS}
+    observed = {name: [] for name in METRICS}
+    eligible = {name: [] for name in METRICS}
     excluded_lift = []
-    for row in csv.DictReader(io.StringIO(raw.decode("utf-8-sig"))):
-        if not row.get("Re", "").strip() or float(row["Re"]) != 100.0:
-            continue
-        for metric, column in (("mean_CD", "mean_CD"), ("CL_rms", "lift_value"), ("strouhal", "St")):
-            text = row.get(column, "").strip()
-            if not text:
-                continue
-            if metric == "CL_rms" and not row.get("lift_definition", "").strip().casefold().startswith("rms"):
-                excluded_lift.append(row["source_id"])
-                continue
-            number = float(text)
-            if not math.isfinite(number):
-                raise ValueError(f"Nonfinite literature {metric} in {row['source_id']}.")
-            values[metric].append((number, row["source_id"]))
-    ranges = {}
-    for metric, entries in values.items():
-        if not entries:
-            raise ValueError(f"No comparable Re=100 literature values for {metric}.")
-        lower = min(value for value, _ in entries)
-        upper = max(value for value, _ in entries)
-        ranges[metric] = {
+    excluded_acceptance = {name: [] for name in METRICS}
+    study_ids, configuration_ids = set(), set()
+    required = {"source_id", "study_id", "Re", "dimension", "body_motion", "cylinder_count",
+                "mean_CD", "CL_RMS", "St", "lift_definition", "primary_source_verified",
+                "verified_metrics", "observed_eligible", "acceptance_metrics", "eligibility_reason"}
+    with path.open(newline="", encoding="utf-8-sig") as stream:
+        reader = csv.DictReader(stream)
+        if not required.issubset(reader.fieldnames or []):
+            raise ValueError(f"Literature CSV missing columns: {sorted(required - set(reader.fieldnames or []))}")
+        for row in reader:
+            source_id = row["source_id"].strip()
+            if not source_id or source_id in configuration_ids:
+                raise ValueError(f"Empty or duplicate literature source_id: {source_id!r}.")
+            configuration_ids.add(source_id)
+            if not row["study_id"].strip():
+                raise ValueError(f"Missing study_id in {source_id}.")
+            study_ids.add(row["study_id"])
+            verified = set(filter(None, row["verified_metrics"].split(";")))
+            acceptance = set(filter(None, row["acceptance_metrics"].split(";")))
+            if (verified | acceptance) - set(METRICS) or not acceptance.issubset(verified):
+                raise ValueError(f"Unknown or unverified acceptance metric in {source_id}.")
+            for flag in ("primary_source_verified", "observed_eligible"):
+                if row[flag] not in ("true", "false"):
+                    raise ValueError(f"{flag} must be true or false in {source_id}.")
+            comparable = (float(row["Re"]) == 100 and row["dimension"] == "2"
+                          and row["body_motion"] == "stationary" and row["cylinder_count"] == "1"
+                          and row["primary_source_verified"] == "true"
+                          and row["observed_eligible"] == "true")
+            if acceptance and (not comparable or not row["eligibility_reason"].strip()):
+                raise ValueError(f"Acceptance entry lacks comparable verified context or eligibility reason: {source_id}.")
+            if row.get("lift_value", "").strip() and not row["lift_definition"].casefold().startswith("rms"):
+                excluded_lift.append(source_id)
+            for metric, column in (("mean_CD", "mean_CD"), ("CL_rms", "CL_RMS"), ("strouhal", "St")):
+                raw = row[column].strip()
+                if not raw:
+                    if metric in verified:
+                        raise ValueError(f"Verified {metric} is missing in {source_id}.")
+                    continue
+                number = float(raw)
+                if not math.isfinite(number):
+                    raise ValueError(f"Nonfinite literature {metric} in {source_id}.")
+                if metric == "CL_rms" and metric in verified and not row["lift_definition"].casefold().startswith("rms"):
+                    raise ValueError(f"Verified CL_RMS requires an explicit RMS definition in {source_id}.")
+                if not comparable or metric not in verified:
+                    continue
+                entry = (number, source_id, row["study_id"])
+                observed[metric].append(entry)
+                if metric in acceptance:
+                    eligible[metric].append(entry)
+                else:
+                    excluded_acceptance[metric].append({"source_id": source_id, "reason": row["eligibility_reason"]})
+
+    def bounds(entries):
+        lower = min((value for value, _, _ in entries), default=None)
+        upper = max((value for value, _, _ in entries), default=None)
+        return {
             "lower": lower, "upper": upper,
-            "source_ids": ";".join(source for _, source in entries),
-            "lower_source_ids": ";".join(source for value, source in entries if value == lower),
-            "upper_source_ids": ";".join(source for value, source in entries if value == upper),
+            "source_ids": ";".join(source for _, source, _ in entries),
+            "lower_source_ids": ";".join(source for value, source, _ in entries if value == lower),
+            "upper_source_ids": ";".join(source for value, source, _ in entries if value == upper),
+            "configuration_count": len(entries),
+            "study_ids": sorted({study for _, _, study in entries}),
+            "study_count": len({study for _, _, study in entries}),
         }
+
+    ranges = {metric: bounds(entries) for metric, entries in eligible.items()}
     source_name = path.relative_to(ROOT).as_posix() if path.is_relative_to(ROOT) else path.name
     metadata = {
-        "method": "inclusive minimum/maximum of saved comparable Re=100 literature values",
+        "method": "inclusive minimum/maximum of verified, eligible Re=100 reference configurations",
         "source_file": source_name,
-        "inclusion_policy": "All saved finite mean_CD and St values, including unverified entries; lift_value only for rows labelled RMS.",
+        "inclusion_policy": "Primary-verified stationary single-cylinder 2D Re=100 entries; metric-specific acceptance_metrics and eligibility_reason in CSV. CL_RMS must be explicitly reported as RMS; lift amplitude/extrema are never converted. See literature/README.md.",
+        "database_study_count": len(study_ids),
+        "database_configuration_count": len(configuration_ids),
+        "verified_numeric_configuration_count": len({source for entries in observed.values() for _, source, _ in entries}),
+        "policy_version": "verified_configurations_v1",
+        "observed_ranges": {metric: bounds(entries) for metric, entries in observed.items()},
+        "eligible_ranges": ranges,
+        "excluded_acceptance": excluded_acceptance,
         "excluded_non_rms_lift_source_ids": excluded_lift,
         "outside_percent_definition": "100 * abs(value - nearest_bound) / abs(nearest_bound) when outside; zero inside. Undefined if the nearest bound is zero.",
     }
@@ -93,7 +139,9 @@ def evaluate(config, statistics, quality, literature_path=None):
         limits = ranges[metric]
         lower, upper = limits["lower"], limits["upper"]
         tolerance = tolerances[metric]
-        acceptance_lower, acceptance_upper = lower - tolerance, upper + tolerance
+        available = lower is not None and upper is not None
+        acceptance_lower = lower - tolerance if available else None
+        acceptance_upper = upper + tolerance if available else None
         value = statistics.get(metric)
         finite = value is not None and math.isfinite(value)
         direction, nearest, absolute, percent = "", None, None, None
@@ -101,11 +149,14 @@ def evaluate(config, statistics, quality, literature_path=None):
         if not quality["passed"] or not finite:
             status = "not_evaluated"
             message = "Not compared: run-quality checks failed or the simulation metric is unavailable."
+        elif not available:
+            status = "not_evaluated"
+            message = "Not compared: no verified, eligible literature values for this metric."
         elif lower <= value <= upper:
             status = "within_literature_range"
             passed = True
             direction, absolute, percent = "within", 0.0, 0.0
-            message = "PASS: Within literature range."
+            message = "PASS: Within eligible literature range."
         else:
             passed = acceptance_lower <= value <= acceptance_upper
             status = "within_tolerance" if passed else "outside_tolerance"
@@ -122,6 +173,10 @@ def evaluate(config, statistics, quality, literature_path=None):
                      "lower": lower, "upper": upper, "status": status,
                      "passed": passed, "absolute_tolerance": tolerance,
                      "acceptance_lower": acceptance_lower, "acceptance_upper": acceptance_upper,
+                     "observed_lower": metadata["observed_ranges"][metric]["lower"],
+                     "observed_upper": metadata["observed_ranges"][metric]["upper"],
+                     "reference_study_count": limits["study_count"],
+                     "reference_configuration_count": limits["configuration_count"],
                      "direction": direction, "nearest_bound": nearest,
                      "outside_absolute": absolute, "outside_percent": percent,
                      "message": message, "source_ids": limits["source_ids"],
@@ -140,7 +195,7 @@ def evaluate(config, statistics, quality, literature_path=None):
     return {"status": status, "exit_code": code, "metrics": rows, "quality": quality,
             "case_type": config["case_type"], "preset": config["preset"],
             "literature_comparison": metadata,
-            "note": "Passing requires run quality and literature-range membership or an exceedance within the configured absolute tolerance."}
+            "note": "PASS is a broad literature validation check: run quality plus the eligible literature envelope and configured absolute tolerance. It is not a solver-baseline regression comparison or a mesh-convergence certificate."}
 
 
 def save_reports(case_dir, config, statistics, quality, details=None):
@@ -159,7 +214,8 @@ def save_reports(case_dir, config, statistics, quality, details=None):
     print("\nComparison with literature values\n" + "-" * 72, flush=True)
     for row in report["metrics"]:
         value = f"{row['value']:.8g}" if row["value"] is not None else "unavailable"
-        print(f"{LABELS[row['metric']]} = {value}; literature [{row['lower']:g}, {row['upper']:g}]; "
+        limits = (f"[{row['lower']:g}, {row['upper']:g}]" if row["lower"] is not None else "unavailable")
+        print(f"{LABELS[row['metric']]} = {value}; eligible literature {limits}; "
               f"absolute tolerance {row['absolute_tolerance']:g}: {row['message']}", flush=True)
     print("-" * 72, flush=True)
     return report
@@ -172,8 +228,7 @@ def main():
     args = parser.parse_args()
     config = json.loads((args.case_dir / "case_config.json").read_text())
     old = json.loads((args.case_dir / "summary.json").read_text())
-    regenerated = {"statistics", "quality", "metrics", "status", "exit_code", "note", "preset", "case_type", "literature_comparison",
-                   "surface_pressure_coefficient", "additional_diagnostics"}
+    regenerated = {"statistics", "quality", "metrics", "status", "exit_code", "note", "preset", "case_type", "literature_comparison"}
     details = {key: value for key, value in old.items()
                if key not in regenerated and not key.endswith("_sha256")}
     report = save_reports(args.case_dir, config, old["statistics"], old["quality"], details)
