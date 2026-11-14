@@ -54,11 +54,6 @@
     "max_drag_relative_range": 0.02
   },
   "acceptance": {
-    "method": "literature_min_max",
-    "absolute_tolerances": {
-      "mean_CD": 0.02,
-      "CL_rms": 0.02,
-      "strouhal": 0.002
-    }
+    "method": "literature_min_max"
   }
 }

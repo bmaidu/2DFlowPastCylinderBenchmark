@@ -86,11 +86,7 @@ def resolve(preset=None, overrides=None, config_file=None):
         if "acceptance" in patch:
             from postprocessing.validate_results import validate_acceptance
             validate_acceptance(patch["acceptance"])
-            acceptance = patch["acceptance"]
-            result["acceptance"].update({key: value for key, value in acceptance.items()
-                                         if key != "absolute_tolerances"})
-            result["acceptance"].setdefault("absolute_tolerances", {}).update(
-                acceptance.get("absolute_tolerances", {}))
+            result["acceptance"].update(patch["acceptance"])
     for key, value in overrides.items():
         if key in ("domain_x", "domain_y"):
             result["geometry"][key] = list(value)

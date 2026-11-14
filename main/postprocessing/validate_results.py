@@ -21,19 +21,9 @@ def validate_acceptance(acceptance):
     if (not isinstance(acceptance, dict)
             or acceptance.get("method", "literature_min_max") != "literature_min_max"):
         raise ValueError("acceptance.method must be 'literature_min_max'.")
-    unknown = set(acceptance) - {"method", "absolute_tolerances"}
+    unknown = set(acceptance) - {"method"}
     if unknown:
         raise ValueError(f"Unknown acceptance settings: {sorted(unknown)}")
-    tolerances = acceptance.get("absolute_tolerances", {})
-    if not isinstance(tolerances, dict):
-        raise ValueError("acceptance.absolute_tolerances must be an object.")
-    unknown = set(tolerances) - set(METRICS)
-    if unknown:
-        raise ValueError(f"Unknown acceptance metrics: {sorted(unknown)}")
-    for metric, value in tolerances.items():
-        if (isinstance(value, bool) or not isinstance(value, (int, float))
-                or not math.isfinite(value) or value < 0):
-            raise ValueError(f"acceptance.absolute_tolerances.{metric} must be finite and nonnegative.")
 
 
 def literature_ranges(path=None):
@@ -128,20 +118,12 @@ def literature_ranges(path=None):
 def evaluate(config, statistics, quality, literature_path=None):
     validate_acceptance(config["acceptance"])
     ranges, metadata = literature_ranges(literature_path)
-    tolerances = {metric: config["acceptance"].get("absolute_tolerances", {}).get(metric, 0.0)
-                  for metric in METRICS}
-    metadata.update(
-        absolute_tolerances=tolerances,
-        acceptance_rule="lower - absolute_tolerance <= value <= upper + absolute_tolerance",
-    )
+    metadata["acceptance_rule"] = "lower <= value <= upper"
     rows = []
     for metric in METRICS:
         limits = ranges[metric]
         lower, upper = limits["lower"], limits["upper"]
-        tolerance = tolerances[metric]
         available = lower is not None and upper is not None
-        acceptance_lower = lower - tolerance if available else None
-        acceptance_upper = upper + tolerance if available else None
         value = statistics.get(metric)
         finite = value is not None and math.isfinite(value)
         direction, nearest, absolute, percent = "", None, None, None
@@ -158,21 +140,19 @@ def evaluate(config, statistics, quality, literature_path=None):
             direction, absolute, percent = "within", 0.0, 0.0
             message = "PASS: Within eligible literature range."
         else:
-            passed = acceptance_lower <= value <= acceptance_upper
-            status = "within_tolerance" if passed else "outside_tolerance"
+            passed = False
+            status = "outside_literature_range"
             direction = "below" if value < lower else "above"
             nearest = lower if value < lower else upper
             absolute = abs(value - nearest)
             percent = 100 * absolute / abs(nearest) if nearest != 0 else None
             side = "lower" if direction == "below" else "upper"
             exceedance = (f"{percent:.6g}%" if percent is not None else f"{absolute:.6g}")
-            decision = "PASS: Outside literature range but within" if passed else "FAIL: Outside"
-            message = (f"{decision} absolute tolerance {tolerance:g}; "
+            message = (f"FAIL: Outside eligible literature range; "
                        f"{exceedance} {direction} the literature {side} bound.")
         rows.append({"metric": metric, "value": value if finite else None,
                      "lower": lower, "upper": upper, "status": status,
-                     "passed": passed, "absolute_tolerance": tolerance,
-                     "acceptance_lower": acceptance_lower, "acceptance_upper": acceptance_upper,
+                     "passed": passed,
                      "observed_lower": metadata["observed_ranges"][metric]["lower"],
                      "observed_upper": metadata["observed_ranges"][metric]["upper"],
                      "reference_study_count": limits["study_count"],
@@ -186,16 +166,14 @@ def evaluate(config, statistics, quality, literature_path=None):
         status, code = "invalid_run", 2
     elif any(row["status"] == "not_evaluated" for row in rows):
         status, code = "comparison_unavailable", 3
-    elif any(row["status"] == "outside_tolerance" for row in rows):
-        status, code = "outside_tolerance", 1
-    elif any(row["status"] == "within_tolerance" for row in rows):
-        status, code = "within_tolerance", 0
+    elif any(row["status"] == "outside_literature_range" for row in rows):
+        status, code = "outside_literature_range", 1
     else:
         status, code = "within_literature_range", 0
     return {"status": status, "exit_code": code, "metrics": rows, "quality": quality,
             "case_type": config["case_type"], "preset": config["preset"],
             "literature_comparison": metadata,
-            "note": "PASS is a broad literature validation check: run quality plus the eligible literature envelope and configured absolute tolerance. It is not a solver-baseline regression comparison or a mesh-convergence certificate."}
+            "note": "PASS requires run quality and membership in the inclusive eligible literature range. It is not a solver-baseline regression comparison or a mesh-convergence certificate."}
 
 
 def save_reports(case_dir, config, statistics, quality, details=None):
@@ -215,8 +193,7 @@ def save_reports(case_dir, config, statistics, quality, details=None):
     for row in report["metrics"]:
         value = f"{row['value']:.8g}" if row["value"] is not None else "unavailable"
         limits = (f"[{row['lower']:g}, {row['upper']:g}]" if row["lower"] is not None else "unavailable")
-        print(f"{LABELS[row['metric']]} = {value}; eligible literature {limits}; "
-              f"absolute tolerance {row['absolute_tolerance']:g}: {row['message']}", flush=True)
+        print(f"{LABELS[row['metric']]} = {value}; eligible literature {limits}: {row['message']}", flush=True)
     print("-" * 72, flush=True)
     return report
 

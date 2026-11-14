@@ -120,7 +120,7 @@ Paths below are relative to each case directory:
 | `figures/ux_step_*.png`, `figures/pressure_step_*.png`, `figures/vorticity_step_*.png` | Final flow fields; vorticity color limits [-5, 5] |
 | `tables/force_history.csv` | Drag and lift coefficients, including pressure and viscous contributions |
 | `tables/cycle_statistics.json` | Selected cycles, statistics, and stability checks, including mean lift |
-| `tables/metrics.csv` | Observed/eligible literature bounds, passing intervals, source counts and percentage exceedances |
+| `tables/metrics.csv` | Observed/eligible literature bounds, source counts and percentage exceedances |
 | `summary.json` | Combined metrics and run-quality status |
 | `run.log` | Solver output, also printed live in the terminal |
 
@@ -138,15 +138,15 @@ Literature comparisons require complete, consistent snapshots and developed peri
 
 Each metric is compared with a primary-verified literature envelope in [literature/reference_values.csv](literature/reference_values.csv). It supports both preset and user-defined meshes. Reports distinguish the full observed span from acceptance: author-identified confinement and numerical sensitivity tests can remain in the database without determining passing limits. Lift amplitude, extrema and peak-to-peak values are not treated as RMS. Unverified claims are retained separately.
 
-| Metric | Eligible literature envelope | Additional absolute tolerance | Passing interval |
-|---|---|---:|---|
-| Mean CD | 1.300–1.3917 | 0.02 | 1.280–1.4117 |
-| CL RMS | 0.215–0.237 | 0.02 | 0.195–0.257 |
-| St | 0.162–0.171 | 0.002 | 0.160–0.173 |
+| Metric | Passing literature range |
+|---|---|
+| Mean CD | 1.300–1.3917 |
+| CL RMS | 0.215–0.237 |
+| St | 0.162–0.171 |
 
-A metric passes when `lower - absolute_tolerance <= value <= upper + absolute_tolerance`. Eligibility and source locations are documented in [literature/README.md](literature/README.md); bounds are recalculated from the CSV. Margins are set in `acceptance.absolute_tolerances` and saved per case. Existing cases retain their saved margins; an omitted margin is zero.
+A metric passes when `lower <= value <= upper`, including both endpoints. Eligibility and source locations are documented in [literature/README.md](literature/README.md); bounds are recalculated from the CSV.
 
-PASS means meeting a broad literature validation criterion and the existing run-quality checks. It does not certify mesh convergence or agreement with a previous solver baseline. Reports identify values within the eligible envelope, outside it but within tolerance, or failing. Outside percentages use `100 * abs(value - nearest_bound) / abs(nearest_bound)`. Exit codes are 0 for passing, 1 for outside tolerance, 2 for invalid run quality and 3 for an unavailable comparison.
+PASS means meeting a broad literature validation criterion and the existing run-quality checks. It does not certify mesh convergence or agreement with a previous solver baseline. Reports identify values within or outside the eligible range. Outside percentages use `100 * abs(value - nearest_bound) / abs(nearest_bound)`. Exit codes are 0 for passing, 1 for outside the literature range, 2 for invalid run quality and 3 for an unavailable comparison.
 
 Refresh literature comparisons from saved statistics:
 

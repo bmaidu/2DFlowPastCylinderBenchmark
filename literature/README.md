@@ -32,15 +32,15 @@ The **eligible literature envelope** uses metric-specific `acceptance_metrics` w
 4. Use only directly reported principal metrics. Missing values remain unavailable. Liu (2023) reports an approximate lift period of 5.8 D/U; its implied reciprocal is about 0.172, but no precise St is inserted into the acceptance data. This is distinct from the explicitly reported St=0.171 values in Shim, Kamensky and Tsetoglou.
 5. Compute inclusive minima/maxima from the eligible rows. No svMultiPhysics result contributes to those bounds. Each generated report names all contributing configurations, endpoint configurations and distinct-study counts.
 
-The **final passing interval** expands that envelope by the configured additional absolute tolerance. The existing defaults remain 0.02 for mean CD, 0.02 for CL RMS and 0.002 for St. Passing also requires the existing run-quality checks.
+The **passing interval is the eligible literature envelope**, with both endpoints included. A result outside that envelope fails. Passing also requires the existing run-quality checks.
 
-| Metric | Previous saved-table range | New observed span | Eligible literature envelope | Additional tolerance | Final passing interval |
-|---|---|---|---|---:|---|
-| Mean CD | 1.317–1.374 | 1.297–1.477 | 1.300–1.3917 | 0.02 | 1.280–1.4117 |
-| CL RMS | 0.222–0.235 | 0.2031–0.237 | 0.215–0.237 | 0.02 | 0.195–0.257 |
-| St | 0.164–0.166 | 0.157–0.178 | 0.162–0.171 | 0.002 | 0.160–0.173 |
+| Metric | Previous saved-table range | Observed span | Passing literature range |
+|---|---|---|---|
+| Mean CD | 1.317–1.374 | 1.297–1.477 | 1.300–1.3917 |
+| CL RMS | 0.222–0.235 | 0.2031–0.237 | 0.215–0.237 |
+| St | 0.164–0.166 | 0.157–0.178 | 0.162–0.171 |
 
-The actual previous saved table had already reached mean CD=1.374; the earlier approximately 1.330 upper bound described a smaller historical subset. Previous final passing intervals, including the same tolerances, were CD [1.297, 1.394], CL RMS [0.202, 0.255], St [0.162, 0.168].
+The previous saved table had already reached mean CD=1.374; the earlier approximately 1.330 upper bound described a smaller historical subset.
 
 | Metric | Eligible studies | Eligible configurations | Lower-bound source | Upper-bound source |
 |---|---:|---:|---|---|
@@ -94,7 +94,7 @@ The candidate CSV records full identified bibliographic metadata, the claim, its
 
 Eligibility is configurable by editing `acceptance_metrics` and the documented reason in the reference CSV. Its metric names are `mean_CD`, `CL_rms`, `strouhal`, separated by semicolons. Only independently verified metrics can be made eligible. `observed_eligible` and physical-context fields control the observed dataset. Configuration IDs must be unique. Unverified claims belong in the candidate CSV.
 
-The additional margins are configured through `acceptance.absolute_tolerances` in [benchmark_default_config.json](../benchmark_default_config.json) and saved per case in `case_config.json`. Existing cases retain their saved margins; a missing margin means zero. No fixed bounds or svMultiPhysics baseline numbers are embedded in the validator.
+The configuration selects `acceptance.method = "literature_min_max"`. The passing bounds are calculated directly from eligible reference values; no fixed bounds or svMultiPhysics baseline numbers are embedded in the validator.
 
 Refresh only the literature decisions from an existing report:
 
@@ -104,6 +104,6 @@ python main/postprocessing/validate_results.py results/<case-directory>
 
 This command preserves computed statistics, selected time windows, mean lift, quality checks and other saved diagnostics, updating `summary.json` and `tables/metrics.csv`. It does not read/reintegrate VTUs or regenerate meshes/figures/force histories. The general `run_case.py --postprocess-only` command performs the fuller existing postprocessing workflow and is unnecessary for a literature-only refresh.
 
-The CSV report includes observed bounds, eligible bounds, final acceptance bounds, tolerance, source IDs and contributing-study/configuration counts. The summary also includes exclusion reasons and policy version. Missing literature metrics are reported as unavailable individually; they cannot pass by omission. Exit codes remain 0 for PASS, 1 for outside tolerance, 2 for invalid run quality and 3 for unavailable comparison.
+The CSV report includes observed bounds, eligible passing bounds, source IDs and contributing-study/configuration counts. The summary also includes exclusion reasons and policy version. Missing literature metrics are reported as unavailable individually; they cannot pass by omission. Exit codes remain 0 for PASS, 1 for outside the literature range, 2 for invalid run quality and 3 for unavailable comparison.
 
-PASS means meeting this broad literature criterion with the configured margin and existing quality checks, for either a preset or user-defined mesh. It is not a comparison to an earlier svMultiPhysics baseline; no such baseline gate currently exists in this repository. A future strict regression gate should be reported separately. A changed acceptance decision changes the interpretation of the saved result, not its numerical accuracy.
+PASS means meeting this broad literature criterion and existing quality checks, for either a preset or user-defined mesh. It is not a comparison to an earlier svMultiPhysics baseline; no such baseline gate currently exists in this repository. A future strict regression gate should be reported separately. A changed acceptance decision changes the interpretation of the saved result, not its numerical accuracy.
