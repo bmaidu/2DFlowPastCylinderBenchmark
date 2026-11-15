@@ -78,9 +78,7 @@ python main/run/run_case.py --config /path/to/custom.json
 
 Settings take precedence in this order: coarse defaults, custom JSON, then explicit command-line domain/mesh values.
 
-An optional vertical refinement band creates a cross with the existing horizontal wake band. Enable it with `--vertical-size`; `--vertical-half-width` sets its extent on either side of `x=0`, and `--vertical-blend-width` sets the smooth transition to the far field. All three values are in D. At overlaps, the smaller target size wins, including cylinder-wall refinement. Vertical refinement is off by default, so existing presets and older configurations retain their original mesh behavior. In JSON, use `vertical_size`, `vertical_half_width`, and `vertical_blend_width` under `mesh`; `vertical_size: null` disables the vertical band.
-
-Reproduce the cross-refined `custom_fine_70D_50D` mesh in a fresh output directory:
+Here we also included a custom mesh generation example with larger domain size and cross band refinement. Reproduce the cross-refined `custom_fine_70D_50D` mesh in a fresh output directory:
 
 ```bash
 python3 main/run/run_case.py \
@@ -100,8 +98,6 @@ python3 main/run/run_case.py \
   --far-size 0.175 --distance-sampling 960 \
   --prepare-only
 ```
-
-This case uses a 70D × 50D domain with horizontal and vertical target sizes of 0.028D and 0.055D, respectively. Mesh reports and newly saved case configurations include the vertical-band settings. Existing prepared cases continue to reuse their saved configuration and mesh; use an empty output directory to regenerate a mesh.
 
 
 Generate inputs without CFD, or postprocess saved results:
