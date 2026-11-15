@@ -126,30 +126,14 @@ Paths below are relative to each case directory:
 
 ## Validation
 
-Statistics use the last three qualified complete lift cycles and trapezoidal time averages. Drag and lift forces include pressure and viscous contributions per unit span.
+2D flow past cylinder at Re=100 is a frequently studied benchmarking in classical CFD. Here we benchmark svMultiPhysics against past literature primarily with similar domain size, mesh resolution, and numerical method. Point-to-point match of the flow field isn't expected. Therefore, mean drag coefficient ($\overline{C_D}$) and Strouhal ($St$) number are the main statistics of comparisons and the PASS/FAIL of the svbenchmark.
 
-| Metric | Definition |
-|---|---|
-| Mean drag | Mean of `CD = 2*Fx/(rho*U^2*D)` |
-| Strouhal number | `St = D/(U*mean_period)` |
-
-Literature comparisons require complete, consistent snapshots and developed periodic shedding. Statistical criteria are defined in `benchmark_default_config.json`.
-
-Literature PASS/FAIL uses only mean drag and Strouhal number, compared with primary-verified values from seven selected stationary, isolated-cylinder configurations in [literature/reference_values.csv](literature/reference_values.csv). This applies to both preset and user-defined meshes. See the [seven-paper literature comparison](literature/README.md) for methods, domains and sources.
-
-| Metric | Passing literature range |
-|---|---|
-| Mean CD | [1.335, 1.381] |
-| St | [0.1624, 0.171] |
-
-Each acceptance metric passes when `lower <= value <= upper`, including both endpoints; both mean drag and St must pass. Eligibility and source locations are documented in [literature/README.md](literature/README.md); bounds are recalculated from the CSV.
-
-PASS requires both mean drag and St within their literature ranges and all existing run-quality checks to pass. It does not certify mesh convergence or agreement with a previous solver baseline. Reports identify values within or outside the eligible range. Outside percentages use `100 * abs(value - nearest_bound) / abs(nearest_bound)`. Exit codes are 0 for passing, 1 for outside the literature range, 2 for invalid run quality and 3 for an unavailable comparison.
-
-Refresh literature comparisons from saved statistics:
-
-```bash
-python main/postprocessing/validate_results.py results/<case-directory>
-```
-
-This refresh updates only `summary.json` and `tables/metrics.csv`, preserving saved metrics and analysis windows. It does not rerun CFD or rewrite force histories.
+| Paper | Domain size (D) | $\overline{C_D}$ | $St$ | Numerical method |
+| --- | --- | --- | --- | --- |
+| [Tumkur et al. (2013)](https://doi.org/10.1016/j.jfluidstructs.2013.03.008) | 48 × 24 | 1.360 | 0.168 | RB-VMS FEM |
+| [Kang & Masud (2021)](https://doi.org/10.1007/s11012-020-01227-w) | 48 × 24 | 1.374 | 0.168 | Immersed-boundary VMS FEM |
+| [Kamensky et al. (2015)](https://doi.org/10.1016/j.cma.2014.10.040) | 40 × 20 | 1.381 | 0.171 | Immersogeometric VMS FEM |
+| [Behr et al. (1995)](https://doi.org/10.1016/0045-7825(94)00736-7) | 30.5 × 24 | 1.3721 | 0.1624 | Space-time FEM |
+| [Tsetoglou et al. (2025)](https://doi.org/10.1002/fld.5334) | 65 × 30 | 1.335 | 0.167 | Body-fitted FVM |
+| [Deng et al. (2019)](https://doi.org/10.1103/PhysRevE.100.053107) | 46 × 32 | 1.374 | 0.164 | Immersed-boundary FVM |
+| [Alam et al. (2017)](https://doi.org/10.1016/j.jfluidstructs.2017.01.014) | 35 × 20 | 1.372 | 0.165 | FVM |
