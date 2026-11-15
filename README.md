@@ -116,12 +116,12 @@ Paths below are relative to each case directory:
 | Output | Contents |
 |---|---|
 | `mesh/figures/` | Full-domain, near-cylinder, and near/middle-wake mesh views |
-| `figures/force_history.png` | Drag and lift histories with mean drag and St |
-| `figures/ux_step_*.png`, `figures/pressure_step_*.png`, `figures/vorticity_step_*.png` | Final flow fields; vorticity color limits [-5, 5] |
-| `tables/force_history.csv` | Drag and lift coefficients, including pressure and viscous contributions |
-| `tables/cycle_statistics.json` | Selected cycles, statistics, and stability checks, including mean lift |
-| `tables/metrics.csv` | Observed/eligible literature bounds, source counts and percentage exceedances |
-| `summary.json` | Combined metrics and run-quality status |
+| `figures/force_history.png` | Drag and lift histories with mean drag and lift coefficients, and Stouhal number |
+| `figures/ux_step_*.png`, `figures/pressure_step_*.png`, `figures/vorticity_step_*.png` | Flow fields visualization at final time step |
+| `tables/force_history.csv` | Drag and lift coefficients |
+| `tables/cycle_statistics.json` | Selected cycles, statistics, and stability checks |
+| `tables/metrics.csv` | literature bounds and other metrics |
+| `summary.json` | Combined metrics and run status |
 | `run.log` | Solver output, also printed live in the terminal |
 
 ## Validation
