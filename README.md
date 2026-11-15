@@ -147,8 +147,6 @@ Paths below are relative to each case directory:
 | `summary.json` | Simulation statistics, literature comparison status, and run-quality diagnostics |
 | `run.log` | Solver output, also printed live in the terminal |
 
-Literature PASS/FAIL uses mean drag and St, with inclusive ranges calculated from [literature/reference_values.csv](literature/reference_values.csv). Both comparisons and the run-quality checks must pass. Reports show comparison statuses; numerical bounds remain internal to validation. Solver iteration-history files are removed after successful runs; `run.log` retains the solver output.
-
 ## Validation
 
 2D flow past a circular cylinder at $Re=100$ is a well-established benchmark in CFD. Here, we assess svMultiPhysics against published studies with comparable domain sizes, mesh resolutions, and numerical methods. Pointwise agreement between flow fields is not expected, the mean drag coefficient ($\overline{C_D}$) and Strouhal number ($St$) serve as the primary comparison metrics and determine the PASS/FAIL outcome in svbenchmark.
