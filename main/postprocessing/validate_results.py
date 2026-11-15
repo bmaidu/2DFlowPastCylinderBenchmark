@@ -36,7 +36,7 @@ def literature_ranges(path=None):
     excluded_acceptance = {name: [] for name in LITERATURE_METRICS}
     study_ids, configuration_ids = set(), set()
     required = {"source_id", "study_id", "Re", "dimension", "body_motion", "cylinder_count",
-                "mean_CD", "CL_RMS", "St", "lift_definition", "primary_source_verified",
+                "mean_CD", "St", "lift_definition", "primary_source_verified",
                 "verified_metrics", "observed_eligible", "acceptance_metrics", "eligibility_reason"}
     with path.open(newline="", encoding="utf-8-sig") as stream:
         reader = csv.DictReader(stream)
@@ -68,7 +68,8 @@ def literature_ranges(path=None):
             if row.get("lift_value", "").strip() and not row["lift_definition"].casefold().startswith("rms"):
                 excluded_lift.append(source_id)
             for metric, column in (("mean_CD", "mean_CD"), ("CL_rms", "CL_RMS"), ("strouhal", "St")):
-                raw = row[column].strip()
+                # Diagnostic reference columns may be omitted from the literature CSV.
+                raw = row.get(column, "").strip()
                 if not raw:
                     if metric in verified:
                         raise ValueError(f"Verified {metric} is missing in {source_id}.")

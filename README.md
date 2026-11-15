@@ -1,6 +1,6 @@
 # 2D flow past cylinder at Re=100: svMultiPhysics benchmark
 
-This benchmark generates a triangular mesh, runs 2D incompressible flow past cylinder at Re = 100, and compares mean drag and Strouhal number with literature values. Lift RMS is calculated and reported as a simulation diagnostic, but is not an acceptance criterion. The default configuration supports coarse, medium, and fine presets, plus custom domains and regional mesh sizes.
+This benchmark generates a triangular mesh, runs 2D incompressible flow past cylinder at Re = 100, and compares mean drag and Strouhal number with literature values. The default configuration supports coarse, medium, and fine presets, plus custom domains and regional mesh sizes.
 
 ## Problem setup
 
@@ -116,7 +116,7 @@ Paths below are relative to each case directory:
 | Output | Contents |
 |---|---|
 | `mesh/figures/` | Full-domain, near-cylinder, and near/middle-wake mesh views |
-| `figures/force_history.png` | Drag and lift histories with mean drag, lift RMS, and St |
+| `figures/force_history.png` | Drag and lift histories with mean drag and St |
 | `figures/ux_step_*.png`, `figures/pressure_step_*.png`, `figures/vorticity_step_*.png` | Final flow fields; vorticity color limits [-5, 5] |
 | `tables/force_history.csv` | Drag and lift coefficients, including pressure and viscous contributions |
 | `tables/cycle_statistics.json` | Selected cycles, statistics, and stability checks, including mean lift |
@@ -131,12 +131,11 @@ Statistics use the last three qualified complete lift cycles and trapezoidal tim
 | Metric | Definition |
 |---|---|
 | Mean drag | Mean of `CD = 2*Fx/(rho*U^2*D)` |
-| Lift RMS | `sqrt(mean((CL - mean(CL))^2))`, with `CL = 2*Fy/(rho*U^2*D)` |
 | Strouhal number | `St = D/(U*mean_period)` |
 
 Literature comparisons require complete, consistent snapshots and developed periodic shedding. Statistical criteria are defined in `benchmark_default_config.json`.
 
-Literature PASS/FAIL uses only mean drag and Strouhal number, compared with primary-verified values from seven selected stationary, isolated-cylinder configurations in [literature/reference_values.csv](literature/reference_values.csv). This applies to both preset and user-defined meshes. Lift RMS remains calculated and reported as a simulation diagnostic, but is excluded from acceptance because most selected publications report different lift statistics. Explicit reference RMS values are preserved; lift amplitude, extrema and peak-to-peak values are not converted to RMS. See the [seven-paper literature comparison](literature/README.md) for methods, domains and sources.
+Literature PASS/FAIL uses only mean drag and Strouhal number, compared with primary-verified values from seven selected stationary, isolated-cylinder configurations in [literature/reference_values.csv](literature/reference_values.csv). This applies to both preset and user-defined meshes. See the [seven-paper literature comparison](literature/README.md) for methods, domains and sources.
 
 | Metric | Passing literature range |
 |---|---|
