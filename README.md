@@ -126,7 +126,7 @@ Paths below are relative to each case directory:
 
 ## Validation
 
-2D flow past cylinder at Re=100 is a frequently studied benchmarking in classical CFD. Here we benchmark svMultiPhysics against past literature primarily with similar domain size, mesh resolution, and numerical method. Point-to-point match of the flow field isn't expected. Therefore, mean drag coefficient ($\overline{C_D}$) and Strouhal ($St$) number are the main statistics of comparisons and the PASS/FAIL of the svbenchmark.
+2D flow past a circular cylinder at $Re=100$ is a well-established benchmark in computational fluid dynamics (CFD). Here, we assess svMultiPhysics against published studies with comparable domain sizes, mesh resolutions, and numerical methods. Pointwise agreement between flow fields is not expected, the mean drag coefficient ($\overline{C_D}$) and Strouhal number ($St$) serve as the primary comparison metrics and determine the PASS/FAIL outcome in svbenchmark.
 
 | Paper | Domain size (D) | $\overline{C_D}$ | $St$ | Numerical method |
 | --- | --- | --- | --- | --- |
