@@ -1,6 +1,6 @@
 # 2D flow past cylinder at Re=100: svMultiPhysics benchmark
 
-This benchmark generates a triangular mesh, runs 2D incompressible flow past cylinder at Re = 100, and compares mean drag, lift RMS, and Strouhal number with literature values. The default configuration supports coarse, medium, and fine presets, plus custom domains and regional mesh sizes.
+This benchmark generates a triangular mesh, runs 2D incompressible flow past cylinder at Re = 100, and compares mean drag and Strouhal number with literature values. Lift RMS is calculated and reported as a simulation diagnostic, but is not an acceptance criterion. The default configuration supports coarse, medium, and fine presets, plus custom domains and regional mesh sizes.
 
 ## Problem setup
 
@@ -136,17 +136,16 @@ Statistics use the last three qualified complete lift cycles and trapezoidal tim
 
 Literature comparisons require complete, consistent snapshots and developed periodic shedding. Statistical criteria are defined in `benchmark_default_config.json`.
 
-Each metric is compared with a primary-verified literature envelope in [literature/reference_values.csv](literature/reference_values.csv). It supports both preset and user-defined meshes. Reports distinguish the full observed span from acceptance: author-identified confinement and numerical sensitivity tests can remain in the database without determining passing limits. Lift amplitude, extrema and peak-to-peak values are not treated as RMS. Unverified claims are retained separately.
+Literature PASS/FAIL uses only mean drag and Strouhal number, compared with primary-verified values from seven selected stationary, isolated-cylinder configurations in [literature/reference_values.csv](literature/reference_values.csv). This applies to both preset and user-defined meshes. Lift RMS remains calculated and reported as a simulation diagnostic, but is excluded from acceptance because most selected publications report different lift statistics. Explicit reference RMS values are preserved; lift amplitude, extrema and peak-to-peak values are not converted to RMS. See the [seven-paper literature comparison](literature/README.md) for methods, domains and sources.
 
 | Metric | Passing literature range |
 |---|---|
-| Mean CD | 1.300–1.3917 |
-| CL RMS | 0.215–0.237 |
-| St | 0.162–0.171 |
+| Mean CD | [1.335, 1.381] |
+| St | [0.1624, 0.171] |
 
-A metric passes when `lower <= value <= upper`, including both endpoints. Eligibility and source locations are documented in [literature/README.md](literature/README.md); bounds are recalculated from the CSV.
+Each acceptance metric passes when `lower <= value <= upper`, including both endpoints; both mean drag and St must pass. Eligibility and source locations are documented in [literature/README.md](literature/README.md); bounds are recalculated from the CSV.
 
-PASS means meeting a broad literature validation criterion and the existing run-quality checks. It does not certify mesh convergence or agreement with a previous solver baseline. Reports identify values within or outside the eligible range. Outside percentages use `100 * abs(value - nearest_bound) / abs(nearest_bound)`. Exit codes are 0 for passing, 1 for outside the literature range, 2 for invalid run quality and 3 for an unavailable comparison.
+PASS requires both mean drag and St within their literature ranges and all existing run-quality checks to pass. It does not certify mesh convergence or agreement with a previous solver baseline. Reports identify values within or outside the eligible range. Outside percentages use `100 * abs(value - nearest_bound) / abs(nearest_bound)`. Exit codes are 0 for passing, 1 for outside the literature range, 2 for invalid run quality and 3 for an unavailable comparison.
 
 Refresh literature comparisons from saved statistics:
 

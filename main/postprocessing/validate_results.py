@@ -1,4 +1,4 @@
-"""Compare mean drag, lift RMS, and Strouhal number with saved literature ranges."""
+"""Compare mean drag and Strouhal number; retain lift RMS as a diagnostic."""
 from __future__ import annotations
 
 import csv
@@ -12,7 +12,9 @@ if __package__ in (None, ""):
 
 from run.case_config import ROOT
 
-METRICS = ("mean_CD", "CL_rms", "strouhal")
+# Recognized reference metrics include diagnostics that do not determine PASS/FAIL.
+LITERATURE_METRICS = ("mean_CD", "CL_rms", "strouhal")
+ACCEPTANCE_METRICS = ("mean_CD", "strouhal")
 LABELS = {"mean_CD": "Mean CD", "CL_rms": "CL RMS", "strouhal": "St"}
 LITERATURE_PATH = ROOT / "literature/reference_values.csv"
 
@@ -28,10 +30,10 @@ def validate_acceptance(acceptance):
 
 def literature_ranges(path=None):
     path = Path(path) if path is not None else LITERATURE_PATH
-    observed = {name: [] for name in METRICS}
-    eligible = {name: [] for name in METRICS}
+    observed = {name: [] for name in LITERATURE_METRICS}
+    eligible = {name: [] for name in ACCEPTANCE_METRICS}
     excluded_lift = []
-    excluded_acceptance = {name: [] for name in METRICS}
+    excluded_acceptance = {name: [] for name in LITERATURE_METRICS}
     study_ids, configuration_ids = set(), set()
     required = {"source_id", "study_id", "Re", "dimension", "body_motion", "cylinder_count",
                 "mean_CD", "CL_RMS", "St", "lift_definition", "primary_source_verified",
@@ -50,7 +52,9 @@ def literature_ranges(path=None):
             study_ids.add(row["study_id"])
             verified = set(filter(None, row["verified_metrics"].split(";")))
             acceptance = set(filter(None, row["acceptance_metrics"].split(";")))
-            if (verified | acceptance) - set(METRICS) or not acceptance.issubset(verified):
+            if (verified - set(LITERATURE_METRICS)
+                    or acceptance - set(ACCEPTANCE_METRICS)
+                    or not acceptance.issubset(verified)):
                 raise ValueError(f"Unknown or unverified acceptance metric in {source_id}.")
             for flag in ("primary_source_verified", "observed_eligible"):
                 if row[flag] not in ("true", "false"):
@@ -101,11 +105,12 @@ def literature_ranges(path=None):
     metadata = {
         "method": "inclusive minimum/maximum of verified, eligible Re=100 reference configurations",
         "source_file": source_name,
-        "inclusion_policy": "Primary-verified stationary single-cylinder 2D Re=100 entries; metric-specific acceptance_metrics and eligibility_reason in CSV. CL_RMS must be explicitly reported as RMS; lift amplitude/extrema are never converted. See literature/README.md.",
+        "inclusion_policy": "Primary-verified stationary single-cylinder 2D Re=100 entries; only mean_CD and strouhal in acceptance_metrics determine PASS/FAIL. Explicit CL_RMS values remain diagnostic references; lift amplitude/extrema are never converted. See literature/README.md.",
+        "acceptance_metrics": list(ACCEPTANCE_METRICS),
         "database_study_count": len(study_ids),
         "database_configuration_count": len(configuration_ids),
         "verified_numeric_configuration_count": len({source for entries in observed.values() for _, source, _ in entries}),
-        "policy_version": "verified_configurations_v1",
+        "policy_version": "selected_seven_drag_strouhal_v2",
         "observed_ranges": {metric: bounds(entries) for metric, entries in observed.items()},
         "eligible_ranges": ranges,
         "excluded_acceptance": excluded_acceptance,
@@ -120,7 +125,7 @@ def evaluate(config, statistics, quality, literature_path=None):
     ranges, metadata = literature_ranges(literature_path)
     metadata["acceptance_rule"] = "lower <= value <= upper"
     rows = []
-    for metric in METRICS:
+    for metric in ACCEPTANCE_METRICS:
         limits = ranges[metric]
         lower, upper = limits["lower"], limits["upper"]
         available = lower is not None and upper is not None
@@ -173,7 +178,7 @@ def evaluate(config, statistics, quality, literature_path=None):
     return {"status": status, "exit_code": code, "metrics": rows, "quality": quality,
             "case_type": config["case_type"], "preset": config["preset"],
             "literature_comparison": metadata,
-            "note": "PASS requires run quality and membership in the inclusive eligible literature range. It is not a solver-baseline regression comparison or a mesh-convergence certificate."}
+            "note": "PASS requires run quality and inclusive eligible literature ranges for mean_CD and strouhal only. CL_rms remains a simulation diagnostic. It is not a solver-baseline regression comparison or a mesh-convergence certificate."}
 
 
 def save_reports(case_dir, config, statistics, quality, details=None):
