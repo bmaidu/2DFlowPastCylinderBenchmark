@@ -12,8 +12,6 @@ if __package__ in (None, ""):
 
 from run.case_config import ROOT
 
-# Recognized reference metrics include diagnostics that do not determine PASS/FAIL.
-LITERATURE_METRICS = ("mean_CD", "CL_rms", "strouhal")
 ACCEPTANCE_METRICS = ("mean_CD", "strouhal")
 LABELS = {"mean_CD": "Mean CD", "CL_rms": "CL RMS", "strouhal": "St"}
 LITERATURE_PATH = ROOT / "literature/reference_values.csv"
@@ -29,93 +27,57 @@ def validate_acceptance(acceptance):
 
 
 def literature_ranges(path=None):
+    """Use every selected paper's reported mean drag and St as reference values."""
     path = Path(path) if path is not None else LITERATURE_PATH
-    observed = {name: [] for name in LITERATURE_METRICS}
-    eligible = {name: [] for name in ACCEPTANCE_METRICS}
-    excluded_lift = []
-    excluded_acceptance = {name: [] for name in LITERATURE_METRICS}
-    study_ids, configuration_ids = set(), set()
-    required = {"source_id", "study_id", "Re", "dimension", "body_motion", "cylinder_count",
-                "mean_CD", "St", "lift_definition", "primary_source_verified",
-                "verified_metrics", "observed_eligible", "acceptance_metrics", "eligibility_reason"}
+    observed = {name: [] for name in ACCEPTANCE_METRICS}
+    papers = set()
+    required = {"paper", "mean_CD", "St"}
     with path.open(newline="", encoding="utf-8-sig") as stream:
         reader = csv.DictReader(stream)
         if not required.issubset(reader.fieldnames or []):
             raise ValueError(f"Literature CSV missing columns: {sorted(required - set(reader.fieldnames or []))}")
         for row in reader:
-            source_id = row["source_id"].strip()
-            if not source_id or source_id in configuration_ids:
-                raise ValueError(f"Empty or duplicate literature source_id: {source_id!r}.")
-            configuration_ids.add(source_id)
-            if not row["study_id"].strip():
-                raise ValueError(f"Missing study_id in {source_id}.")
-            study_ids.add(row["study_id"])
-            verified = set(filter(None, row["verified_metrics"].split(";")))
-            acceptance = set(filter(None, row["acceptance_metrics"].split(";")))
-            if (verified - set(LITERATURE_METRICS)
-                    or acceptance - set(ACCEPTANCE_METRICS)
-                    or not acceptance.issubset(verified)):
-                raise ValueError(f"Unknown or unverified acceptance metric in {source_id}.")
-            for flag in ("primary_source_verified", "observed_eligible"):
-                if row[flag] not in ("true", "false"):
-                    raise ValueError(f"{flag} must be true or false in {source_id}.")
-            comparable = (float(row["Re"]) == 100 and row["dimension"] == "2"
-                          and row["body_motion"] == "stationary" and row["cylinder_count"] == "1"
-                          and row["primary_source_verified"] == "true"
-                          and row["observed_eligible"] == "true")
-            if acceptance and (not comparable or not row["eligibility_reason"].strip()):
-                raise ValueError(f"Acceptance entry lacks comparable verified context or eligibility reason: {source_id}.")
-            if row.get("lift_value", "").strip() and not row["lift_definition"].casefold().startswith("rms"):
-                excluded_lift.append(source_id)
-            for metric, column in (("mean_CD", "mean_CD"), ("CL_rms", "CL_RMS"), ("strouhal", "St")):
-                # Diagnostic reference columns may be omitted from the literature CSV.
-                raw = row.get(column, "").strip()
-                if not raw:
-                    if metric in verified:
-                        raise ValueError(f"Verified {metric} is missing in {source_id}.")
-                    continue
-                number = float(raw)
+            paper = (row["paper"] or "").strip()
+            if not paper or paper in papers:
+                raise ValueError(f"Empty or duplicate literature paper: {paper!r}.")
+            papers.add(paper)
+            for metric, column in (("mean_CD", "mean_CD"), ("strouhal", "St")):
+                raw = (row[column] or "").strip()
+                try:
+                    number = float(raw)
+                except ValueError as error:
+                    raise ValueError(f"Missing or invalid literature {column} in {paper}.") from error
                 if not math.isfinite(number):
-                    raise ValueError(f"Nonfinite literature {metric} in {source_id}.")
-                if metric == "CL_rms" and metric in verified and not row["lift_definition"].casefold().startswith("rms"):
-                    raise ValueError(f"Verified CL_RMS requires an explicit RMS definition in {source_id}.")
-                if not comparable or metric not in verified:
-                    continue
-                entry = (number, source_id, row["study_id"])
-                observed[metric].append(entry)
-                if metric in acceptance:
-                    eligible[metric].append(entry)
-                else:
-                    excluded_acceptance[metric].append({"source_id": source_id, "reason": row["eligibility_reason"]})
+                    raise ValueError(f"Nonfinite literature {column} in {paper}.")
+                observed[metric].append((number, paper))
 
     def bounds(entries):
-        lower = min((value for value, _, _ in entries), default=None)
-        upper = max((value for value, _, _ in entries), default=None)
+        lower = min((value for value, _ in entries), default=None)
+        upper = max((value for value, _ in entries), default=None)
+        paper_names = sorted({paper for _, paper in entries})
         return {
             "lower": lower, "upper": upper,
-            "source_ids": ";".join(source for _, source, _ in entries),
-            "lower_source_ids": ";".join(source for value, source, _ in entries if value == lower),
-            "upper_source_ids": ";".join(source for value, source, _ in entries if value == upper),
+            "source_ids": ";".join(paper for _, paper in entries),
+            "lower_source_ids": ";".join(paper for value, paper in entries if value == lower),
+            "upper_source_ids": ";".join(paper for value, paper in entries if value == upper),
             "configuration_count": len(entries),
-            "study_ids": sorted({study for _, _, study in entries}),
-            "study_count": len({study for _, _, study in entries}),
+            "study_ids": paper_names,
+            "study_count": len(paper_names),
         }
 
-    ranges = {metric: bounds(entries) for metric, entries in eligible.items()}
+    ranges = {metric: bounds(entries) for metric, entries in observed.items()}
     source_name = path.relative_to(ROOT).as_posix() if path.is_relative_to(ROOT) else path.name
     metadata = {
-        "method": "inclusive minimum/maximum of verified, eligible Re=100 reference configurations",
+        "method": "inclusive minimum/maximum of selected Re=100 reference papers",
         "source_file": source_name,
-        "inclusion_policy": "Primary-verified stationary single-cylinder 2D Re=100 entries; only mean_CD and strouhal in acceptance_metrics determine PASS/FAIL. Explicit CL_RMS values remain diagnostic references; lift amplitude/extrema are never converted. See literature/README.md.",
+        "inclusion_policy": "Every row in the selected stationary single-cylinder 2D Re=100 table contributes mean_CD and St. Paper names identify references in reports.",
         "acceptance_metrics": list(ACCEPTANCE_METRICS),
-        "database_study_count": len(study_ids),
-        "database_configuration_count": len(configuration_ids),
-        "verified_numeric_configuration_count": len({source for entries in observed.values() for _, source, _ in entries}),
-        "policy_version": "selected_seven_drag_strouhal_v2",
+        "database_study_count": len(papers),
+        "database_configuration_count": len(papers),
+        "verified_numeric_configuration_count": len(papers),
+        "policy_version": "selected_papers_drag_strouhal_v3",
         "observed_ranges": {metric: bounds(entries) for metric, entries in observed.items()},
         "eligible_ranges": ranges,
-        "excluded_acceptance": excluded_acceptance,
-        "excluded_non_rms_lift_source_ids": excluded_lift,
         "outside_percent_definition": "100 * abs(value - nearest_bound) / abs(nearest_bound) when outside; zero inside. Undefined if the nearest bound is zero.",
     }
     return ranges, metadata
