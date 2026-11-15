@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import asdict
 import json
 from pathlib import Path
 import sys
@@ -13,7 +14,7 @@ if __package__ in (None, ""):
 
 from run.case_config import CONFIG_PATH, ROOT, SIZE_FIELDS, case_name, resolve, validate
 from run.create_solver import create_solver
-from mesh.mesh_parameters import BOUNDARY_NAMES, Domain, MeshParameters
+from mesh.mesh_parameters import BOUNDARY_NAMES, MESH_OVERRIDE_FIELDS, Domain, MeshParameters
 from run.run_svMP import executable, final_step_reached, run_solver
 
 
@@ -28,10 +29,19 @@ def parser():
         limits = ", ".join(f"{value:g}" for value in base["geometry"][f"domain_{axis}"])
         p.add_argument(f"--domain-{axis}", nargs=2, type=float, metavar=bounds,
                        help=f"{axis.upper()} bounds in D. All presets: [{limits}].")
-    for field in (*SIZE_FIELDS, "distance_sampling"):
-        values = "; ".join(f"{name}={mesh[field]:g}" for name, mesh in base["presets"].items())
-        description = ("Wall-distance sampling points" if field == "distance_sampling"
-                       else "Custom mesh setting in D")
+    mesh_defaults = asdict(MeshParameters())
+    descriptions = {
+        "distance_sampling": "Wall-distance sampling points",
+        "vertical_size": "Enable a vertical refinement band with this target element size in D",
+        "vertical_half_width": "Vertical band half-width in D, measured from x=0",
+        "vertical_blend_width": "Vertical band transition width in D",
+    }
+    for field in MESH_OVERRIDE_FIELDS:
+        values = "; ".join(
+            f"{name}=" + ("off" if mesh.get(field, mesh_defaults[field]) is None
+                          else f"{mesh.get(field, mesh_defaults[field]):g}")
+            for name, mesh in base["presets"].items())
+        description = descriptions.get(field, "Custom mesh setting in D")
         p.add_argument("--" + field.replace("_", "-"),
                        type=int if field == "distance_sampling" else float, default=None,
                        help=f"{description}. Presets: {values}.")
@@ -75,7 +85,7 @@ def prepare(case_dir, config):
     generated = not all(path.is_file() for path in mesh_files)
     if generated:
         g = config["geometry"]
-        print(f"Generating mesh in {case_dir / 'mesh'}; see mesh/mesh_generation.log", flush=True)
+        print(f"Generating mesh in {case_dir / 'mesh'}", flush=True)
         generate(MeshParameters(**config["mesh"]), case_dir, Domain(*g["domain_x"], *g["domain_y"]))
     else:
         plot_mesh_figures(case_dir / "mesh")
@@ -90,7 +100,7 @@ def main(argv=None):
     p = parser()
     args = p.parse_args(argv)
     overrides = {name: getattr(args, name) for name in
-                 ("domain_x", "domain_y", *SIZE_FIELDS, "distance_sampling")}
+                 ("domain_x", "domain_y", *MESH_OVERRIDE_FIELDS)}
     ran_solver = False
     try:
         if args.np < 1:

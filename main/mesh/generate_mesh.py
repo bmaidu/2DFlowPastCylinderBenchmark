@@ -3,7 +3,7 @@
 
 Mesh is generated using a rectangle minus a unit cylinder with Gmsh Frontal-Delaunay triangles.
 
-Combine near-wall distance refinement with a graded wake size field, then
+Combine near-wall refinement with a graded wake and optional vertical band, then
 export the volume mesh and boundary edges as solver-ready vtu/vtp files.
 """
 
@@ -51,10 +51,13 @@ def centerline_knots(parameters: MeshParameters) -> list[tuple[float, float]]:
 
 
 def wake_size_expression(parameters: MeshParameters) -> str:
-    """Interpolate streamwise targets and smoothly blend into the transverse far field."""
+    """Blend the graded wake and optional vertical band into the far field."""
     knots = centerline_knots(parameters)
     along_x = f"{knots[0][1]:.8g}"
     for (x0, h0), (x1, h1) in zip(knots, knots[1:]):
+        # Keep the original expression exactly when vertical refinement is disabled.
+        if parameters.vertical_size is not None and h0 == h1:
+            continue
         fraction = f"max(0,min(1,((x)-({x0:.8g}))/({(x1 - x0):.8g})))"
         along_x = f"({along_x}+({(h1 - h0):.8g})*({fraction}))"
     band = (
@@ -62,7 +65,42 @@ def wake_size_expression(parameters: MeshParameters) -> str:
         f"/({parameters.wake_blend_width:.8g})))"
     )
     smooth = f"(({band})*({band})*(3-2*({band})))"
-    return f"(({along_x})*(1-({smooth}))+({parameters.far_size:.8g})*({smooth}))"
+    horizontal = f"(({along_x})*(1-({smooth}))+({parameters.far_size:.8g})*({smooth}))"
+    if parameters.vertical_size is None:
+        return horizontal
+    vertical_band = (
+        f"max(0,min(1,(abs(x)-({parameters.vertical_half_width:.8g}))"
+        f"/({parameters.vertical_blend_width:.8g})))"
+    )
+    vertical_smooth = f"(({vertical_band})*({vertical_band})*(3-2*({vertical_band})))"
+    vertical = (f"(({parameters.vertical_size:.8g})*(1-({vertical_smooth}))"
+                f"+({parameters.far_size:.8g})*({vertical_smooth}))")
+    return f"min(({horizontal}),({vertical}))"
+
+
+def refinement_bands(parameters: MeshParameters, domain: Domain) -> dict:
+    """Describe the active background refinement and its smooth transitions."""
+    knots = centerline_knots(parameters)
+    horizontal = {
+        "x": [domain.x_min, domain.x_max],
+        "y": [-parameters.wake_half_width, parameters.wake_half_width],
+        "blend_width_y": parameters.wake_blend_width,
+    }
+    if all(size == knots[0][1] for _, size in knots):
+        horizontal["target_size"] = knots[0][1]
+    else:
+        horizontal["centerline_knots"] = knots
+    bands = {"horizontal": horizontal}
+    if parameters.vertical_size is not None:
+        bands["vertical"] = {
+            "x": [-parameters.vertical_half_width, parameters.vertical_half_width],
+            "y": [domain.y_min, domain.y_max],
+            "target_size": parameters.vertical_size,
+            "blend_width_x": parameters.vertical_blend_width,
+        }
+    bands["overlap_rule"] = "smallest target size, including cylinder-wall refinement"
+    bands["far_field_target_size"] = parameters.far_size
+    return bands
 
 
 def _int32_array(values: np.ndarray, name: str):
@@ -478,50 +516,55 @@ def generate(parameters: MeshParameters, output_dir: Path, domain: Domain = Doma
     from .plot_mesh import plot_mesh_figures
 
     started = time.perf_counter()
-    with (mesh_dir / "mesh_generation.log").open("w") as log:
+    messages = []
+    try:
+        gmsh.initialize()
+        gmsh.option.setNumber("General.Terminal", 0)
+        gmsh.logger.start()
         try:
-            gmsh.initialize()
-            gmsh.option.setNumber("General.Terminal", 0)
-            gmsh.logger.start()
-            try:
-                surface, groups = build_geometry(domain)
-                fields = apply_size_field(parameters, groups["cylinder"])
-                configure_meshing(parameters)
-                gmsh.model.mesh.generate(2)
-                mesh = extract_mesh(surface, groups, domain)
-            finally:
-                messages = [message.replace(str(output_dir) + "/", "") for message in gmsh.logger.get()]
-                log.write("\n".join(messages) + "\n")
-                gmsh.logger.stop()
-                gmsh.finalize()
-            write_outputs(output_dir, mesh)
-            verify_written_files(output_dir, mesh)
-            figures = plot_mesh_figures(mesh_dir, mesh)
-            summary = {
-                "output_dir": ".",
-                "domain": asdict(domain),
-                "gmsh_version": gmsh.__version__,
-                "figures": figures,
-                "algorithm": {"id": MESH_ALGORITHM, "name": MESH_ALGORITHM_NAME},
-                "parameters": asdict(parameters),
-                **fields,
-                "nodes": len(mesh["coords"]),
-                "triangles": len(mesh["tris"]),
-                "exterior_edges": mesh["n_exterior"],
-                "boundary_edges": {name: len(edges) for name, edges in mesh["boundary"].items()},
-                "area": mesh["area"],
-                "analytical_area": domain.fluid_area,
-                "relative_area_error": mesh["relative_area_error"],
-                "gmsh_warnings_or_errors": [line for line in messages if "Warning" in line or "Error" in line],
-                "elapsed_seconds": time.perf_counter() - started,
-            }
-            (mesh_dir / "mesh_generation_report.json").write_text(json.dumps(summary, indent=2) + "\n")
-            log.write(f"Verified {summary['nodes']} nodes and {summary['triangles']} triangles.\n")
-            return summary
-        except Exception as error:
-            reason = str(error).replace(str(output_dir), ".")
-            log.write(f"Generation failed: {reason}\n")
-            raise
+            surface, groups = build_geometry(domain)
+            fields = apply_size_field(parameters, groups["cylinder"])
+            configure_meshing(parameters)
+            gmsh.model.mesh.generate(2)
+            mesh = extract_mesh(surface, groups, domain)
+        finally:
+            messages = [message.replace(str(output_dir) + "/", "") for message in gmsh.logger.get()]
+            gmsh.logger.stop()
+            gmsh.finalize()
+        write_outputs(output_dir, mesh)
+        verify_written_files(output_dir, mesh)
+        figures = plot_mesh_figures(mesh_dir, mesh)
+        summary = {
+            "output_dir": ".",
+            "domain": asdict(domain),
+            "gmsh_version": gmsh.__version__,
+            "figures": figures,
+            "algorithm": {"id": MESH_ALGORITHM, "name": MESH_ALGORITHM_NAME},
+            "parameters": asdict(parameters),
+            **fields,
+            "refinement_bands": refinement_bands(parameters, domain),
+            "nodes": len(mesh["coords"]),
+            "triangles": len(mesh["tris"]),
+            "exterior_edges": mesh["n_exterior"],
+            "boundary_edges": {name: len(edges) for name, edges in mesh["boundary"].items()},
+            "area": mesh["area"],
+            "analytical_area": domain.fluid_area,
+            "relative_area_error": mesh["relative_area_error"],
+            "gmsh_warnings_or_errors": [line for line in messages if "Warning" in line or "Error" in line],
+            "elapsed_seconds": time.perf_counter() - started,
+        }
+        (mesh_dir / "mesh_generation_report.json").write_text(json.dumps(summary, indent=2) + "\n")
+        return summary
+    except Exception as error:
+        reason = str(error).replace(str(output_dir), ".")
+        failure = {
+            "status": "failed", "error": reason,
+            "domain": asdict(domain), "parameters": asdict(parameters),
+            "gmsh_warnings_or_errors": [line for line in messages if "Warning" in line or "Error" in line],
+            "elapsed_seconds": time.perf_counter() - started,
+        }
+        (mesh_dir / "mesh_generation_report.json").write_text(json.dumps(failure, indent=2) + "\n")
+        raise
 
 
 if __name__ == "__main__":

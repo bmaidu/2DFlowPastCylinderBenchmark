@@ -4,63 +4,13 @@
   "metrics": [
     {
       "metric": "mean_CD",
-      "value": 1.3720038889324473,
-      "lower": 1.3,
-      "upper": 1.3917,
-      "status": "within_literature_range",
-      "passed": true,
-      "observed_lower": 1.297,
-      "observed_upper": 1.477,
-      "reference_study_count": 11,
-      "reference_configuration_count": 37,
-      "direction": "within",
-      "nearest_bound": null,
-      "outside_absolute": 0.0,
-      "outside_percent": 0.0,
-      "message": "PASS: Within eligible literature range.",
-      "source_ids": "qu2013_d1;qu2013_d2;qu2013_d3;qu2013_d4;qu2013_d5;qu2013_d6;qu2013_d7;qu2013_d8;qu2013_d9;qu2013_table3;qu2013_d11;park1998;stalberg2006;meneghini2001;alam2017_table2;alam2017_n82000_dt0p01;alam2017_n110000_dt0p01;alam2017_n69000_dt0p005;alam2017_dt005;alam2017_n110000_dt0p005;alam2017_n69000_dt0p001;alam2017_n82000_dt0p001;alam2017_n110000_dt0p001;kang2021_re100;behr1995_m240_vp;behr1995_m240_vps;behr1995_m320_vp;behr1995_m320_vps;deng2019_bare;kamensky2015_m1_tau100;kamensky2015_m1_tau1000;kamensky2015_m2_tau100;kamensky2015_m2_tau1000;kamensky2015_boundary_fitted;tumkur2013_fixed;tsetoglou2025_bf;tsetoglou2025_vos50",
-      "lower_source_ids": "tsetoglou2025_vos50",
-      "upper_source_ids": "behr1995_m240_vps"
-    },
-    {
-      "metric": "CL_rms",
-      "value": 0.23034447814874787,
-      "lower": 0.215,
-      "upper": 0.237,
-      "status": "within_literature_range",
-      "passed": true,
-      "observed_lower": 0.2031,
-      "observed_upper": 0.237,
-      "reference_study_count": 2,
-      "reference_configuration_count": 4,
-      "direction": "within",
-      "nearest_bound": null,
-      "outside_absolute": 0.0,
-      "outside_percent": 0.0,
-      "message": "PASS: Within eligible literature range.",
-      "source_ids": "qu2013_d9;qu2013_table3;tsetoglou2025_bf;tsetoglou2025_vos50",
-      "lower_source_ids": "tsetoglou2025_vos50",
-      "upper_source_ids": "tsetoglou2025_bf"
+      "value": 1.3720038856169556,
+      "status": "within_literature_range"
     },
     {
       "metric": "strouhal",
       "value": 0.16666666666681826,
-      "lower": 0.162,
-      "upper": 0.171,
-      "status": "within_literature_range",
-      "passed": true,
-      "observed_lower": 0.157,
-      "observed_upper": 0.178,
-      "reference_study_count": 13,
-      "reference_configuration_count": 46,
-      "direction": "within",
-      "nearest_bound": null,
-      "outside_absolute": 0.0,
-      "outside_percent": 0.0,
-      "message": "PASS: Within eligible literature range.",
-      "source_ids": "qu2013_d1;qu2013_d2;qu2013_d3;qu2013_d4;qu2013_d5;qu2013_d6;qu2013_d7;qu2013_d8;qu2013_d9;qu2013_table3;qu2013_d11;kravchenko1998_case4;kravchenko1998_case5;kravchenko1998_case6;kravchenko1998_case7;kravchenko1998_case8;kravchenko1998;meneghini2001;alam2017_table2;alam2017_n82000_dt0p01;alam2017_n110000_dt0p01;alam2017_n69000_dt0p005;alam2017_dt005;alam2017_n110000_dt0p005;alam2017_n69000_dt0p001;alam2017_n82000_dt0p001;alam2017_n110000_dt0p001;kang2021_re100;behr1995_m240_vp;behr1995_m240_vps;behr1995_m320_vp;behr1995_m320_vps;deng2019_bare;mittal_tezduyar1992_fixed;shim2021_cfd;shim2021_fsi_fixed;shim2021_bfsi_fixed;kamensky2015_m1_tau100;kamensky2015_m1_tau1000;kamensky2015_m2_tau100;kamensky2015_m2_tau1000;kamensky2015_boundary_fitted;tumkur2013_fixed;singh_mittal2005_drag_re100;tsetoglou2025_bf;tsetoglou2025_vos50",
-      "lower_source_ids": "kravchenko1998_case4",
-      "upper_source_ids": "shim2021_cfd;shim2021_fsi_fixed;shim2021_bfsi_fixed;kamensky2015_m1_tau1000;tsetoglou2025_vos50"
+      "status": "within_literature_range"
     }
   ],
   "quality": {
@@ -69,417 +19,6 @@
   },
   "case_type": "preset",
   "preset": "coarse",
-  "literature_comparison": {
-    "method": "inclusive minimum/maximum of verified, eligible Re=100 reference configurations",
-    "source_file": "literature/reference_values.csv",
-    "inclusion_policy": "Primary-verified stationary single-cylinder 2D Re=100 entries; metric-specific acceptance_metrics and eligibility_reason in CSV. CL_RMS must be explicitly reported as RMS; lift amplitude/extrema are never converted. See literature/README.md.",
-    "database_study_count": 16,
-    "database_configuration_count": 72,
-    "verified_numeric_configuration_count": 71,
-    "policy_version": "verified_configurations_v1",
-    "observed_ranges": {
-      "mean_CD": {
-        "lower": 1.297,
-        "upper": 1.477,
-        "source_ids": "qu2013_d1;qu2013_d2;qu2013_d3;qu2013_d4;qu2013_d5;qu2013_d6;qu2013_d7;qu2013_d8;qu2013_d9;qu2013_table3;qu2013_d11;park1998;stalberg2006;meneghini2001;alam2017_n40000_dt0p05;alam2017_n47000_dt0p05;alam2017_n69000_dt0p05;alam2017_n82000_dt0p05;alam2017_n110000_dt0p05;alam2017_n40000_dt0p01;alam2017_n47000_dt0p01;alam2017_table2;alam2017_n82000_dt0p01;alam2017_n110000_dt0p01;alam2017_n40000_dt0p005;alam2017_n47000_dt0p005;alam2017_n69000_dt0p005;alam2017_dt005;alam2017_n110000_dt0p005;alam2017_n40000_dt0p001;alam2017_n47000_dt0p001;alam2017_n69000_dt0p001;alam2017_n82000_dt0p001;alam2017_n110000_dt0p001;kang2021_re100;behr1995_m090_vp;behr1995_m090_vps;behr1995_m125_vp;behr1995_m125_vps;behr1995_m160_vp;behr1995_m160_vps;behr1995_m240_vp;behr1995_m240_vps;behr1995_m320_vp;behr1995_m320_vps;deng2019_bare;kamensky2015_m1_tau100;kamensky2015_m1_tau1000;kamensky2015_m2_tau100;kamensky2015_m2_tau1000;kamensky2015_boundary_fitted;kamensky2015_m2_l0;tumkur2013_fixed;tsetoglou2025_bf;tsetoglou2025_vos50;tsetoglou2025_vos25;tsetoglou2025_vos10",
-        "lower_source_ids": "tsetoglou2025_vos25",
-        "upper_source_ids": "kamensky2015_m2_l0",
-        "configuration_count": 57,
-        "study_ids": [
-          "alam2017",
-          "behr1995",
-          "deng2019",
-          "kamensky2015",
-          "kang2021",
-          "meneghini2001",
-          "park1998",
-          "qu2013",
-          "stalberg2006",
-          "tsetoglou2025",
-          "tumkur2013"
-        ],
-        "study_count": 11
-      },
-      "CL_rms": {
-        "lower": 0.2031,
-        "upper": 0.237,
-        "source_ids": "qu2013_d1;qu2013_d2;qu2013_d3;qu2013_d4;qu2013_d5;qu2013_d6;qu2013_d7;qu2013_d8;qu2013_d9;qu2013_table3;qu2013_d11;tsetoglou2025_bf;tsetoglou2025_vos50;tsetoglou2025_vos25;tsetoglou2025_vos10",
-        "lower_source_ids": "qu2013_d11",
-        "upper_source_ids": "tsetoglou2025_bf",
-        "configuration_count": 15,
-        "study_ids": [
-          "qu2013",
-          "tsetoglou2025"
-        ],
-        "study_count": 2
-      },
-      "strouhal": {
-        "lower": 0.157,
-        "upper": 0.178,
-        "source_ids": "qu2013_d1;qu2013_d2;qu2013_d3;qu2013_d4;qu2013_d5;qu2013_d6;qu2013_d7;qu2013_d8;qu2013_d9;qu2013_table3;qu2013_d11;kravchenko1998_case1;kravchenko1998_case2;kravchenko1998_case3;kravchenko1998_case4;kravchenko1998_case5;kravchenko1998_case6;kravchenko1998_case7;kravchenko1998_case8;kravchenko1998;meneghini2001;alam2017_n40000_dt0p05;alam2017_n47000_dt0p05;alam2017_n69000_dt0p05;alam2017_n82000_dt0p05;alam2017_n110000_dt0p05;alam2017_n40000_dt0p01;alam2017_n47000_dt0p01;alam2017_table2;alam2017_n82000_dt0p01;alam2017_n110000_dt0p01;alam2017_n40000_dt0p005;alam2017_n47000_dt0p005;alam2017_n69000_dt0p005;alam2017_dt005;alam2017_n110000_dt0p005;alam2017_n40000_dt0p001;alam2017_n47000_dt0p001;alam2017_n69000_dt0p001;alam2017_n82000_dt0p001;alam2017_n110000_dt0p001;kang2021_re100;behr1995_m090_vp;behr1995_m090_vps;behr1995_m125_vp;behr1995_m125_vps;behr1995_m160_vp;behr1995_m160_vps;behr1995_m240_vp;behr1995_m240_vps;behr1995_m320_vp;behr1995_m320_vps;deng2019_bare;mittal_tezduyar1992_fixed;shim2021_cfd;shim2021_fsi_fixed;shim2021_bfsi_fixed;kamensky2015_m1_tau100;kamensky2015_m1_tau1000;kamensky2015_m2_tau100;kamensky2015_m2_tau1000;kamensky2015_boundary_fitted;kamensky2015_m2_l0;tumkur2013_fixed;singh_mittal2005_drag_re100;tsetoglou2025_bf;tsetoglou2025_vos50;tsetoglou2025_vos25;tsetoglou2025_vos10",
-        "lower_source_ids": "alam2017_n82000_dt0p05;alam2017_n110000_dt0p05",
-        "upper_source_ids": "tsetoglou2025_vos10",
-        "configuration_count": 69,
-        "study_ids": [
-          "alam2017",
-          "behr1995",
-          "deng2019",
-          "kamensky2015",
-          "kang2021",
-          "kravchenko1998",
-          "meneghini2001",
-          "mittal_tezduyar1992",
-          "qu2013",
-          "shim2021",
-          "singh_mittal2005_drag",
-          "tsetoglou2025",
-          "tumkur2013"
-        ],
-        "study_count": 13
-      }
-    },
-    "eligible_ranges": {
-      "mean_CD": {
-        "lower": 1.3,
-        "upper": 1.3917,
-        "source_ids": "qu2013_d1;qu2013_d2;qu2013_d3;qu2013_d4;qu2013_d5;qu2013_d6;qu2013_d7;qu2013_d8;qu2013_d9;qu2013_table3;qu2013_d11;park1998;stalberg2006;meneghini2001;alam2017_table2;alam2017_n82000_dt0p01;alam2017_n110000_dt0p01;alam2017_n69000_dt0p005;alam2017_dt005;alam2017_n110000_dt0p005;alam2017_n69000_dt0p001;alam2017_n82000_dt0p001;alam2017_n110000_dt0p001;kang2021_re100;behr1995_m240_vp;behr1995_m240_vps;behr1995_m320_vp;behr1995_m320_vps;deng2019_bare;kamensky2015_m1_tau100;kamensky2015_m1_tau1000;kamensky2015_m2_tau100;kamensky2015_m2_tau1000;kamensky2015_boundary_fitted;tumkur2013_fixed;tsetoglou2025_bf;tsetoglou2025_vos50",
-        "lower_source_ids": "tsetoglou2025_vos50",
-        "upper_source_ids": "behr1995_m240_vps",
-        "configuration_count": 37,
-        "study_ids": [
-          "alam2017",
-          "behr1995",
-          "deng2019",
-          "kamensky2015",
-          "kang2021",
-          "meneghini2001",
-          "park1998",
-          "qu2013",
-          "stalberg2006",
-          "tsetoglou2025",
-          "tumkur2013"
-        ],
-        "study_count": 11
-      },
-      "CL_rms": {
-        "lower": 0.215,
-        "upper": 0.237,
-        "source_ids": "qu2013_d9;qu2013_table3;tsetoglou2025_bf;tsetoglou2025_vos50",
-        "lower_source_ids": "tsetoglou2025_vos50",
-        "upper_source_ids": "tsetoglou2025_bf",
-        "configuration_count": 4,
-        "study_ids": [
-          "qu2013",
-          "tsetoglou2025"
-        ],
-        "study_count": 2
-      },
-      "strouhal": {
-        "lower": 0.162,
-        "upper": 0.171,
-        "source_ids": "qu2013_d1;qu2013_d2;qu2013_d3;qu2013_d4;qu2013_d5;qu2013_d6;qu2013_d7;qu2013_d8;qu2013_d9;qu2013_table3;qu2013_d11;kravchenko1998_case4;kravchenko1998_case5;kravchenko1998_case6;kravchenko1998_case7;kravchenko1998_case8;kravchenko1998;meneghini2001;alam2017_table2;alam2017_n82000_dt0p01;alam2017_n110000_dt0p01;alam2017_n69000_dt0p005;alam2017_dt005;alam2017_n110000_dt0p005;alam2017_n69000_dt0p001;alam2017_n82000_dt0p001;alam2017_n110000_dt0p001;kang2021_re100;behr1995_m240_vp;behr1995_m240_vps;behr1995_m320_vp;behr1995_m320_vps;deng2019_bare;mittal_tezduyar1992_fixed;shim2021_cfd;shim2021_fsi_fixed;shim2021_bfsi_fixed;kamensky2015_m1_tau100;kamensky2015_m1_tau1000;kamensky2015_m2_tau100;kamensky2015_m2_tau1000;kamensky2015_boundary_fitted;tumkur2013_fixed;singh_mittal2005_drag_re100;tsetoglou2025_bf;tsetoglou2025_vos50",
-        "lower_source_ids": "kravchenko1998_case4",
-        "upper_source_ids": "shim2021_cfd;shim2021_fsi_fixed;shim2021_bfsi_fixed;kamensky2015_m1_tau1000;tsetoglou2025_vos50",
-        "configuration_count": 46,
-        "study_ids": [
-          "alam2017",
-          "behr1995",
-          "deng2019",
-          "kamensky2015",
-          "kang2021",
-          "kravchenko1998",
-          "meneghini2001",
-          "mittal_tezduyar1992",
-          "qu2013",
-          "shim2021",
-          "singh_mittal2005_drag",
-          "tsetoglou2025",
-          "tumkur2013"
-        ],
-        "study_count": 13
-      }
-    },
-    "excluded_acceptance": {
-      "mean_CD": [
-        {
-          "source_id": "alam2017_n40000_dt0p05",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "alam2017_n47000_dt0p05",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "alam2017_n69000_dt0p05",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "alam2017_n82000_dt0p05",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "alam2017_n110000_dt0p05",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "alam2017_n40000_dt0p01",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "alam2017_n47000_dt0p01",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "alam2017_n40000_dt0p005",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "alam2017_n47000_dt0p005",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "alam2017_n40000_dt0p001",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "alam2017_n47000_dt0p001",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "behr1995_m090_vp",
-          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
-        },
-        {
-          "source_id": "behr1995_m090_vps",
-          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
-        },
-        {
-          "source_id": "behr1995_m125_vp",
-          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
-        },
-        {
-          "source_id": "behr1995_m125_vps",
-          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
-        },
-        {
-          "source_id": "behr1995_m160_vp",
-          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
-        },
-        {
-          "source_id": "behr1995_m160_vps",
-          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
-        },
-        {
-          "source_id": "kamensky2015_m2_l0",
-          "reason": "Fixed-cylinder Section 3.4. Adaptive l=3 and boundary-fitted reference eligible. l=0 explicitly demonstrates under-integration error (discussion after Table 4), so observed only."
-        },
-        {
-          "source_id": "tsetoglou2025_vos25",
-          "reason": "Stationary-cylinder validation. Accept body-fitted reference and selected finest D/dx=50 VOS-IVP. Section 3.2.2 coarsenings are observed only: frequency and no-slip error depend on grid spacing."
-        },
-        {
-          "source_id": "tsetoglou2025_vos10",
-          "reason": "Stationary-cylinder validation. Accept body-fitted reference and selected finest D/dx=50 VOS-IVP. Section 3.2.2 coarsenings are observed only: frequency and no-slip error depend on grid spacing."
-        }
-      ],
-      "CL_rms": [
-        {
-          "source_id": "qu2013_d1",
-          "reason": "Sections 4.1.1-4.1.3: mean drag/St change little across the tabulated tests; all retained for those metrics. Lift RMS acceptance uses only D9/D10, the time-resolved reference and selected production time step; larger time steps measurably damp lift RMS."
-        },
-        {
-          "source_id": "qu2013_d2",
-          "reason": "Sections 4.1.1-4.1.3: mean drag/St change little across the tabulated tests; all retained for those metrics. Lift RMS acceptance uses only D9/D10, the time-resolved reference and selected production time step; larger time steps measurably damp lift RMS."
-        },
-        {
-          "source_id": "qu2013_d3",
-          "reason": "Sections 4.1.1-4.1.3: mean drag/St change little across the tabulated tests; all retained for those metrics. Lift RMS acceptance uses only D9/D10, the time-resolved reference and selected production time step; larger time steps measurably damp lift RMS."
-        },
-        {
-          "source_id": "qu2013_d4",
-          "reason": "Sections 4.1.1-4.1.3: mean drag/St change little across the tabulated tests; all retained for those metrics. Lift RMS acceptance uses only D9/D10, the time-resolved reference and selected production time step; larger time steps measurably damp lift RMS."
-        },
-        {
-          "source_id": "qu2013_d5",
-          "reason": "Sections 4.1.1-4.1.3: mean drag/St change little across the tabulated tests; all retained for those metrics. Lift RMS acceptance uses only D9/D10, the time-resolved reference and selected production time step; larger time steps measurably damp lift RMS."
-        },
-        {
-          "source_id": "qu2013_d6",
-          "reason": "Sections 4.1.1-4.1.3: mean drag/St change little across the tabulated tests; all retained for those metrics. Lift RMS acceptance uses only D9/D10, the time-resolved reference and selected production time step; larger time steps measurably damp lift RMS."
-        },
-        {
-          "source_id": "qu2013_d7",
-          "reason": "Sections 4.1.1-4.1.3: mean drag/St change little across the tabulated tests; all retained for those metrics. Lift RMS acceptance uses only D9/D10, the time-resolved reference and selected production time step; larger time steps measurably damp lift RMS."
-        },
-        {
-          "source_id": "qu2013_d8",
-          "reason": "Sections 4.1.1-4.1.3: mean drag/St change little across the tabulated tests; all retained for those metrics. Lift RMS acceptance uses only D9/D10, the time-resolved reference and selected production time step; larger time steps measurably damp lift RMS."
-        },
-        {
-          "source_id": "qu2013_d11",
-          "reason": "Sections 4.1.1-4.1.3: mean drag/St change little across the tabulated tests; all retained for those metrics. Lift RMS acceptance uses only D9/D10, the time-resolved reference and selected production time step; larger time steps measurably damp lift RMS."
-        },
-        {
-          "source_id": "tsetoglou2025_vos25",
-          "reason": "Stationary-cylinder validation. Accept body-fitted reference and selected finest D/dx=50 VOS-IVP. Section 3.2.2 coarsenings are observed only: frequency and no-slip error depend on grid spacing."
-        },
-        {
-          "source_id": "tsetoglou2025_vos10",
-          "reason": "Stationary-cylinder validation. Accept body-fitted reference and selected finest D/dx=50 VOS-IVP. Section 3.2.2 coarsenings are observed only: frequency and no-slip error depend on grid spacing."
-        }
-      ],
-      "strouhal": [
-        {
-          "source_id": "kravchenko1998_case1",
-          "reason": "Printed p.66 identifies frequency/domain independence for Rd>=60. Smaller domains remain observed only. Drag table is labelled maximum drag, so no exact mean drag is assigned."
-        },
-        {
-          "source_id": "kravchenko1998_case2",
-          "reason": "Printed p.66 identifies frequency/domain independence for Rd>=60. Smaller domains remain observed only. Drag table is labelled maximum drag, so no exact mean drag is assigned."
-        },
-        {
-          "source_id": "kravchenko1998_case3",
-          "reason": "Printed p.66 identifies frequency/domain independence for Rd>=60. Smaller domains remain observed only. Drag table is labelled maximum drag, so no exact mean drag is assigned."
-        },
-        {
-          "source_id": "alam2017_n40000_dt0p05",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "alam2017_n47000_dt0p05",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "alam2017_n69000_dt0p05",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "alam2017_n82000_dt0p05",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "alam2017_n110000_dt0p05",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "alam2017_n40000_dt0p01",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "alam2017_n47000_dt0p01",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "alam2017_n40000_dt0p005",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "alam2017_n47000_dt0p005",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "alam2017_n40000_dt0p001",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "alam2017_n47000_dt0p001",
-          "reason": "Section 2.2 selects Nn=69000, dt=.01 as adequate; acceptance includes that configuration and mesh/time refinements (Nn>=69000 and dt<=.01). Remaining sensitivity points observed only."
-        },
-        {
-          "source_id": "behr1995_m090_vp",
-          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
-        },
-        {
-          "source_id": "behr1995_m090_vps",
-          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
-        },
-        {
-          "source_id": "behr1995_m125_vp",
-          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
-        },
-        {
-          "source_id": "behr1995_m125_vps",
-          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
-        },
-        {
-          "source_id": "behr1995_m160_vp",
-          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
-        },
-        {
-          "source_id": "behr1995_m160_vps",
-          "reason": "Tables 2-4 and conclusions identify domain-insensitive plateau beyond A=16; accept M240/M320 for both formulations. M090/M125/M160 quantify residual lateral-confinement effects."
-        },
-        {
-          "source_id": "kamensky2015_m2_l0",
-          "reason": "Fixed-cylinder Section 3.4. Adaptive l=3 and boundary-fitted reference eligible. l=0 explicitly demonstrates under-integration error (discussion after Table 4), so observed only."
-        },
-        {
-          "source_id": "tsetoglou2025_vos25",
-          "reason": "Stationary-cylinder validation. Accept body-fitted reference and selected finest D/dx=50 VOS-IVP. Section 3.2.2 coarsenings are observed only: frequency and no-slip error depend on grid spacing."
-        },
-        {
-          "source_id": "tsetoglou2025_vos10",
-          "reason": "Stationary-cylinder validation. Accept body-fitted reference and selected finest D/dx=50 VOS-IVP. Section 3.2.2 coarsenings are observed only: frequency and no-slip error depend on grid spacing."
-        }
-      ]
-    },
-    "excluded_non_rms_lift_source_ids": [
-      "park1998",
-      "stalberg2006",
-      "kravchenko1998_case1",
-      "kravchenko1998_case2",
-      "kravchenko1998_case3",
-      "kravchenko1998_case4",
-      "kravchenko1998_case5",
-      "kravchenko1998_case6",
-      "kravchenko1998_case7",
-      "kravchenko1998_case8",
-      "kravchenko1998",
-      "alam2017_n40000_dt0p05",
-      "alam2017_n47000_dt0p05",
-      "alam2017_n69000_dt0p05",
-      "alam2017_n82000_dt0p05",
-      "alam2017_n110000_dt0p05",
-      "alam2017_n40000_dt0p01",
-      "alam2017_n47000_dt0p01",
-      "alam2017_table2",
-      "alam2017_n82000_dt0p01",
-      "alam2017_n110000_dt0p01",
-      "alam2017_n40000_dt0p005",
-      "alam2017_n47000_dt0p005",
-      "alam2017_n69000_dt0p005",
-      "alam2017_dt005",
-      "alam2017_n110000_dt0p005",
-      "alam2017_n40000_dt0p001",
-      "alam2017_n47000_dt0p001",
-      "alam2017_n69000_dt0p001",
-      "alam2017_n82000_dt0p001",
-      "alam2017_n110000_dt0p001",
-      "kang2021_re100",
-      "behr1995_m090_vp",
-      "behr1995_m090_vps",
-      "behr1995_m125_vp",
-      "behr1995_m125_vps",
-      "behr1995_m160_vp",
-      "behr1995_m160_vps",
-      "behr1995_m240_vp",
-      "behr1995_m240_vps",
-      "behr1995_m320_vp",
-      "behr1995_m320_vps",
-      "deng2019_bare",
-      "kamensky2015_m1_tau100",
-      "kamensky2015_m1_tau1000",
-      "kamensky2015_m2_tau100",
-      "kamensky2015_m2_tau1000",
-      "kamensky2015_boundary_fitted",
-      "kamensky2015_m2_l0",
-      "tumkur2013_fixed",
-      "singh_mittal2005_drag_re100"
-    ],
-    "outside_percent_definition": "100 * abs(value - nearest_bound) / abs(nearest_bound) when outside; zero inside. Undefined if the nearest bound is zero.",
-    "acceptance_rule": "lower <= value <= upper"
-  },
-  "note": "PASS requires run quality and membership in the inclusive eligible literature range. It is not a solver-baseline regression comparison or a mesh-convergence certificate.",
   "statistics": {
     "definition": "A complete cycle is the closed interval between consecutive qualified lift maxima that contains at least one qualified lift minimum. Samples after the last qualified maximum are not a complete cycle, and the simulation end time does not close a cycle by itself.",
     "integration": "trapezoidal",
@@ -491,9 +30,9 @@
     "t_start": 128.84999999995532,
     "t_end": 146.84999999993894,
     "status": "developed",
-    "mean_CD": 1.3720038889324473,
-    "mean_CL": -0.006228140399204049,
-    "CL_rms": 0.23034447814874787,
+    "mean_CD": 1.3720038856169556,
+    "mean_CL": -0.0062280463608500565,
+    "CL_rms": 0.23034447046933326,
     "mean_period": 5.999999999994543,
     "strouhal": 0.16666666666681826,
     "strouhal_is_benchmark": true,
@@ -501,159 +40,159 @@
     "period_stabilized": true,
     "drag_stabilized": true,
     "period_relative_range": 0.0,
-    "amplitude_relative_range": 8.008186226398757e-05,
-    "drag_relative_range": 5.621961537521799e-06,
+    "amplitude_relative_range": 8.193208692516401e-05,
+    "drag_relative_range": 5.663467114053085e-06,
     "reasons": [],
     "qualified_maxima": [
       {
         "time": 44.55000000000434,
-        "CL": 0.1574405507626932
+        "CL": 0.157443292270958
       },
       {
         "time": 50.800000000007536,
-        "CL": 0.22418239398474094
+        "CL": 0.22418662400299197
       },
       {
         "time": 56.90000000001066,
-        "CL": 0.2711276416646886
+        "CL": 0.27112899480503794
       },
       {
         "time": 62.95000000001375,
-        "CL": 0.2986739168713558
+        "CL": 0.2986741610063931
       },
       {
         "time": 68.95000000000978,
-        "CL": 0.3122864990720715
+        "CL": 0.31228706554356
       },
       {
         "time": 74.95000000000432,
-        "CL": 0.3173343905636494
+        "CL": 0.31733466221471746
       },
       {
         "time": 80.94999999999887,
-        "CL": 0.3184156147653716
+        "CL": 0.3184153274071881
       },
       {
         "time": 86.94999999999341,
-        "CL": 0.31852448251835574
+        "CL": 0.31852360138143593
       },
       {
         "time": 92.899999999988,
-        "CL": 0.31852587689510276
+        "CL": 0.31852724463518167
       },
       {
         "time": 98.89999999998254,
-        "CL": 0.31863373256045713
+        "CL": 0.3186316815165779
       },
       {
         "time": 104.89999999997708,
-        "CL": 0.31869603314420386
+        "CL": 0.31869623211118076
       },
       {
         "time": 110.89999999997163,
-        "CL": 0.31876590526063736
+        "CL": 0.3187659681693287
       },
       {
         "time": 116.89999999996617,
-        "CL": 0.3188162534406445
+        "CL": 0.3188129336228044
       },
       {
         "time": 122.84999999996076,
-        "CL": 0.31885210826366533
+        "CL": 0.3188533625635509
       },
       {
         "time": 128.84999999995532,
-        "CL": 0.31894134154933224
+        "CL": 0.3189436354826082
       },
       {
         "time": 134.84999999994986,
-        "CL": 0.318977553131939
+        "CL": 0.31897761412416176
       },
       {
         "time": 140.8499999999444,
-        "CL": 0.3189647448949612
+        "CL": 0.31896420311310336
       },
       {
         "time": 146.84999999993894,
-        "CL": 0.3189050892138311
+        "CL": 0.3189039470785181
       }
     ],
     "qualified_minima": [
       {
         "time": 41.300000000002676,
-        "CL": -0.13300608665822064
+        "CL": -0.13300895852853897
       },
       {
         "time": 47.70000000000595,
-        "CL": -0.2056754371932629
+        "CL": -0.20567792537269075
       },
       {
         "time": 53.850000000009096,
-        "CL": -0.26291755639927744
+        "CL": -0.26291967332695887
       },
       {
-        "time": 59.95000000001222,
-        "CL": -0.30018695304149623
+        "time": 59.90000000001219,
+        "CL": -0.3001913477329008
       },
       {
         "time": 65.95000000001251,
-        "CL": -0.3203029944151997
+        "CL": -0.3203055873928638
       },
       {
         "time": 71.95000000000705,
-        "CL": -0.32845069531508164
+        "CL": -0.32845184071097167
       },
       {
         "time": 77.9500000000016,
-        "CL": -0.3307488583824646
+        "CL": -0.3307488371686147
       },
       {
         "time": 83.94999999999614,
-        "CL": -0.3313031490792082
+        "CL": -0.33130019979308245
       },
       {
         "time": 89.94999999999068,
-        "CL": -0.33140610296892725
+        "CL": -0.3314051807485825
       },
       {
         "time": 95.89999999998527,
-        "CL": -0.3314555457116476
+        "CL": -0.33145657947724244
       },
       {
         "time": 101.89999999997981,
-        "CL": -0.3315195758779923
+        "CL": -0.33152227233267617
       },
       {
         "time": 107.89999999997436,
-        "CL": -0.33159166310391275
+        "CL": -0.3315907592978789
       },
       {
         "time": 113.8999999999689,
-        "CL": -0.33165903576856215
+        "CL": -0.3316608136861431
       },
       {
         "time": 119.89999999996344,
-        "CL": -0.33167534108155106
+        "CL": -0.331674029591528
       },
       {
         "time": 125.84999999995803,
-        "CL": -0.3317759333462145
+        "CL": -0.331776848304856
       },
       {
         "time": 131.8499999999526,
-        "CL": -0.3318364163751774
+        "CL": -0.3318367342450542
       },
       {
         "time": 137.84999999994713,
-        "CL": -0.33183959873670066
+        "CL": -0.3318393271323528
       },
       {
         "time": 143.84999999994167,
-        "CL": -0.3318002898003267
+        "CL": -0.3317994168802621
       },
       {
         "time": 149.79999999993626,
-        "CL": -0.3317362397810705
+        "CL": -0.3317375929533027
       }
     ],
     "detected_cycles": [
@@ -663,9 +202,9 @@
         "t_start": 44.55000000000434,
         "t_end": 50.800000000007536,
         "period": 6.250000000003197,
-        "mean_CD": 1.2974806740013352,
-        "mean_CL": -0.007382162918814877,
-        "lift_amplitude": 0.2149289155890019,
+        "mean_CD": 1.2974832148703141,
+        "mean_CL": -0.00738029338807522,
+        "lift_amplitude": 0.21493227468784137,
         "selected": false
       },
       {
@@ -674,9 +213,9 @@
         "t_start": 50.800000000007536,
         "t_end": 56.90000000001066,
         "period": 6.100000000003121,
-        "mean_CD": 1.3318176236949788,
-        "mean_CL": -0.007732707914831189,
-        "lift_amplitude": 0.267022599031983,
+        "mean_CD": 1.3318192285605204,
+        "mean_CL": -0.007731248690342989,
+        "lift_amplitude": 0.2670243340659984,
         "selected": false
       },
       {
@@ -685,9 +224,9 @@
         "t_start": 56.90000000001066,
         "t_end": 62.95000000001375,
         "period": 6.050000000003095,
-        "mean_CD": 1.3519647113208921,
-        "mean_CL": -0.0073350697817468535,
-        "lift_amplitude": 0.299430434956426,
+        "mean_CD": 1.351965572259746,
+        "mean_CL": -0.007335170345714983,
+        "lift_amplitude": 0.29943275436964695,
         "selected": false
       },
       {
@@ -696,9 +235,9 @@
         "t_start": 62.95000000001375,
         "t_end": 68.95000000000978,
         "period": 5.999999999996028,
-        "mean_CD": 1.3632670307263257,
-        "mean_CL": -0.00827980255592756,
-        "lift_amplitude": 0.3162947467436356,
+        "mean_CD": 1.3632675158516783,
+        "mean_CL": -0.008279519626418987,
+        "lift_amplitude": 0.31629632646821193,
         "selected": false
       },
       {
@@ -707,9 +246,9 @@
         "t_start": 68.95000000000978,
         "t_end": 74.95000000000432,
         "period": 5.999999999994543,
-        "mean_CD": 1.3688050682972976,
-        "mean_CL": -0.007003321710036394,
-        "lift_amplitude": 0.32289254293936553,
+        "mean_CD": 1.3688053133568234,
+        "mean_CL": -0.007003117309244534,
+        "lift_amplitude": 0.32289325146284453,
         "selected": false
       },
       {
@@ -718,9 +257,9 @@
         "t_start": 74.95000000000432,
         "t_end": 80.94999999999887,
         "period": 5.999999999994543,
-        "mean_CD": 1.3711203927397502,
-        "mean_CL": -0.006295777347841619,
-        "lift_amplitude": 0.3245822365739181,
+        "mean_CD": 1.371120481049217,
+        "mean_CL": -0.006295706793105003,
+        "lift_amplitude": 0.3245820822879014,
         "selected": false
       },
       {
@@ -729,9 +268,9 @@
         "t_start": 80.94999999999887,
         "t_end": 86.94999999999341,
         "period": 5.999999999994543,
-        "mean_CD": 1.3717899707689751,
-        "mean_CL": -0.006222525344887797,
-        "lift_amplitude": 0.324913815798782,
+        "mean_CD": 1.3717899536868163,
+        "mean_CL": -0.0062225904155443984,
+        "lift_amplitude": 0.32491190058725916,
         "selected": false
       },
       {
@@ -740,9 +279,9 @@
         "t_start": 86.94999999999341,
         "t_end": 92.899999999988,
         "period": 5.9499999999945885,
-        "mean_CD": 1.3718701736139653,
-        "mean_CL": -0.008984753876545458,
-        "lift_amplitude": 0.324965989932015,
+        "mean_CD": 1.3718701898569805,
+        "mean_CL": -0.008984821862229887,
+        "lift_amplitude": 0.3249662126918821,
         "selected": false
       },
       {
@@ -751,9 +290,9 @@
         "t_start": 92.899999999988,
         "t_end": 98.89999999998254,
         "period": 5.999999999994543,
-        "mean_CD": 1.3719384361565716,
-        "mean_CL": -0.006243059784647295,
-        "lift_amplitude": 0.32504463913605236,
+        "mean_CD": 1.3719384315672298,
+        "mean_CL": -0.0062428120843404005,
+        "lift_amplitude": 0.32504413049691017,
         "selected": false
       },
       {
@@ -762,9 +301,9 @@
         "t_start": 98.89999999998254,
         "t_end": 104.89999999997708,
         "period": 5.999999999994543,
-        "mean_CD": 1.371943010553249,
-        "mean_CL": -0.00623042573836661,
-        "lift_amplitude": 0.3251078045110981,
+        "mean_CD": 1.3719429883838739,
+        "mean_CL": -0.006230288011689587,
+        "lift_amplitude": 0.32510925222192844,
         "selected": false
       },
       {
@@ -773,9 +312,9 @@
         "t_start": 104.89999999997708,
         "t_end": 110.89999999997163,
         "period": 5.999999999994543,
-        "mean_CD": 1.3719386190560365,
-        "mean_CL": -0.006232473730567437,
-        "lift_amplitude": 0.3251787841822751,
+        "mean_CD": 1.3719385590004687,
+        "mean_CL": -0.006232296741774963,
+        "lift_amplitude": 0.32517836373360376,
         "selected": false
       },
       {
@@ -784,9 +323,9 @@
         "t_start": 110.89999999997163,
         "t_end": 116.89999999996617,
         "period": 5.999999999994543,
-        "mean_CD": 1.3719457596431028,
-        "mean_CL": -0.006236656727668544,
-        "lift_amplitude": 0.32523764460460336,
+        "mean_CD": 1.3719457752342505,
+        "mean_CL": -0.006236753368824023,
+        "lift_amplitude": 0.32523687365447373,
         "selected": false
       },
       {
@@ -795,9 +334,9 @@
         "t_start": 116.89999999996617,
         "t_end": 122.84999999996076,
         "period": 5.9499999999945885,
-        "mean_CD": 1.371924813751238,
-        "mean_CL": -0.008965565639491357,
-        "lift_amplitude": 0.3252637246726082,
+        "mean_CD": 1.3719248097022052,
+        "mean_CL": -0.008965601020558572,
+        "lift_amplitude": 0.32526369607753947,
         "selected": false
       },
       {
@@ -806,9 +345,9 @@
         "t_start": 122.84999999996076,
         "t_end": 128.84999999995532,
         "period": 5.999999999994557,
-        "mean_CD": 1.3719859626723325,
-        "mean_CL": -0.0062321011772361315,
-        "lift_amplitude": 0.3253586374477734,
+        "mean_CD": 1.3719859787554842,
+        "mean_CL": -0.006231930432626346,
+        "lift_amplitude": 0.3253602418937321,
         "selected": false
       },
       {
@@ -817,9 +356,9 @@
         "t_start": 128.84999999995532,
         "t_end": 134.84999999994986,
         "period": 5.999999999994543,
-        "mean_CD": 1.371999372591238,
-        "mean_CL": -0.006228932641379335,
-        "lift_amplitude": 0.3254069847535582,
+        "mean_CD": 1.3719993460182929,
+        "mean_CL": -0.006228927835205193,
+        "lift_amplitude": 0.32540717418460796,
         "selected": true
       },
       {
@@ -828,9 +367,9 @@
         "t_start": 134.84999999994986,
         "t_end": 140.8499999999444,
         "period": 5.999999999994543,
-        "mean_CD": 1.3720052082617729,
-        "mean_CL": -0.00622791773620602,
-        "lift_amplitude": 0.3254085759343198,
+        "mean_CD": 1.3720051945153946,
+        "mean_CL": -0.006227877838953536,
+        "lift_amplitude": 0.3254084706282573,
         "selected": true
       },
       {
@@ -839,9 +378,9 @@
         "t_start": 140.8499999999444,
         "t_end": 146.84999999993894,
         "period": 5.999999999994543,
-        "mean_CD": 1.372007085944331,
-        "mean_CL": -0.0062275708200267696,
-        "lift_amplitude": 0.32538251734764395,
+        "mean_CD": 1.3720071163171794,
+        "mean_CL": -0.006227333408391449,
+        "lift_amplitude": 0.32538180999668276,
         "selected": true
       }
     ],
@@ -852,9 +391,9 @@
         "t_start": 128.84999999995532,
         "t_end": 134.84999999994986,
         "period": 5.999999999994543,
-        "mean_CD": 1.371999372591238,
-        "mean_CL": -0.006228932641379335,
-        "lift_amplitude": 0.3254069847535582,
+        "mean_CD": 1.3719993460182929,
+        "mean_CL": -0.006228927835205193,
+        "lift_amplitude": 0.32540717418460796,
         "selected": true
       },
       {
@@ -863,9 +402,9 @@
         "t_start": 134.84999999994986,
         "t_end": 140.8499999999444,
         "period": 5.999999999994543,
-        "mean_CD": 1.3720052082617729,
-        "mean_CL": -0.00622791773620602,
-        "lift_amplitude": 0.3254085759343198,
+        "mean_CD": 1.3720051945153946,
+        "mean_CL": -0.006227877838953536,
+        "lift_amplitude": 0.3254084706282573,
         "selected": true
       },
       {
@@ -874,9 +413,9 @@
         "t_start": 140.8499999999444,
         "t_end": 146.84999999993894,
         "period": 5.999999999994543,
-        "mean_CD": 1.372007085944331,
-        "mean_CL": -0.0062275708200267696,
-        "lift_amplitude": 0.32538251734764395,
+        "mean_CD": 1.3720071163171794,
+        "mean_CL": -0.006227333408391449,
+        "lift_amplitude": 0.32538180999668276,
         "selected": true
       }
     ],
@@ -885,16 +424,16 @@
       "min_separation": 2.0,
       "prominence_fraction": 0.25,
       "minimum_prominence": 0.01,
-      "prominence_used": 0.1618686948783209,
-      "excursion_scale": 0.6474747795132836,
+      "prominence_used": 0.1618688334376865,
+      "excursion_scale": 0.647475333750746,
       "max_period_relative_range": 0.05,
       "max_amplitude_relative_range": 0.1,
       "max_drag_relative_range": 0.02,
       "diameter": 1.0,
       "speed": 1.0
     },
-    "mean_CD_pressure": 1.0271263481038853,
-    "mean_CD_viscous": 0.3448775408285621
+    "mean_CD_pressure": 1.0271263443081873,
+    "mean_CD_viscous": 0.34487754130876835
   },
   "n_snapshots": 3000,
   "missing_steps": [],

@@ -1,0 +1,119 @@
+{
+  "output_dir": ".",
+  "domain": {
+    "x_min": -25.0,
+    "x_max": 45.0,
+    "y_min": -25.0,
+    "y_max": 25.0
+  },
+  "gmsh_version": "4.15.2",
+  "figures": [
+    "figures/full_domain.png",
+    "figures/near_cylinder.png",
+    "figures/near_middle_wake.png"
+  ],
+  "algorithm": {
+    "id": 6,
+    "name": "Frontal-Delaunay"
+  },
+  "parameters": {
+    "wall_size": 0.0055,
+    "near_wall_distance": 1.0,
+    "near_wall_outer_size": 0.08,
+    "far_upstream_size": 0.028,
+    "upstream_size": 0.028,
+    "approach_size": 0.028,
+    "initial_wake_size": 0.028,
+    "middle_wake_size": 0.028,
+    "extended_wake_size": 0.028,
+    "transition_size": 0.028,
+    "outlet_size": 0.028,
+    "wake_half_width": 3.0,
+    "wake_blend_width": 1.0,
+    "far_size": 0.175,
+    "algorithm": 6,
+    "distance_sampling": 960
+  },
+  "wake_expression": "min((((0.028)*(1-(((max(0,min(1,(abs(y)-(3))/(1))))*(max(0,min(1,(abs(y)-(3))/(1))))*(3-2*(max(0,min(1,(abs(y)-(3))/(1))))))))+(0.175)*(((max(0,min(1,(abs(y)-(3))/(1))))*(max(0,min(1,(abs(y)-(3))/(1))))*(3-2*(max(0,min(1,(abs(y)-(3))/(1))))))))),(((0.055)*(1-(((max(0,min(1,(abs(x)-(3))/(1))))*(max(0,min(1,(abs(x)-(3))/(1))))*(3-2*(max(0,min(1,(abs(x)-(3))/(1))))))))+(0.175)*(((max(0,min(1,(abs(x)-(3))/(1))))*(max(0,min(1,(abs(x)-(3))/(1))))*(3-2*(max(0,min(1,(abs(x)-(3))/(1))))))))))",
+  "centerline_knots": [
+    [
+      -15.0,
+      0.028
+    ],
+    [
+      -5.0,
+      0.028
+    ],
+    [
+      -2.0,
+      0.028
+    ],
+    [
+      0.5,
+      0.028
+    ],
+    [
+      5.0,
+      0.028
+    ],
+    [
+      10.0,
+      0.028
+    ],
+    [
+      15.0,
+      0.028
+    ],
+    [
+      20.0,
+      0.028
+    ],
+    [
+      25.0,
+      0.028
+    ]
+  ],
+  "refinement_bands": {
+    "horizontal": {
+      "x": [
+        -25.0,
+        45.0
+      ],
+      "y": [
+        -3.0,
+        3.0
+      ],
+      "target_size": 0.028,
+      "blend_width_y": 1.0
+    },
+    "vertical": {
+      "x": [
+        -3.0,
+        3.0
+      ],
+      "y": [
+        -25.0,
+        25.0
+      ],
+      "target_size": 0.055,
+      "blend_width_x": 1.0
+    },
+    "overlap_rule": "smallest target size, including cylinder-wall refinement",
+    "far_field_target_size": 0.175
+  },
+  "nodes": 891177,
+  "triangles": 1779855,
+  "exterior_edges": 2499,
+  "boundary_edges": {
+    "inlet": 483,
+    "outlet": 483,
+    "top": 484,
+    "bottom": 484,
+    "cylinder": 565
+  },
+  "area": 3499.214618024864,
+  "analytical_area": 3499.2146018366025,
+  "relative_area_error": 4.626255765049529e-09,
+  "gmsh_warnings_or_errors": [],
+  "elapsed_seconds": 39.16979829200136
+}

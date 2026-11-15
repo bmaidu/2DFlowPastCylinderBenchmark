@@ -2,7 +2,7 @@
 <svMultiPhysicsFile version="0.1">
 
   <GeneralSimulationParameters>
-    <Continue_previous_simulation> true </Continue_previous_simulation>
+    <Continue_previous_simulation> false </Continue_previous_simulation>
     <Number_of_spatial_dimensions> 2 </Number_of_spatial_dimensions>
     <Number_of_time_steps> 30000 </Number_of_time_steps>
     <Time_step_size> 0.005 </Time_step_size>

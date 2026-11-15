@@ -50,15 +50,22 @@ class MeshParameters:
     far_size: float = 0.70
     algorithm: int = MESH_ALGORITHM
     distance_sampling: int = 960
+    vertical_size: float | None = None
+    vertical_half_width: float = 3.0
+    vertical_blend_width: float = 1.0
 
     def __post_init__(self):
-        for name in SIZE_FIELDS:
+        for name in (*SIZE_FIELDS, *VERTICAL_FIELDS):
             value = getattr(self, name)
-            if not isinstance(value, (int, float)) or not math.isfinite(value) or value <= 0:
+            if name == "vertical_size" and value is None:
+                continue
+            if (isinstance(value, bool) or not isinstance(value, (int, float))
+                    or not math.isfinite(value) or value <= 0):
                 raise ValueError(f"{name} must be finite and positive.")
         if self.wall_size > self.near_wall_outer_size:
             raise ValueError("wall_size must not exceed near_wall_outer_size.")
-        if any(getattr(self, name) > self.far_size for name in SIZE_FIELDS if name.endswith("_size")):
+        if any(getattr(self, name) is not None and getattr(self, name) > self.far_size
+               for name in (*SIZE_FIELDS, *VERTICAL_FIELDS) if name.endswith("_size")):
             raise ValueError("Regional size targets must not exceed far_size (the global maximum).")
         if self.algorithm != MESH_ALGORITHM:
             raise ValueError("This benchmark uses Frontal-Delaunay (algorithm 6).")
@@ -66,5 +73,8 @@ class MeshParameters:
             raise ValueError("distance_sampling must be an integer >= 2.")
 
 
+VERTICAL_FIELDS = ("vertical_size", "vertical_half_width", "vertical_blend_width")
+# Retain the original numeric field list for callers using older preset dictionaries.
 SIZE_FIELDS = tuple(field.name for field in fields(MeshParameters)
-                    if field.name not in ("algorithm", "distance_sampling"))
+                    if field.name not in ("algorithm", "distance_sampling", *VERTICAL_FIELDS))
+MESH_OVERRIDE_FIELDS = (*SIZE_FIELDS, *VERTICAL_FIELDS, "distance_sampling")

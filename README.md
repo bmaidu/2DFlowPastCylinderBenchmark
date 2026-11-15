@@ -78,6 +78,32 @@ python main/run/run_case.py --config /path/to/custom.json
 
 Settings take precedence in this order: coarse defaults, custom JSON, then explicit command-line domain/mesh values.
 
+An optional vertical refinement band creates a cross with the existing horizontal wake band. Enable it with `--vertical-size`; `--vertical-half-width` sets its extent on either side of `x=0`, and `--vertical-blend-width` sets the smooth transition to the far field. All three values are in D. At overlaps, the smaller target size wins, including cylinder-wall refinement. Vertical refinement is off by default, so existing presets and older configurations retain their original mesh behavior. In JSON, use `vertical_size`, `vertical_half_width`, and `vertical_blend_width` under `mesh`; `vertical_size: null` disables the vertical band.
+
+Reproduce the cross-refined `custom_fine_70D_50D` mesh in a fresh output directory:
+
+```bash
+python3 main/run/run_case.py \
+  --case-name custom_fine_70D_50D \
+  --results-dir /private/tmp/cylinder-reproduction \
+  --domain-x -25 45 --domain-y -25 25 \
+  --wall-size 0.0055 \
+  --near-wall-distance 1 --near-wall-outer-size 0.08 \
+  --far-upstream-size 0.028 \
+  --upstream-size 0.028 --approach-size 0.028 \
+  --initial-wake-size 0.028 --middle-wake-size 0.028 \
+  --extended-wake-size 0.028 \
+  --transition-size 0.028 --outlet-size 0.028 \
+  --wake-half-width 3 --wake-blend-width 1 \
+  --vertical-size 0.055 \
+  --vertical-half-width 3 --vertical-blend-width 1 \
+  --far-size 0.175 --distance-sampling 960 \
+  --prepare-only
+```
+
+This case uses a 70D × 50D domain with horizontal and vertical target sizes of 0.028D and 0.055D, respectively. Mesh reports and newly saved case configurations include the vertical-band settings. Existing prepared cases continue to reuse their saved configuration and mesh; use an empty output directory to regenerate a mesh.
+
+
 Generate inputs without CFD, or postprocess saved results:
 
 ```bash
@@ -104,7 +130,7 @@ results/<case-directory>/
   solver.xml
   mesh/
     figures/
-  solver_output/             # .vtu, restart data, solver history
+  solver_output/             # .vtu and restart data
   figures/
   tables/
   summary.json
@@ -116,13 +142,16 @@ Paths below are relative to each case directory:
 | Output | Contents |
 |---|---|
 | `mesh/figures/` | Full-domain, near-cylinder, and near/middle-wake mesh views |
+| `mesh/mesh_generation_report.json` | Mesh parameters, verification results, and generation warnings or errors |
 | `figures/force_history.png` | Drag and lift histories with mean drag and lift coefficients, and Stouhal number |
 | `figures/ux_step_*.png`, `figures/pressure_step_*.png`, `figures/vorticity_step_*.png` | Flow fields visualization at final time step |
 | `tables/force_history.csv` | Drag and lift coefficients |
 | `tables/cycle_statistics.json` | Selected cycles, statistics, and stability checks |
-| `tables/metrics.csv` | literature bounds and other metrics |
-| `summary.json` | Combined metrics and run status |
+| `tables/metrics.csv` | Mean drag and St values with their literature comparison status |
+| `summary.json` | Simulation statistics, literature comparison status, and run-quality diagnostics |
 | `run.log` | Solver output, also printed live in the terminal |
+
+Literature PASS/FAIL uses mean drag and St, with inclusive ranges calculated from [literature/reference_values.csv](literature/reference_values.csv). Both comparisons and the run-quality checks must pass. Reports show comparison statuses; numerical bounds remain internal to validation. Solver iteration-history files are removed after successful runs; `run.log` retains the solver output.
 
 ## Validation
 

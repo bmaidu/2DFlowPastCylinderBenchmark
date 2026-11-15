@@ -62,4 +62,7 @@ def run_solver(case_dir, solver="svmultiphysics", mpi_exec="mpirun", np=8):
                 raise
             if returncode:
                 raise subprocess.CalledProcessError(returncode, command)
+    # Retain run.log; discard the solver's separate iteration history only after success.
+    for name in ("histor.dat", "history.dat"):
+        (output / name).unlink(missing_ok=True)
     return True

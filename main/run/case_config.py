@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+from dataclasses import asdict
 import json
 import math
 from pathlib import Path
@@ -63,7 +64,7 @@ def resolve(preset=None, overrides=None, config_file=None):
     result = {"schema_version": 1, "case_type": "custom" if custom else "preset",
               "preset": None if custom else selected,
               "geometry": copy.deepcopy(base["geometry"]),
-              "mesh": copy.deepcopy(base["presets"][selected]),
+              "mesh": asdict(MeshParameters(**base["presets"][selected])),
               "solver": copy.deepcopy(base["solver"]),
               "statistics": copy.deepcopy(base["statistics"]),
               "acceptance": copy.deepcopy(base["acceptance"])}
