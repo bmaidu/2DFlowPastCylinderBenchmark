@@ -152,12 +152,12 @@ Paths below are relative to each case directory:
 
 | Paper | Domain size (D) | $\overline{C_D}$ | $St$ | Numerical method |
 | --- | --- | --- | --- | --- |
-| [Tumkur et al. (2013)](https://doi.org/10.1016/j.jfluidstructs.2013.03.008) | 48 × 24 | 1.360 | 0.168 | RB-VMS FEM |
-| [Kang & Masud (2021)](https://doi.org/10.1007/s11012-020-01227-w) | 48 × 24 | 1.374 | 0.168 | Immersed-boundary VMS FEM |
-| [Kamensky et al. (2015)](https://doi.org/10.1016/j.cma.2014.10.040) | 40 × 20 | 1.381 | 0.171 | Immersogeometric VMS FEM |
-| [Behr et al. (1995)](https://doi.org/10.1016/0045-7825(94)00736-7) | 30.5 × 24 | 1.3721 | 0.1624 | Space-time FEM |
-| [Tsetoglou et al. (2025)](https://doi.org/10.1002/fld.5334) | 65 × 30 | 1.335 | 0.167 | Body-fitted FVM |
-| [Deng et al. (2019)](https://doi.org/10.1103/PhysRevE.100.053107) | 46 × 32 | 1.374 | 0.164 | Immersed-boundary FVM |
+| [Tumkur et al. (2013)](https://doi.org/10.1016/j.jfluidstructs.2013.03.008) | 48 × 24 | 1.360 | 0.168 | FEM |
+| [Kang & Masud (2021)](https://doi.org/10.1007/s11012-020-01227-w) | 48 × 24 | 1.374 | 0.168 | FEM |
+| [Kamensky et al. (2015)](https://doi.org/10.1016/j.cma.2014.10.040) | 40 × 20 | 1.381 | 0.171 | FEM |
+| [Behr et al. (1995)](https://doi.org/10.1016/0045-7825(94)00736-7) | 30.5 × 24 | 1.3721 | 0.1624 | FEM |
+| [Tsetoglou et al. (2025)](https://doi.org/10.1002/fld.5334) | 65 × 30 | 1.335 | 0.167 | FVM |
+| [Deng et al. (2019)](https://doi.org/10.1103/PhysRevE.100.053107) | 46 × 32 | 1.374 | 0.164 | FVM |
 | [Alam et al. (2017)](https://doi.org/10.1016/j.jfluidstructs.2017.01.014) | 35 × 20 | 1.372 | 0.165 | FVM |
 
 ## Wall time
