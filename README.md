@@ -159,3 +159,18 @@ Paths below are relative to each case directory:
 | [Tsetoglou et al. (2025)](https://doi.org/10.1002/fld.5334) | 65 × 30 | 1.335 | 0.167 | Body-fitted FVM |
 | [Deng et al. (2019)](https://doi.org/10.1103/PhysRevE.100.053107) | 46 × 32 | 1.374 | 0.164 | Immersed-boundary FVM |
 | [Alam et al. (2017)](https://doi.org/10.1016/j.jfluidstructs.2017.01.014) | 35 × 20 | 1.372 | 0.165 | FVM |
+
+## Wall-clock time
+
+The following approximate solver wall times were recorded for 30,000 timesteps. Values are taken from the final elapsed-time entry in each case's `run.log` and converted from seconds to hours. Mesh generation and Python postprocessing are excluded.
+
+| Case | Hardware | MPI ranks | Wall time (hours) |
+|---|---|---:|---:|
+| `preset_coarse` | MacBook M5 Pro | 16 | 0.43 |
+| `preset_medium` | MacBook M5 Pro | 16 | 1.10 |
+| `preset_fine` | MacBook M5 Pro | 16 | 2.94 |
+| `custom_fine_70D_50D` | Stampede3 HPC (1 node) | 112 | 14.80 |
+
+These times include saving/writing `.vtu` results during the solver run. In the recorded cases, output was enabled from the beginning (`Start_saving_after_time_step = 1`) and written every 10 timesteps (`Increment_in_saving_VTK_files = 10`), as defined in each case's `solver.xml`.
+
+Users may reduce output-writing overhead by increasing `Start_saving_after_time_step` in `solver.xml` before running a case; for example, setting it to `10000` delays `.vtu` output until that point, subject to the configured saving interval. Keep enough saved timesteps to establish periodic shedding and cover at least three complete cycles for validation. The wall-time saving depends on the filesystem and the cost of writing each snapshot.
