@@ -142,7 +142,6 @@ Paths below are relative to each case directory:
 | `figures/force_history.png` | Drag and lift histories with mean drag and lift coefficients, and Stouhal number |
 | `figures/ux_step_*.png`, `figures/pressure_step_*.png`, `figures/vorticity_step_*.png` | Flow fields visualization at final time step |
 | `tables/force_history.csv` | Drag and lift coefficients |
-| `tables/cycle_statistics.json` | Selected cycles, statistics, and stability checks |
 | `tables/metrics.csv` | Mean drag and St values with their literature comparison status |
 | `summary.json` | Simulation statistics, literature comparison status, and run-quality diagnostics |
 | `run.log` | Solver output, also printed live in the terminal |

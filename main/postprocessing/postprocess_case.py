@@ -151,8 +151,6 @@ def _postprocess(case_dir, config, *, solver_completed=False):
     columns = ("step", "time", "CD_pressure", "CD_viscous", "CD_total", "CL_pressure", "CL_viscous", "CL_total")
     write_csv(case_dir / "tables/force_history.csv", rows, columns)
     cycle, quality = summarize_history(config, rows, failures)
-    (case_dir / "tables/cycle_statistics.json").write_text(
-        json.dumps(cycle, indent=2, allow_nan=False) + "\n")
     if rows:
         plotting.plot_summary_dashboard(case_dir / "figures/force_history",
             {"time": [row["time"] for row in rows], "cd_total": [row["CD_total"] for row in rows],
