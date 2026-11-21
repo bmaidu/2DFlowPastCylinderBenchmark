@@ -1,8 +1,6 @@
-paper,mean_CD,St
-Tumkur et al. (2013),1.36,0.168
-Kang and Masud (2021),1.374,0.168
-Kamensky et al. (2015),1.381,0.171
-Behr et al. (1995),1.3721,0.1624
-Tsetoglou et al. (2025),1.335,0.167
-"Deng, Mao and Xie (2019)",1.374,0.164
-Alam et al. (2017),1.372,0.165
+paper,mean_CD,CL_rms,St
+Tumkur et al. (2013),1.36,,0.168
+Kamensky et al. (2015),1.381,,0.171
+Tsetoglou et al. (2025),1.335,0.237,0.167
+"Deng, Mao and Xie (2019)",1.374,,0.164
+Qu et al. (2013),1.318..1.336,0.222..0.235,0.164..0.166

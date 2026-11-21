@@ -1,4 +1,4 @@
-"""Compare mean drag and Strouhal number; retain lift RMS as a diagnostic."""
+"""Compare mean drag, lift RMS, and Strouhal number with literature."""
 from __future__ import annotations
 
 import csv
@@ -12,8 +12,8 @@ if __package__ in (None, ""):
 
 from run.case_config import ROOT
 
-ACCEPTANCE_METRICS = ("mean_CD", "strouhal")
-LABELS = {"mean_CD": "Mean CD", "strouhal": "St"}
+LITERATURE_COLUMNS = {"mean_CD": "mean_CD", "CL_rms": "CL_rms", "strouhal": "St"}
+LABELS = {"mean_CD": "Mean CD", "CL_rms": "CL RMS", "strouhal": "St"}
 METRIC_COLUMNS = ("metric", "value", "status")
 RUN_DETAILS = ("n_snapshots", "missing_steps", "unexpected_steps", "rejected_snapshots",
                "time_warnings", "force_operator", "input_type")
@@ -35,11 +35,11 @@ def validate_acceptance(acceptance):
 
 
 def literature_ranges(path=None):
-    """Use every selected paper's reported mean drag and St as reference values."""
+    """Combine single reference values and inclusive lower..upper ranges."""
     path = Path(path) if path is not None else LITERATURE_PATH
-    observed = {name: [] for name in ACCEPTANCE_METRICS}
+    observed = {metric: [] for metric in LITERATURE_COLUMNS}
     papers = set()
-    required = {"paper", "mean_CD", "St"}
+    required = {"paper", *LITERATURE_COLUMNS.values()}
     with path.open(newline="", encoding="utf-8-sig") as stream:
         reader = csv.DictReader(stream)
         if not required.issubset(reader.fieldnames or []):
@@ -49,15 +49,19 @@ def literature_ranges(path=None):
             if not paper or paper in papers:
                 raise ValueError(f"Empty or duplicate literature paper: {paper!r}.")
             papers.add(paper)
-            for metric, column in (("mean_CD", "mean_CD"), ("strouhal", "St")):
+            for metric, column in LITERATURE_COLUMNS.items():
                 raw = (row[column] or "").strip()
+                if not raw and metric == "CL_rms":
+                    continue
+                first, separator, last = raw.partition("..")
                 try:
-                    number = float(raw)
+                    lower = float(first)
+                    upper = float(last) if separator else lower
                 except ValueError as error:
                     raise ValueError(f"Missing or invalid literature {column} in {paper}.") from error
-                if not math.isfinite(number):
-                    raise ValueError(f"Nonfinite literature {column} in {paper}.")
-                observed[metric].append(number)
+                if not (math.isfinite(lower) and math.isfinite(upper) and lower <= upper):
+                    raise ValueError(f"Nonfinite or reversed literature {column} bounds in {paper}.")
+                observed[metric].extend((lower, upper))
 
     return {
         metric: {"lower": min(values, default=None), "upper": max(values, default=None)}
@@ -69,7 +73,7 @@ def evaluate(config, statistics, quality, literature_path=None):
     validate_acceptance(config["acceptance"])
     ranges = literature_ranges(literature_path)
     rows = []
-    for metric in ACCEPTANCE_METRICS:
+    for metric in LITERATURE_COLUMNS:
         limits = ranges[metric]
         lower, upper = limits["lower"], limits["upper"]
         available = lower is not None and upper is not None

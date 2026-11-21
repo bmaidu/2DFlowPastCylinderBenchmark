@@ -141,24 +141,24 @@ Paths below are relative to each case directory:
 | `mesh/mesh_generation_report.json` | Mesh parameters, verification results, and generation warnings or errors |
 | `figures/force_history.png` | Drag and lift histories with mean drag and lift coefficients, and Stouhal number |
 | `figures/ux_step_*.png`, `figures/pressure_step_*.png`, `figures/vorticity_step_*.png` | Flow fields visualization at final time step |
+| `figures/wall_cp_theta.png` | Surface pressure coefficient averaged over the selected shedding cycles and the upper and lower surfaces |
 | `tables/force_history.csv` | Drag and lift coefficients |
+| `tables/wall_cp_theta.csv` | Angle in degrees and mean surface pressure coefficient used in the wall-pressure plot |
 | `tables/metrics.csv` | Mean drag and St values with their literature comparison status |
 | `summary.json` | Simulation statistics, literature comparison status, and run-quality diagnostics |
 | `run.log` | Solver output, also printed live in the terminal |
 
 ## Validation
 
-2D flow past a circular cylinder at $Re=100$ is a well-established benchmark in CFD. Here, we assess svMultiPhysics against published studies with comparable domain sizes, mesh resolutions, and numerical methods. Pointwise agreement between flow fields is not expected, the mean drag coefficient ($\overline{C_D}$) and Strouhal number ($St$) serve as the primary comparison metrics and determine the PASS/FAIL outcome in svbenchmark.
+2D flow past a circular cylinder at $Re=100$ is a well-established benchmark in CFD. Here, we assess svMultiPhysics against published studies with comparable domain sizes, mesh resolutions, and numerical methods. Pointwise agreement between flow fields is not expected, the mean drag coefficient ($\overline{C_D}$), RMS lift coefficient ($C_{L,\mathrm{RMS}}$), and Strouhal number ($St$) serve as the primary comparison metrics and determine the PASS/FAIL outcome in svbenchmark.
 
-| Paper | Domain size (D) | $\overline{C_D}$ | $St$ | Numerical method |
-| :---: | :---: | :---: | :---: | :---: |
-| [Tumkur et al. (2013)](https://doi.org/10.1016/j.jfluidstructs.2013.03.008) | 48 × 24 | 1.360 | 0.168 | FEM |
-| [Kang & Masud (2021)](https://doi.org/10.1007/s11012-020-01227-w) | 48 × 24 | 1.374 | 0.168 | FEM |
-| [Kamensky et al. (2015)](https://doi.org/10.1016/j.cma.2014.10.040) | 40 × 20 | 1.381 | 0.171 | FEM |
-| [Behr et al. (1995)](https://doi.org/10.1016/0045-7825(94)00736-7) | 30.5 × 24 | 1.3721 | 0.1624 | FEM |
-| [Tsetoglou et al. (2025)](https://doi.org/10.1002/fld.5334) | 65 × 30 | 1.335 | 0.167 | FVM |
-| [Deng et al. (2019)](https://doi.org/10.1103/PhysRevE.100.053107) | 46 × 32 | 1.374 | 0.164 | FVM |
-| [Alam et al. (2017)](https://doi.org/10.1016/j.jfluidstructs.2017.01.014) | 35 × 20 | 1.372 | 0.165 | FVM |
+| Paper | Domain size (D) | $\overline{C_D}$ | $C_{L,\mathrm{RMS}}$ | $St$ | Numerical method |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| [Tumkur et al. (2013)](https://doi.org/10.1016/j.jfluidstructs.2013.03.008) | 48 × 24 | 1.360 | - | 0.168 | FEM |
+| [Kamensky et al. (2015)](https://doi.org/10.1016/j.cma.2014.10.040) | 40 × 20 | 1.381 | - | 0.171 | FEM |
+| [Tsetoglou et al. (2025)](https://doi.org/10.1002/fld.5334) | 65 × 30 | 1.335 | 0.237 | 0.167 | FVM |
+| [Deng et al. (2019)](https://doi.org/10.1103/PhysRevE.100.053107) | 46 × 32 | 1.374 | - | 0.164 | FVM |
+| [Qu et al. (2013), Table 1](https://doi.org/10.1016/j.jfluidstructs.2013.02.007) | - | 1.318–1.336 | 0.222–0.235 | 0.164–0.166 | - |
 
 ## Wall time
 

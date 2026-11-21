@@ -1,3 +1,4 @@
 metric,value,status
 mean_CD,1.3623822779909205,within_literature_range
+CL_rms,0.23002928841634704,within_literature_range
 strouhal,0.16853932584284992,within_literature_range

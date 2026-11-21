@@ -80,6 +80,16 @@ def field_figures(case_dir, prepared, velocity, pressure, physical_time, step):
             f"{title}, t={physical_time:.3f}", label, limits, "coolwarm", zoom)
 
 
+def mean_wall_pressure_profile(angles, time, wall_cp):
+    """Time-average nodal Cp and fold both surfaces onto 0–180 degrees."""
+    interval_means = 0.5 * (wall_cp[:-1] + wall_cp[1:])
+    mean_cp = np.average(interval_means, axis=0, weights=np.diff(time))
+    theta = np.arange(181, dtype=float)
+    upper = np.interp(theta, angles, mean_cp, period=360.0)
+    lower = np.interp(-theta, angles, mean_cp, period=360.0)
+    return theta, 0.5 * (upper + lower)
+
+
 def postprocess(case_dir, config, *, solver_completed=False):
     case_dir = Path(case_dir)
     # An interrupted or failed analysis must not leave an old successful report.
@@ -104,8 +114,8 @@ def _postprocess(case_dir, config, *, solver_completed=False):
         ("figures", "cylinder_2d_summary.png"), ("figures", "cylinder_2d_summary.pdf"),
         ("figures", "speed_step_*.png"), ("figures", "wall_shear_last_snapshot.png"),
         ("figures", "ux_step_*.png"), ("figures", "pressure_step_*.png"),
-        ("figures", "vorticity_step_*.png"),
-        ("tables", "wall_shear_last_snapshot.csv"),
+        ("figures", "vorticity_step_*.png"), ("figures", "wall_cp_theta.png"),
+        ("tables", "wall_shear_last_snapshot.csv"), ("tables", "wall_cp_theta.csv"),
     ):
         for path in (case_dir / folder).glob(pattern):
             path.unlink()
@@ -129,7 +139,16 @@ def _postprocess(case_dir, config, *, solver_completed=False):
     if unexpected:
         failures.append("Snapshots outside the configured step schedule were found.")
     rows, warnings = [], []
-    scale = coefficient_scale(solver["density"], config["solver"]["speed"], 1.0)
+    diameter = config["geometry"]["diameter"]
+    speed = config["solver"]["speed"]
+    scale = coefficient_scale(solver["density"], speed, diameter)
+    dynamic_pressure = scale / diameter
+    geometry = prepared["boundaries"]["cylinder"]
+    inlet = prepared["boundaries"]["inlet"]
+    wall_nodes = np.unique(geometry["edges"])
+    relative = prepared["points"][wall_nodes] - config["geometry"]["center"]
+    wall_angles = np.degrees(np.arctan2(relative[:, 1], -relative[:, 0]))
+    wall_cp = np.empty((len(records), len(wall_nodes)))
     last = None
     for index, record in enumerate(records):
         velocity, pressure, time_value, _ = read_snapshot(record["path"], points, triangles)
@@ -138,7 +157,9 @@ def _postprocess(case_dir, config, *, solver_completed=False):
             warnings.append({"step": record["step"], "action": "time reconstructed from step*dt"})
         elif abs(time_value - record["filename_time"]) > 1e-6:
             failures.append(f"Physical time disagrees with step*dt at step {record['step']}.")
-        geometry = prepared["boundaries"]["cylinder"]
+        inlet_pressure = np.average(pressure[inlet["edges"]].mean(axis=1),
+                                    weights=inlet["lengths"])
+        wall_cp[index] = (pressure[wall_nodes] - inlet_pressure) / dynamic_pressure
         p_force = pressure_force(pressure, geometry) / scale
         v_force = direct_viscous_force(velocity, geometry, solver["viscosity"]) / scale
         rows.append({"step": record["step"], "time": time_value,
@@ -157,6 +178,17 @@ def _postprocess(case_dir, config, *, solver_completed=False):
              "cl_total": [row["CL_total"] for row in rows], "final_time": rows[-1]["time"],
              "cycle_statistics": cycle})
         field_figures(case_dir, prepared, *last)
+    if quality["passed"]:
+        selected = cycle["selected_cycles"]
+        window = slice(selected[0]["start_index"], selected[-1]["end_index"] + 1)
+        time = [row["time"] for row in rows[window]]
+        theta, mean_cp = mean_wall_pressure_profile(wall_angles, time, wall_cp[window])
+        profile = ({"theta_deg": angle, "Cp_mean": cp}
+                   for angle, cp in zip(theta, mean_cp, strict=True))
+        write_csv(case_dir / "tables/wall_cp_theta.csv", profile, ("theta_deg", "Cp_mean"))
+        reynolds = solver["density"] * speed * diameter / solver["viscosity"]
+        plotting.plot_wall_pressure_profile(case_dir / "figures/wall_cp_theta.png",
+                                            theta, mean_cp, reynolds)
     print("\n" + "=" * 72 + "\nPostprocessing is finished.\n" + "=" * 72, flush=True)
     report = save_reports(case_dir, config, cycle, quality,
         {"n_snapshots": len(rows), "missing_steps": missing, "unexpected_steps": unexpected,

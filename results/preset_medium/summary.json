@@ -8,6 +8,11 @@
       "status": "within_literature_range"
     },
     {
+      "metric": "CL_rms",
+      "value": 0.23002928841634704,
+      "status": "within_literature_range"
+    },
+    {
       "metric": "strouhal",
       "value": 0.16853932584284992,
       "status": "within_literature_range"
@@ -114,6 +119,10 @@
       }
     ],
     "qualified_minima": [
+      {
+        "time": 47.25000000000572,
+        "CL": -0.08939055698201649
+      },
       {
         "time": 53.70000000000902,
         "CL": -0.15827758409567985
@@ -401,8 +410,8 @@
       "min_separation": 2.0,
       "prominence_fraction": 0.25,
       "minimum_prominence": 0.01,
-      "prominence_used": 0.15454154522708022,
-      "excursion_scale": 0.6181661809083209,
+      "prominence_used": 0.15157969130206217,
+      "excursion_scale": 0.6063187652082487,
       "max_period_relative_range": 0.05,
       "max_amplitude_relative_range": 0.1,
       "max_drag_relative_range": 0.02,

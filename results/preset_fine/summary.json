@@ -8,6 +8,11 @@
       "status": "within_literature_range"
     },
     {
+      "metric": "CL_rms",
+      "value": 0.2345238832183371,
+      "status": "within_literature_range"
+    },
+    {
       "metric": "strouhal",
       "value": 0.16853932584284978,
       "status": "within_literature_range"
@@ -23,7 +28,7 @@
     "definition": "A complete cycle is the closed interval between consecutive qualified lift maxima that contains at least one qualified lift minimum. Samples after the last qualified maximum are not a complete cycle, and the simulation end time does not close a cycle by itself.",
     "integration": "trapezoidal",
     "requested_cycles": 3,
-    "available_complete_cycles": 15,
+    "available_complete_cycles": 16,
     "cycles_used": 3,
     "fallback_applied": false,
     "fallback_note": null,
@@ -79,6 +84,10 @@
       {
         "time": 97.74999999998359,
         "CL": 0.3310615268791275
+      },
+      {
+        "time": 103.64999999997822,
+        "CL": 0.3314832602780016
       },
       {
         "time": 109.64999999997276,
@@ -270,12 +279,23 @@
       },
       {
         "start_index": 1954,
-        "end_index": 2192,
+        "end_index": 2072,
         "t_start": 97.74999999998359,
+        "t_end": 103.64999999997822,
+        "period": 5.899999999994634,
+        "mean_CD": 1.3611943389558716,
+        "mean_CL": -0.002522407484569565,
+        "lift_amplitude": 0.33137773054853625,
+        "selected": false
+      },
+      {
+        "start_index": 2072,
+        "end_index": 2192,
+        "t_start": 103.64999999997822,
         "t_end": 109.64999999997276,
-        "period": 11.899999999989177,
-        "mean_CD": 1.361371142978029,
-        "mean_CL": 0.0002940664937304793,
+        "period": 5.999999999994543,
+        "mean_CD": 1.3615450002664835,
+        "mean_CL": 0.003063599239058859,
         "lift_amplitude": 0.3317110993985891,
         "selected": false
       },

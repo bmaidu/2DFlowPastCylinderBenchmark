@@ -114,6 +114,20 @@ def _save(figure, path):
     plt.close(figure)
 
 
+def plot_wall_pressure_profile(path, theta, mean_cp, reynolds):
+    figure, axis = plt.subplots(figsize=(7.4, 4.5), layout="constrained")
+    figure.suptitle(f"Surface pressure coefficient, Re = {reynolds:.0f}\n"
+                    "Upper and lower average")
+    axis.set_title("Time-averaged surface pressure coefficient")
+    axis.plot(theta, mean_cp, color="#1d3557", linewidth=1.8)
+    axis.set_xlabel(r"$\theta$ (degrees)")
+    axis.set_ylabel(r"$\overline{C_p}$")
+    axis.set_xlim(0, 180)
+    axis.set_xticks(np.arange(0, 181, 30))
+    axis.grid(True, color="0.9", linewidth=0.6)
+    _save(figure, path)
+
+
 def _triangulation(points, triangles):
     return Triangulation(points[:, 0], points[:, 1], triangles)
 
