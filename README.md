@@ -152,13 +152,13 @@ Paths below are relative to each case directory:
 
 2D flow past a circular cylinder at $Re=100$ is a well-established benchmark in CFD. Here, we assess svMultiPhysics against published studies with comparable domain sizes, mesh resolutions, and numerical methods. Pointwise agreement between flow fields is not expected, the mean drag coefficient ($\overline{C_D}$), RMS lift coefficient ($C_{L,\mathrm{RMS}}$), and Strouhal number ($St$) serve as the primary comparison metrics and determine the PASS/FAIL outcome in svbenchmark.
 
-| Paper | Domain size (D) | $\overline{C_D}$ | $C_{L,\mathrm{RMS}}$ | $St$ | Numerical method |
+| <sub>Paper</sub> | <sub>Domain size (D)</sub> | <sub>Mean drag (CD)</sub> | <sub>Lift RMS (CL,RMS)</sub> | <sub>Strouhal (St)</sub> | <sub>Numerical method</sub> |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| [Tumkur et al. (2013)](https://doi.org/10.1016/j.jfluidstructs.2013.03.008) | 48 × 24 | 1.360 | - | 0.168 | FEM |
-| [Kamensky et al. (2015)](https://doi.org/10.1016/j.cma.2014.10.040) | 40 × 20 | 1.381 | - | 0.171 | FEM |
-| [Tsetoglou et al. (2025)](https://doi.org/10.1002/fld.5334) | 65 × 30 | 1.335 | 0.237 | 0.167 | FVM |
-| [Deng et al. (2019)](https://doi.org/10.1103/PhysRevE.100.053107) | 46 × 32 | 1.374 | - | 0.164 | FVM |
-| [Qu et al. (2013), Table 1](https://doi.org/10.1016/j.jfluidstructs.2013.02.007) | - | 1.318–1.336 | 0.222–0.235 | 0.164–0.166 | - |
+| <sub>[Tumkur et al. (2013)](https://doi.org/10.1016/j.jfluidstructs.2013.03.008)</sub> | <sub>48 × 24</sub> | <sub>1.360</sub> | <sub>-</sub> | <sub>0.168</sub> | <sub>FEM</sub> |
+| <sub>[Kamensky et al. (2015)](https://doi.org/10.1016/j.cma.2014.10.040)</sub> | <sub>40 × 20</sub> | <sub>1.381</sub> | <sub>-</sub> | <sub>0.171</sub> | <sub>FEM</sub> |
+| <sub>[Tsetoglou et al. (2025)](https://doi.org/10.1002/fld.5334)</sub> | <sub>65 × 30</sub> | <sub>1.335</sub> | <sub>0.237</sub> | <sub>0.167</sub> | <sub>FVM</sub> |
+| <sub>[Deng et al. (2019)](https://doi.org/10.1103/PhysRevE.100.053107)</sub> | <sub>46 × 32</sub> | <sub>1.374</sub> | <sub>-</sub> | <sub>0.164</sub> | <sub>FVM</sub> |
+| <sub>[Qu et al. (2013), Table 1](https://doi.org/10.1016/j.jfluidstructs.2013.02.007)</sub> | <sub>-</sub> | <sub>1.318–1.336</sub> | <sub>0.222–0.235</sub> | <sub>0.164–0.166</sub> | <sub>-</sub> |
 
 ## Wall time
 
