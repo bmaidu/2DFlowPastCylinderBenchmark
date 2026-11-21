@@ -152,7 +152,7 @@ Paths below are relative to each case directory:
 
 2D flow past a circular cylinder at $Re=100$ is a well-established benchmark in CFD. Here, we assess svMultiPhysics against published studies with comparable domain sizes, mesh resolutions, and numerical methods. Pointwise agreement between flow fields is not expected, the mean drag coefficient ($\overline{C_D}$), RMS lift coefficient ($C_{L,\mathrm{RMS}}$), and Strouhal number ($St$) serve as the primary comparison metrics and determine the PASS/FAIL outcome in svbenchmark.
 
-| Paper | Domain size (D) | $`\large\overline{C_D}`$ | $`\large C_{L,\mathrm{RMS}}`$ | $`\large\mathrm{St}`$ | Numerical method |
+| Paper | Domain size (D) | $`\overline{C_D}`$ | $`C_{L,\mathrm{RMS}}`$ | $`\mathrm{St}`$ | Numerical method |
 | :---: | :---: | :---: | :---: | :---: | :---: |
 | [Tumkur et al. (2013)](https://doi.org/10.1016/j.jfluidstructs.2013.03.008) | 48 × 24 | 1.360 | - | 0.168 | FEM |
 | [Kamensky et al. (2015)](https://doi.org/10.1016/j.cma.2014.10.040) | 40 × 20 | 1.381 | - | 0.171 | FEM |
