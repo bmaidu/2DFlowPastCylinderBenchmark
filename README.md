@@ -162,7 +162,7 @@ Paths below are relative to each case directory:
 
 ## Wall time
 
-The following wall times were recorded for 30,000 timesteps, excluding mesh generation and postprocessing.
+The following wall times were recorded for 30,000 timesteps results shown in this repo, excluding mesh generation and postprocessing.
 
 | Case | Hardware | MPI ranks | Wall time (hours) |
 | :---: | :---: | :---: | :---: |
